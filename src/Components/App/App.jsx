@@ -1,7 +1,12 @@
 import "./App.css";
+import Drivers from "../Drivers/Drivers.jsx";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Drivers />
+    </>
+  );
 }
 
 export default App;
