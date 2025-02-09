@@ -1,10 +1,11 @@
 import "./App.css";
-import Drivers from "../Drivers/Drivers.jsx";
+import React, { useState } from "react";
+import AppRoutes from "../../AppRoutes.jsx";
 
 function App() {
   return (
     <>
-      <Drivers />
+      <AppRoutes/>
     </>
   );
 }

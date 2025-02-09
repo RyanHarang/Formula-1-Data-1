@@ -2,13 +2,11 @@ import { useState } from "react";
 import ActiveDrivers from "./ActiveDrivers.jsx";
 import AllDrivers from "./AllDrivers.jsx";
 
-function Drivers() {
-  const [activeTab, setActiveTab] = useState("active");
-
+function Drivers({activeTab, setActiveTab}) {
   return (
     <div>
-      <div className="flex space-x-4 mb-4">
-        <button
+      <div className="flex space-x-4 justify-center mb-4">
+        {/* <button
           onClick={() => setActiveTab("active")}
           className={`py-2 px-4 rounded-lg ${
             activeTab === "active"
@@ -27,7 +25,7 @@ function Drivers() {
           } hover:bg-blue-300`}
         >
           All Drivers
-        </button>
+        </button> */}
       </div>
 
       {activeTab === "active" ? <ActiveDrivers /> : <AllDrivers />}

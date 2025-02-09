@@ -44,7 +44,7 @@ function Drivers() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">Active F1 Drivers</h1>
+      <h1 className="text-2xl font-bold text-center mb-4 text-black">Active F1 Drivers</h1>
       {loading ? (
         <div className="text-center text-lg font-semibold">Loading...</div>
       ) : (
