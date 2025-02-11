@@ -1,58 +1,57 @@
 import { useEffect, useState } from "react";
 
-function Drivers() {
-  const [drivers, setDrivers] = useState([]);
+function ActiveTeams() {
+  const [teams, setTeams] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const limit = 48;
+  const limit = 24;
 
   useEffect(() => {
     const fetchDrivers = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://api.jolpi.ca/ergast/f1/drivers/?limit=${limit}&offset=${
-            page * limit
-          }`
-        );
+        const response = await fetch("https://api.openf1.org/v1/drivers");
         const data = await response.json();
-        if (data.MRData?.DriverTable?.Drivers) {
-          setDrivers(data.MRData.DriverTable.Drivers);
-        }
+
+        // Extract unique team names from drivers
+        const uniqueTeams = Array.from(
+          new Set(data.map((driver) => driver.team_name))
+        ).map((teamName) => {
+          return {
+            name: teamName,
+          };
+        });
+
+        setTeams(uniqueTeams);
       } catch (error) {
-        console.error("Error fetching drivers:", error);
+        console.error("Error fetching teams via drivers:", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchDrivers();
-  }, [page]);
+  }, []);
+
+  // Pagination logic
+  const startIndex = page * limit;
+  const paginatedTeams = teams.slice(startIndex, startIndex + limit);
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-black text-center mb-4">All F1 Drivers</h1>
+      <h1 className="text-2xl font-bold text-center mb-4 text-black">Active F1 Teams</h1>
       {loading ? (
         <div className="text-center text-lg font-semibold">Loading...</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {drivers.map((driver) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {paginatedTeams.map((team, index) => (
             <div
-              key={driver.driverId}
+              key={index}
               className="bg-white shadow-lg rounded-lg p-4 border"
             >
               <h2 className="text-gray-600 text-xl font-semibold">
-                {driver.givenName} {driver.familyName}
+                {team.name}
               </h2>
-              <p className="text-gray-600">Nationality: {driver.nationality}</p>
-              <p className="text-gray-600">DOB: {driver.dateOfBirth}</p>
-              <a
-                href={driver.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                More Info
-              </a>
             </div>
           ))}
         </div>
@@ -68,7 +67,7 @@ function Drivers() {
         <button
           onClick={() => setPage((prev) => prev + 1)}
           className="px-4 py-2 bg-blue-500 text-white rounded"
-          disabled={loading}
+          disabled={startIndex + limit >= teams.length || loading}
         >
           Next
         </button>
@@ -77,4 +76,4 @@ function Drivers() {
   );
 }
 
-export default Drivers;
+export default ActiveTeams;
