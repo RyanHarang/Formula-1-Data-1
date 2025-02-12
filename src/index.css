@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* This enables toggling dark mode by applying the class 'dark' to root html element */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Custom Tailwind Classes */
+@theme {
+  --color-dark-bg: #0e0e0e;
+  --color-dark-fg: #f2f2f2;
+  --color-light-bg: #f2f2f2;
+  --color-light-fg: #0e0e0e;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
