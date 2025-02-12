@@ -1,13 +1,13 @@
-import Navigation from "../Components/Navigation/Navigation.jsx";
 import React, { useState } from "react";
-import SearchBar from "../Components/SearchBar/SearchBar.jsx";
-import ActiveTeams from "../Components/Teams/ActiveTeams.jsx";
+import Navigation from "../Navigation/Navigation.jsx";
+import SearchBar from "../SearchBar/SearchBar.jsx";
+import ActiveTeams from "../Teams/ActiveTeams.jsx";
 
 function Teams() {
   const [activeTab, setActiveTab] = useState("active");
   return (
     <>
-      <Navigation/>
+      <Navigation />
       <SearchBar activeTab={activeTab} setActiveTab={setActiveTab} />
       <ActiveTeams activeTab={activeTab} setActiveTab={setActiveTab} />
     </>

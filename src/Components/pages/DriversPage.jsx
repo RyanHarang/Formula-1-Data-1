@@ -1,10 +1,10 @@
-import Drivers from "../Components/Drivers/Drivers.jsx";
-import Navigation from "../Components/Navigation/Navigation.jsx";
-import SearchBar from "../Components/SearchBar/SearchBar.jsx";
+import Drivers from "../Drivers/Drivers.jsx";
+import Navigation from "../Navigation/Navigation.jsx";
+import SearchBar from "../SearchBar/SearchBar.jsx";
 import React, { useState } from "react";
 
 function DriversPage() {
-  const [activeTab, setActiveTab] = useState("active");
+  const [activeTab, setActiveTab] = useState("activeDrivers");
   const [searchQuery, setSearchQuery] = useState("");
 
   return (

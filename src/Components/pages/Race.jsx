@@ -1,10 +1,10 @@
-import Navigation from "../Components/Navigation/Navigation.jsx";
+import Navigation from "../Navigation/Navigation.jsx";
 import React, { useState } from "react";
 
 function Race() {
   return (
     <>
-      <Navigation/>
+      <Navigation />
     </>
   );
 }

@@ -1,11 +1,11 @@
 import "./App.css";
 import React, { useState } from "react";
-import AppRoutes from "../../AppRoutes.jsx";
+import AppRoutes from "./AppRoutes.jsx";
 
 function App() {
   return (
     <>
-      <AppRoutes/>
+      <AppRoutes />
     </>
   );
 }
