@@ -1,7 +1,7 @@
+import React, { useState } from "react";
 import Drivers from "../Drivers/Drivers.jsx";
 import Navigation from "../Navigation/Navigation.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import React, { useState } from "react";
 
 function DriversPage() {
   const [activeTab, setActiveTab] = useState("activeDrivers");
