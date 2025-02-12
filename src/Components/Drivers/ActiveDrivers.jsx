@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import userLight from "../../assets/svg/profile/user-dark.svg";
 
-function Drivers() {
+function ActiveDrivers({ searchQuery }) {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const limit = 24;
 
   useEffect(() => {
-    const fetchDrivers = async () => {
+    const fetchActiveDrivers = async () => {
       setLoading(true);
       try {
         const response = await fetch("https://api.openf1.org/v1/drivers");
@@ -35,16 +35,26 @@ function Drivers() {
       }
     };
 
-    fetchDrivers();
+    fetchActiveDrivers();
   }, []);
+
+  // Filter drivers using search query
+  const filteredDrivers = drivers.filter((driver) =>
+    driver.full_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Pagination logic
   const startIndex = page * limit;
-  const paginatedDrivers = drivers.slice(startIndex, startIndex + limit);
+  const paginatedDrivers = filteredDrivers.slice(
+    startIndex,
+    startIndex + limit
+  );
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4 text-black">Active F1 Drivers</h1>
+      <h1 className="text-2xl font-bold text-center mb-4 text-black">
+        Active F1 Drivers
+      </h1>
       {loading ? (
         <div className="text-center text-lg font-semibold">Loading...</div>
       ) : (
@@ -103,4 +113,4 @@ function Drivers() {
   );
 }
 
-export default Drivers;
+export default ActiveDrivers;

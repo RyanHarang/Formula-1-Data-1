@@ -1,10 +1,10 @@
-import DropdownItem from "../Dropdown/DropdownItem/DropdownItem";
-import DropdownMenu from "../Dropdown/DropdownMenu/DropdownMenu";
+import DropdownItem from "../Dropdown/DropdownItem/DropdownItem.jsx";
+import DropdownMenu from "../Dropdown/DropdownMenu/DropdownMenu.jsx";
 
-function SearchBar({ setActiveTab, activeTab }) {
+function SearchBar({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
   const filterItems = [
-    { label: "Active Drivers", value: "active" },
-    { label: "All Drivers", value: "all" },
+    { label: "Active Drivers", value: "activeDrivers" },
+    { label: "All Drivers", value: "allDrivers" },
   ];
 
   return (
@@ -12,6 +12,8 @@ function SearchBar({ setActiveTab, activeTab }) {
       <div className="relative w-full max-w-[30rem] flex items-center border-2 border-black rounded-lg">
         <input
           type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search..."
           className="relative w-full h-[3rem] text-black focus:ring-1 focus:outline-none caret-black pl-4 border-none"
         />

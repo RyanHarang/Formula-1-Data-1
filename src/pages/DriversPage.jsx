@@ -5,11 +5,22 @@ import React, { useState } from "react";
 
 function DriversPage() {
   const [activeTab, setActiveTab] = useState("active");
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <>
-      <Navigation/>
-      <SearchBar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <Drivers activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Navigation />
+      <SearchBar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <Drivers
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        searchQuery={searchQuery}
+      />
     </>
   );
 }

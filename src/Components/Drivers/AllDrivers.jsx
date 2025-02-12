@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-function Drivers() {
+function AllDrivers() {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const limit = 48;
 
   useEffect(() => {
-    const fetchDrivers = async () => {
+    const fetchAllDrivers = async () => {
       setLoading(true);
       try {
         const response = await fetch(
@@ -25,12 +25,14 @@ function Drivers() {
         setLoading(false);
       }
     };
-    fetchDrivers();
+    fetchAllDrivers();
   }, [page]);
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-black text-center mb-4">All F1 Drivers</h1>
+      <h1 className="text-2xl font-bold text-black text-center mb-4">
+        All F1 Drivers
+      </h1>
       {loading ? (
         <div className="text-center text-lg font-semibold">Loading...</div>
       ) : (
@@ -77,4 +79,4 @@ function Drivers() {
   );
 }
 
-export default Drivers;
+export default AllDrivers;
