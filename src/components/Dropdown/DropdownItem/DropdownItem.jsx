@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const DropdownItem = ({ children, onClick, isActive }) => {
   return (
     <div
-      className={`p-[0.2rem] m-[0.2rem] w-full rounded-[.4rem] cursor-pointer text-black 
-        ${
-          isActive
-            ? 'bg-sky-600 text-white'
-            : 'hover:text-white hover:bg-sky-600'
-        }
-      `}
+      className={`text-light-fg dark:text-dark-fg m-[0.2rem] w-full cursor-pointer rounded-[.4rem] p-[0.2rem] ${
+        isActive
+          ? "bg-accent text-white"
+          : "hover:outline-accent hover:text-white hover:outline-2"
+      } `}
       onClick={onClick}
     >
       {children}

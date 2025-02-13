@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import AppRoutes from "./AppRoutes.jsx";
 
 function App() {
   return (
     <>
-      <AppRoutes />
+      <AppRoutes className="h-screen" />
     </>
   );
 }

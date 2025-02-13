@@ -1,17 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const DropdownContent = ({ children, open }) => {
   return (
     <div
-      className={`absolute border-2 border-black text-nowrap !bg-[#EBEBEB]
-                  min-w-[100%] scrollbar-hidden flex flex-col items-center
-                  p-2 mt-2 bg-white rounded-md shadow-sm max-h-[40vh]
-                  overflow-y-scroll transform transition-all duration-300 ease-in-out
-                  ${
-                    open
-                      ? 'opacity-100 translate-y-0 pointer-events-auto'
-                      : 'opacity-0 -translate-y-2 pointer-events-none'
-                  }`}
+      className={`scrollbar-hidden border-light-fg dark:border-dark-fg dark:bg-dark-bg absolute mt-2 flex max-h-[40vh] min-w-[100%] transform flex-col items-center overflow-y-scroll rounded-md border-2 bg-white p-2 text-nowrap shadow-sm transition-all duration-300 ease-in-out ${
+        open
+          ? "pointer-events-auto translate-y-0 opacity-100"
+          : "pointer-events-none -translate-y-2 opacity-0"
+      }`}
     >
       {children}
     </div>

@@ -8,14 +8,14 @@ function SearchBar({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
   ];
 
   return (
-    <div className="relative w-full h-[20%] flex justify-center px-4 mt-10 mb-10">
-      <div className="relative w-full max-w-[30rem] flex items-center border-2 border-black rounded-lg">
+    <div className="bg-light-bg dark:bg-dark-bg relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
+      <div className="text-light-fg dark:text-dark-fg border-light-fg dark:border-dark-fg relative flex w-full max-w-[30rem] items-center rounded-lg border-2">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search..."
-          className="relative w-full h-[3rem] text-black focus:ring-1 focus:outline-none caret-black pl-4 border-none"
+          className="caret-light-fg dark:caret-dark-fg relative h-[3rem] w-full border-none pl-4 focus:ring-1 focus:outline-none"
         />
         <DropdownMenu
           content={

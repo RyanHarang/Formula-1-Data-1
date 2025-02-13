@@ -13,7 +13,7 @@ function AllDrivers() {
         const response = await fetch(
           `https://api.jolpi.ca/ergast/f1/drivers/?limit=${limit}&offset=${
             page * limit
-          }`
+          }`,
         );
         const data = await response.json();
         if (data.MRData?.DriverTable?.Drivers) {
@@ -30,19 +30,19 @@ function AllDrivers() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-black text-center mb-4">
+      <h1 className="mb-4 text-center text-2xl font-bold text-black">
         All F1 Drivers
       </h1>
       {loading ? (
         <div className="text-center text-lg font-semibold">Loading...</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {drivers.map((driver) => (
             <div
               key={driver.driverId}
-              className="bg-white shadow-lg rounded-lg p-4 border"
+              className="rounded-lg border bg-white p-4 shadow-lg"
             >
-              <h2 className="text-gray-600 text-xl font-semibold">
+              <h2 className="text-xl font-semibold text-gray-600">
                 {driver.givenName} {driver.familyName}
               </h2>
               <p className="text-gray-600">Nationality: {driver.nationality}</p>
@@ -59,17 +59,17 @@ function AllDrivers() {
           ))}
         </div>
       )}
-      <div className="flex justify-center mt-4">
+      <div className="mt-4 flex justify-center">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          className="px-4 py-2 bg-gray-500 rounded mr-2 disabled:opacity-50"
+          className="mr-2 rounded bg-gray-500 px-4 py-2 disabled:opacity-50"
           disabled={page === 0 || loading}
         >
           Previous
         </button>
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="rounded bg-blue-500 px-4 py-2 text-white"
           disabled={loading}
         >
           Next
