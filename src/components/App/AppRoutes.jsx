@@ -1,8 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import DriversPage from "../pages/DriversPage.jsx";
-import Teams from "../pages/Teams.jsx";
-import Race from "../pages/Race.jsx";
+import TeamsPage from "../pages/TeamsPage.jsx";
+import RacesPage from "../pages/RacesPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,11 +15,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/Teams",
-    element: <Teams />,
+    element: <TeamsPage />,
   },
   {
     path: "/Race",
-    element: <Race />,
+    element: <RacesPage />,
   },
 ]);
 

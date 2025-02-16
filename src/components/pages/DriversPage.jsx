@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Drivers from "../Drivers/Drivers.jsx";
 import Navigation from "../Navigation/Navigation.jsx";
+import PageContainer from "./PageContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 
 function DriversPage() {
@@ -8,7 +9,7 @@ function DriversPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <>
+    <PageContainer>
       <Navigation />
       <SearchBar
         activeTab={activeTab}
@@ -21,7 +22,7 @@ function DriversPage() {
         setActiveTab={setActiveTab}
         searchQuery={searchQuery}
       />
-    </>
+    </PageContainer>
   );
 }
 

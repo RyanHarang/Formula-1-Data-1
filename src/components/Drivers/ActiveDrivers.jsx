@@ -51,10 +51,10 @@ function ActiveDrivers({ searchQuery }) {
   );
 
   return (
-    <div className="text-light-fg dark:text-dark-fg container mx-auto p-4">
-      <h1 className="mb-4 text-center text-2xl font-bold">Active F1 Drivers</h1>
+    <div className="text-light-fg dark:text-dark-fg container mx-auto p-4 text-center">
+      <h1 className="mb-4 text-2xl font-bold">Active F1 Drivers</h1>
       {loading ? (
-        <div className="text-center text-lg font-semibold">Loading...</div>
+        <div className="text-lg font-semibold">Loading...</div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {paginatedDrivers.map((driver, index) => (
