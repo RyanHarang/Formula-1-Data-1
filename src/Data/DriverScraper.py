@@ -1,11 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-import unicodedata
 import os
 import json
 
 SESSION = requests.Session()
 CURRENT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+BASE_URL = "https://pitwall.app/"
 
 # src = BeautifulSoup(result.content, "html.parser")
 # print(src)
@@ -50,17 +50,18 @@ def fetchYear(year):
     print(url)
     result = SESSION.get(url)
     src = BeautifulSoup(result.content, "html.parser")
-    table = src.find('table', {'class': 'data-table'})
+    table = src.find('table', {'class': 'data-table'}).find('tbody')
     tr = table.find_all('tr')
 
-    for i in range(1, len(tr)):
-        td = tr[i].find_all('td')
-        name = td[0].find("a").text.strip()
-        if name not in drivers:
-            drivers.append(name)
+    for i in range(0, len(tr)):
+        td = tr[i].find('td', {'class': 'title'})
+        link = td.find("a")["href"]
+        if link not in drivers:
+            drivers.append(link)
+
     return drivers
 
-def fetchDriverNames():
+def fetchDriverLinks():
     drivers = []
     startYear = 2025
     lastYear = 1950
@@ -71,20 +72,10 @@ def fetchDriverNames():
             if driver not in drivers:
                 drivers.append(driver)
     
-    cleanDrivers = []
-    for driver in drivers:
-        cleanDrivers.append(driver)
-    return cleanDrivers
-
-def remove_accents(text):
-    return ''.join(
-        c for c in unicodedata.normalize('NFKD', text) 
-        if unicodedata.category(c) != 'Mn'
-    )
+    return drivers
 
 def getDriverData(driver):
-    urlName = remove_accents(driver.replace("ø", "o")).replace(" ", "-").lower().replace(".", "").replace("'", "-").replace(",", "")
-    url = 'https://pitwall.app/drivers/{driver}'.format(driver=urlName)
+    url = BASE_URL + driver
     print(url)
     result = SESSION.get(url)
     src = BeautifulSoup(result.content, "html.parser")
@@ -132,13 +123,11 @@ def getDriverData(driver):
     driver = Driver(name, image, number, DOB, lastYear, team, totalRaces, wins)
     return driver
 
-def getAllDriverData():
-    f = open(CURRENT_DIRECTORY + "/driverNames.txt", "r")
-    driverNames = f.readlines()
+def getAllDriverData(drivers):
     #driverNames = ["alexander-albon", "fernando-alonso", "andrea-kimi-antonelli"]
-    f_out = open(CURRENT_DIRECTORY + "/driverData.json", "a+")
+    f_out = open(CURRENT_DIRECTORY + "/driverData.json", "w+")
     allData = []
-    for driver in driverNames:
+    for driver in drivers:
         #print(driver)
         data = getDriverData(driver.strip())
         allData.append(data)
@@ -147,14 +136,15 @@ def getAllDriverData():
     f_out.close()
 
 def main():
-    drivers = fetchDriverNames()
-    f = open(CURRENT_DIRECTORY + "/driverNames.txt", "w")
-    for driver in drivers:
-        f.write(driver + "\n")
+    drivers = fetchDriverLinks()
+    
+    #erase old data
     f_out = open(CURRENT_DIRECTORY + "/driverData.json", "w+")
     f_out.write("")
     f_out.close()
-    getAllDriverData()
+    getAllDriverData(drivers)
     
-#main()
-getAllDriverData()
+main()
+#dr = fetchDriverLinks()
+#for d in dr:
+#    print(d)
