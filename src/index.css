@@ -36,6 +36,16 @@
   .outline-accent {
     outline-color: var(--color-accent);
   }
+  .stroke-accent {
+    stroke: var(--color-accent);
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 :root {
