@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import ModeToggle from "../ModeToggle/ModeToggle";
 
 function Navigation() {
   return (
@@ -28,6 +29,7 @@ function Navigation() {
           Race
         </Link>
       </div>
+      <ModeToggle />
       <svg
         width="30"
         height="30"
