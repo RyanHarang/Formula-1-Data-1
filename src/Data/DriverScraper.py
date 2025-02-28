@@ -125,7 +125,7 @@ def getDriverData(driver):
 
 def getAllDriverData(drivers):
     #driverNames = ["alexander-albon", "fernando-alonso", "andrea-kimi-antonelli"]
-    f_out = open(CURRENT_DIRECTORY + "/driverData.json", "w+")
+    f_out = open(CURRENT_DIRECTORY + "/JSON/driverData.json", "w+")
     allData = []
     for driver in drivers:
         #print(driver)
@@ -139,7 +139,7 @@ def main():
     drivers = fetchDriverLinks()
     
     #erase old data
-    f_out = open(CURRENT_DIRECTORY + "/driverData.json", "w+")
+    f_out = open(CURRENT_DIRECTORY + "/JSON/driverData.json", "w+")
     f_out.write("")
     f_out.close()
     getAllDriverData(drivers)

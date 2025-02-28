@@ -100,7 +100,7 @@ def main():
         races.append(getRaceData(link))
 
     raceDicts = [race.to_dict() for race in races]
-    f_out = open(CURRENT_DIRECTORY + "/RaceData.json", "w+")
+    f_out = open(CURRENT_DIRECTORY + "/JSON/RaceData.json", "w+")
     f_out.write(json.dumps(raceDicts, indent=4))
     f_out.close()
 

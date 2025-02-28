@@ -105,7 +105,7 @@ def main():
     teamLinks = fetchAllTeamLinks()
     for team in teamLinks:
         teams.append(fetchTeamData(team))
-    f_out = open(os.path.join(CURRENT_DIRECTORY, "teams.json"), "w+")
+    f_out = open(os.path.join(CURRENT_DIRECTORY, "JSON/teams.json"), "w+")
     teamDicts = [team.to_dict() for team in teams]
     json.dump(teamDicts, f_out, indent=4)
     f_out.close()
