@@ -46,7 +46,11 @@ function Navigation() {
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
-        />
+          onClick={() => {
+            window.location.href = "/Login";
+          }}
+        >
+        </path>
       </svg>
     </div>
   );

@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import DriversPage from "../pages/DriversPage.jsx";
 import TeamsPage from "../pages/TeamsPage.jsx";
 import RacesPage from "../pages/RacesPage.jsx";
+import Login from "../Login/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "/Race",
     element: <RacesPage />,
   },
+  {
+    path: "/Login",
+    element: <Login />,
+  }
 ]);
 
 const AppRoutes = () => {
