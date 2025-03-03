@@ -38,6 +38,10 @@ const Signup = () => {
         <div className="relative w-full h-screen flex justify-center items-center">
             {/* background img */}
             <img className="absolute inset-0 w-full h-full object-cover" src="https://placehold.co/1593x1038" alt="Background" />
+            {/* back button */}
+            <button className="absolute top-4 left-4 text-white bg-black p-2 rounded hover:bg-gray-800" onClick={() => navigate('/')}>
+                Back
+            </button>
             {/* overlay */}
             <div className="relative z-10 w-[402px] p-6 bg-white/80 rounded-2xl border border-white backdrop-blur-sm flex-col justify-center items-center gap-6 inline-flex">
                 {/* logo */}
