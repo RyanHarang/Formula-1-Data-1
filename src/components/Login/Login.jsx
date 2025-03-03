@@ -1,17 +1,16 @@
-/// import React from 'react'
 import logo from '../../assets/svg/profile/logo.svg';
 import eye from '../../assets/svg/profile/eye.svg';
 import React, { useState } from 'react';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 
 // Zod schema for validation
 const formSchema = z.object({
-    email: z.string().email({message: "Invalid email address"}),
-    password: z.string().min(6, {"message": "Password must be at least 6 characters long"}),
+    email: z.string().email({ message: "Invalid email address" }),
+    password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
 });
 
 const Login = () => {
@@ -47,32 +46,34 @@ const Login = () => {
                 <div className="self-stretch h-[188px] flex-col justify-start items-start gap-4 flex">
                     <div className="self-stretch h-[74px] flex-col justify-start items-start flex">
                         <div className="self-stretch h-[74px] flex-col justify-start items-start gap-1.5 flex">
-                            <label className="text-[#344053] text-sm font-medium font-['Inter'] leading-tight">Username</label>
+                            <label className="text-[#344053] text-sm font-medium font-['Inter'] leading-tight">Email</label>
                             <div className="self-stretch px-4 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] border border-[#cfd4dc] justify-start items-center gap-2 inline-flex overflow-hidden">
-                                <input type="text" className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Username" {...register("username")} />
+                                <input type="email" className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Email" {...register("email")} />
                             </div>
+                            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                         </div>
                     </div>
                     <form className="self-stretch h-[98px] flex-col justify-start items-end gap-2 flex" onSubmit={handleSubmit(onSubmit)}>
                         <div className="self-stretch h-[74px] flex-col justify-start items-start gap-1.5 flex">
                             <label className="text-[#344053] text-sm font-medium font-['Inter'] leading-tight">Password</label>
                             <div className="self-stretch px-4 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] border border-[#cfd4dc] justify-start items-center gap-2 inline-flex overflow-hidden">
-                                <input type={showPassword ? "text" : "password"} className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Password" {...register("password")}/>
+                                <input type={showPassword ? "text" : "password"} className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Password" {...register("password")} />
                                 <div data-svg-wrapper className="relative cursor-pointer" onClick={togglePasswordVisibility}>
                                     <img src={eye} alt="eye" className='' />
                                 </div>
                             </div>
+                            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+                        </div>
+                        <Link className="text-black text-xs font-normal font-['DM Sans']" to="/signup">Forget password ?</Link>
+                        <div className="self-stretch justify-start items-start gap-3 inline-flex">
+                            <button className="grow shrink basis-0 h-12 px-4 py-3 rounded-xl border border-black justify-center items-center gap-3 flex hover:cursor-pointer hover:bg-color" onClick={() => navigate('/signup')}>
+                                <div className="text-black text-base font-medium font-['DM Sans']">Create Account</div>
+                            </button>
+                            <button type="submit" className="grow shrink basis-0 h-12 px-4 py-3 bg-black rounded-xl justify-center items-center gap-3 flex hover:cursor-pointer hover:bg-opacity-80">
+                                <div className="text-white text-base font-medium font-['DM Sans']">Login</div>
+                            </button>
                         </div>
                     </form>
-                    <Link className="text-black text-xs font-normal font-['DM Sans']" to="/signup">Forget password ?</Link>
-                </div>
-                <div className="self-stretch justify-start items-start gap-3 inline-flex">
-                    <button className="grow shrink basis-0 h-12 px-4 py-3 rounded-xl border border-black justify-center items-center gap-3 flex">
-                        <div className="text-black text-base font-medium font-['DM Sans']">Create Account</div>
-                    </button>
-                    <button className="grow shrink basis-0 h-12 px-4 py-3 bg-black rounded-xl justify-center items-center gap-3 flex">
-                        <div className="text-white text-base font-medium font-['DM Sans']">Login</div>
-                    </button>
                 </div>
             </div>
         </div>

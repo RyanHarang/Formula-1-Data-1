@@ -4,6 +4,7 @@ import DriversPage from "../pages/DriversPage.jsx";
 import TeamsPage from "../pages/TeamsPage.jsx";
 import RacesPage from "../pages/RacesPage.jsx";
 import Login from "../Login/Login.jsx";
+import Signup from "../Login/Signup.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/Login",
     element: <Login />,
+  }, 
+  {
+    path: "/Signup",
+    element: <Signup />,
   }
 ]);
 

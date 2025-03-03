@@ -1,11 +1,55 @@
 import React, { useState } from "react";
 import Navigation from "../Navigation/Navigation.jsx";
 import PageContainer from "./PageContainer.jsx";
+import Carousel from "../Carousel/Carousel.jsx";
+import SearchBar2 from "../SearchBar/SearchBar2.jsx";
 
 function Race() {
+  const raceData = [
+    {
+      image: "https://placehold.co/1440x1024",
+      date: "14 - 16 Mar",
+      name: "Albert Park Grand Prix Circuit",
+      location: "Melbourne",
+      distance: "306.124 km"
+    },
+    {
+      image: "https://placehold.co/1440x1024",
+      date: "21 - 23 Mar",
+      name: "Shanghai International Circuit",
+      location: "Shanghai",
+      distance: "306.124 km"
+    },
+    {
+      image: "https://placehold.co/1440x1024",
+      date: "28 - 30 Mar",
+      name: "Bahrain International Circuit",
+      location: "Sakhir",
+      distance: "308.238 km"
+    }
+  ];
+
+  const [activeTab, setActiveTab] = useState("upcomingRaces");
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <PageContainer>
       <Navigation />
+      <SearchBar2 
+        setActiveTab={setActiveTab} 
+        activeTab={activeTab} 
+        searchQuery={searchQuery} 
+        setSearchQuery={setSearchQuery}
+      />
+      <div className="w-[1440px] h-[1024px] px-[60px] pt-[30px] pb-[155px] bg-[#f6f8fa] flex-col justify-start items-start gap-16 inline-flex overflow-hidden">
+        <Carousel 
+          images={raceData.map(race => race.image)} 
+          dates={raceData.map(race => race.date)}
+          names={raceData.map(race => race.name)}
+          locations={raceData.map(race => race.location)}
+          distances={raceData.map(race => race.distance)}
+        />
+      </div>
     </PageContainer>
   );
 }
