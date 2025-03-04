@@ -8,8 +8,8 @@ function SearchBar2({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
   ];
 
   return (
-    <div className="bg-light-bg dark:bg-dark-bg relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
-      <div className="text-light-fg dark:text-dark-fg border-light-fg dark:border-dark-fg relative flex w-full max-w-[30rem] items-center rounded-lg border-2">
+    <div className="relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
+      <div className="border-light-fg dark:border-dark-fg relative flex w-full max-w-[30rem] items-center rounded-lg border-2">
         <input
           type="text"
           value={searchQuery}

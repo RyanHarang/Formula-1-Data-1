@@ -3,7 +3,7 @@ import ModeToggle from "../ModeToggle/ModeToggle";
 
 function Navigation() {
   return (
-    <div className="bg-light-bg dark:bg-dark-bg text-light-fg dark:text-dark-fg inline-flex h-[10vh] min-h-[50px] w-full items-center justify-between p-4 text-base leading-normal font-semibold">
+    <div className="inline-flex h-[10vh] min-h-[50px] w-full items-center justify-between p-4 text-base leading-normal font-semibold">
       <div className="flex cursor-pointer items-center justify-start gap-2">
         <svg
           width="31"
@@ -49,8 +49,7 @@ function Navigation() {
           onClick={() => {
             window.location.href = "/Login";
           }}
-        >
-        </path>
+        ></path>
       </svg>
     </div>
   );

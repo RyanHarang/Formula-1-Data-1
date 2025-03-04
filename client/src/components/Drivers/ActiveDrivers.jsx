@@ -51,7 +51,7 @@ function ActiveDrivers({ searchQuery }) {
   );
 
   return (
-    <div className="text-light-fg dark:text-dark-fg container mx-auto p-4 text-center">
+    <div className="container mx-auto p-4 text-center">
       <h1 className="mb-4 text-2xl font-bold">Active F1 Drivers</h1>
       {loading ? (
         <div className="text-lg font-semibold">Loading...</div>
@@ -60,7 +60,7 @@ function ActiveDrivers({ searchQuery }) {
           {paginatedDrivers.map((driver, index) => (
             <div
               key={index}
-              className="border-accent bg-light-bg dark:bg-dark-bg2 rounded-lg border-2 p-4 shadow-lg"
+              className="border-accent dark:bg-dark-bg2 rounded-lg border-2 p-4 shadow-lg"
             >
               <img
                 src={driver.headshot_url ? driver.headshot_url : userLight}
