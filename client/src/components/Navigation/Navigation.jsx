@@ -20,8 +20,10 @@ function Navigation() {
           Race
         </Link>
       </div>
-      <ModeToggle />
-      <LoginIcon />
+      <div className="flex items-center justify-end gap-4">
+        <ModeToggle />
+        <LoginIcon />
+      </div>
     </header>
   );
 }
