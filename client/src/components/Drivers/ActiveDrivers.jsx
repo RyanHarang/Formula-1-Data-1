@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import userLight from "../../assets/svg/profile/user-dark.svg";
+import UserIcon from "../../assets/svg/profile/UserIcon.jsx";
 
 function ActiveDrivers({ searchQuery }) {
   const [drivers, setDrivers] = useState([]);
@@ -62,11 +62,17 @@ function ActiveDrivers({ searchQuery }) {
               key={index}
               className="border-accent dark:bg-dark-bg2 rounded-lg border-2 p-4 shadow-lg"
             >
-              <img
-                src={driver.headshot_url ? driver.headshot_url : userLight}
-                alt={`${driver.full_name}-headshot`}
-                className="border-accent mx-auto mb-2 h-24 w-24 rounded-full border"
-              />
+              {driver.headshot_url ? (
+                <img
+                  src={driver.headshot_url}
+                  alt={`${driver.full_name}-headshot`}
+                  className="border-accent mx-auto mb-2 h-24 w-24 rounded-full border"
+                />
+              ) : (
+                <div className="border-accent mx-auto mb-2 h-24 w-24 overflow-hidden rounded-full border">
+                  <UserIcon />
+                </div>
+              )}
               <h2 className="text-xl font-semibold">
                 {(() => {
                   const parts = driver.full_name.split(" ");
