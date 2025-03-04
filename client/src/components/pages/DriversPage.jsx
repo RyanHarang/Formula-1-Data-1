@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Drivers from "../Drivers/Drivers.jsx";
-import Navigation from "../Navigation/Navigation.jsx";
 import PageContainer from "./PageContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 
@@ -10,7 +9,6 @@ function DriversPage() {
 
   return (
     <PageContainer>
-      <Navigation />
       <SearchBar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
