@@ -4,9 +4,13 @@ const EyeIcon = () => {
       width="24"
       height="24"
       viewBox="0 0 24 24"
+      role="img"
+      aria-labelledby="eyeDesc"
+      focusable="false"
       xmlns="http://www.w3.org/2000/svg"
       className="fill-light-fg dark:fill-dark-fg cursor-pointer"
     >
+      <desc id="eyeDesc">An eye icon for showing password</desc>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
