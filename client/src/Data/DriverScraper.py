@@ -43,6 +43,18 @@ class Driver:
             "totalRaces": self.totalRaces,
             "wins": self.wins
         }
+    
+    def from_json(data):
+        return(Driver(
+            name = data["name"],
+            picture = data["image"],
+            number = data["number"],
+            DOB = data["DOB"],
+            lastYear = data["lastYear"],
+            team = data["team"],
+            totalRaces = data["totalRaces"],
+            wins = data["wins"]
+        ))
 
 def fetchYear(year):
     drivers = []
@@ -144,7 +156,7 @@ def main():
     f_out.close()
     getAllDriverData(drivers)
     
-main()
+#main()
 #dr = fetchDriverLinks()
 #for d in dr:
 #    print(d)

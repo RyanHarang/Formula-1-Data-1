@@ -19,6 +19,7 @@ class Team:
     def print(self):
         print("Name: " + str(self.name))
         print("Picture: " + str(self.picture))
+        print("Nationality: " + str(self.nationality))
         print("Wins: " + str(self.wins))
         print("Races: " + str(self.races))
         print("Drivers: " + str(self.drivers))
@@ -27,10 +28,21 @@ class Team:
         return {
             "name": self.name,
             "image": self.picture,
+            "nationality": self.nationality,
             "wins": self.wins,
             "races": self.races,
             "drivers": self.drivers
         }
+    
+    def from_json(data):
+        return (Team(
+            name = data["name"],
+            picture = data["image"],
+            nationality = data["nationality"],
+            wins = data["wins"],
+            races = data["races"],
+            drivers = data["drivers"]
+        ))
     
 def fetchYear(year):
     teams = []
@@ -105,9 +117,9 @@ def main():
     teamLinks = fetchAllTeamLinks()
     for team in teamLinks:
         teams.append(fetchTeamData(team))
-    f_out = open(os.path.join(CURRENT_DIRECTORY, "JSON/teams.json"), "w+")
+    f_out = open(os.path.join(CURRENT_DIRECTORY, "JSON/TeamData.json"), "w+")
     teamDicts = [team.to_dict() for team in teams]
     json.dump(teamDicts, f_out, indent=4)
     f_out.close()
 
-main()
+#main()

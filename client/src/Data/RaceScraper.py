@@ -34,6 +34,16 @@ class Race:
             "fastestLap": self.fastestLap,
             "polePosition": self.polePosition
         }
+    
+    def from_json(data):
+        return (Race(
+            title = data["title"],
+            date = data["date"],
+            track = data["track"],
+            winner = data["winner"],
+            fastestLap = data["fastestLap"],
+            polePosition = data["polePosition"]
+        ))
 
 def getYearLinks(year):
     links = []
@@ -83,13 +93,18 @@ def getRaceData(link):
     overallInfo = src.find('div', {'class': "small-blocks"}).find_all('div', {'class': 'stats-block'})
     for cell in overallInfo:
         title = cell.find('div', {'class': 'title'}).text.strip()
-        if title == "Winner":
-            winner = cell.find('div', {'class': 'value'}).text.strip()
-        elif title == "Fastest lap time":
+        if title == "Fastest lap time":
             fastestLap = cell.find('div', {'class': 'value'}).text.strip()
-        elif title == "Pole position":
-            polePosition = cell.find('div', {'class': 'value'}).text.strip()
+            break
     
+    dataTable = src.find("table", {"class":"data-table"}).find("tbody")
+    drivers = dataTable.find_all("tr")
+    winner = drivers[0].find("td", {"class":"title"}).find("a").text.strip()
+    for driver in drivers:
+        cells = driver.find_all("td")
+        if cells[4].text.strip() == "1st":
+            polePosition = driver.find("td", {"class":"title"}).find("a").text.strip()
+
     race = Race(name, date, track, winner, fastestLap, polePosition)
     return race
 
@@ -104,4 +119,4 @@ def main():
     f_out.write(json.dumps(raceDicts, indent=4))
     f_out.close()
 
-main()
+#main()

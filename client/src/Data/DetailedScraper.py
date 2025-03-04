@@ -74,6 +74,13 @@ class Lap:
             "position":self.position,
             "time":self.time
         }
+    
+    def from_json(data):
+        return (Lap(
+            no = data["number"],
+            pos=data["position"],
+            time = data["time"]
+        ))
 
 class detailedSession:
     def __init__(self, year, title, driver, laps):
@@ -89,6 +96,16 @@ class detailedSession:
             "driver":self.driver,
             "laps":[lap.toJson() for lap in self.laps]
         }
+    
+    def from_json(data):
+        laps = [Lap.from_json(lap) for lap in data["laps"]]
+        return detailedSession(
+            year = data["year"],
+            title = data["title"],
+            driver = data["driver"],
+            laps=laps
+        )
+
 
 # options = webdriver.ChromeOptions()
 # allData = []
@@ -188,8 +205,8 @@ def getRaceDetails():
         f_out.close()
         index += 1
 
-start = time.time()
-getRaceDetails()
-end = time.time()
-runtime = end-start
-print(f"Completed after {runtime:.4f} seconds")
+# start = time.time()
+# getRaceDetails()
+# end = time.time()
+# runtime = end-start
+# print(f"Completed after {runtime:.4f} seconds")
