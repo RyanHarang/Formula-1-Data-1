@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import ModeToggle from "../ModeToggle/ModeToggle";
+import ModeToggle from "./ModeToggle/ModeToggle.jsx";
+import ThemeToggle from "./ThemeToggle/ThemeToggle.jsx";
 import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
 import LoginIcon from "../../assets/svg/profile/LoginIcon.jsx";
 
@@ -22,6 +23,7 @@ function Navigation() {
       </div>
       <div className="flex items-center justify-end gap-4">
         <ModeToggle />
+        <ThemeToggle />
         <LoginIcon />
       </div>
     </header>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import MoonIcon from "../../assets/svg/mode/MoonIcon.jsx";
-import SunIcon from "../../assets/svg/mode/SunIcon.jsx";
+import MoonIcon from "../../../assets/svg/mode/MoonIcon.jsx";
+import SunIcon from "../../../assets/svg/mode/SunIcon.jsx";
 
 function ModeToggle() {
   const [darkMode, setDarkMode] = useState(
