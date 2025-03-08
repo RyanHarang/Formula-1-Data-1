@@ -1,9 +1,15 @@
+import { isValidElement } from "react";
 import Navigation from "../Navigation/Navigation.jsx";
 import Footer from "../Footer/Footer.jsx";
 
 const PageContainer = ({ children }) => {
-  const isAuthPage =
-    children.type.name === "Login" || children.type.name === "Signup";
+  let isAuthPage;
+  if (isValidElement(children)) {
+    const childName = children.type.name;
+    isAuthPage = childName === "Login" || childName === "Signup";
+  } else {
+    isAuthPage = false;
+  }
 
   return (
     <>

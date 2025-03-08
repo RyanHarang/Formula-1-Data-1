@@ -4,7 +4,7 @@ import Signup from "../Login/Signup.jsx";
 const SignupPage = () => {
   return (
     <PageContainer>
-      <Login />
+      <Signup />
     </PageContainer>
   );
 };

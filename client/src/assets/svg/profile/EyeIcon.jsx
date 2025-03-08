@@ -8,7 +8,7 @@ const EyeIcon = () => {
       aria-labelledby="eyeDesc"
       focusable="false"
       xmlns="http://www.w3.org/2000/svg"
-      className="fill-light-fg dark:fill-dark-fg cursor-pointer"
+      className="fill-light-fg dark:fill-dark-fg hover:fill-light-fg2 dark:hover:fill-dark-fg2 cursor-pointer"
     >
       <desc id="eyeDesc">An eye icon for showing password</desc>
       <path

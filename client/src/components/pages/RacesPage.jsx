@@ -3,7 +3,7 @@ import PageContainer from "./PageContainer.jsx";
 import Carousel from "../Carousel/Carousel.jsx";
 import SearchBar2 from "../SearchBar/SearchBar2.jsx";
 
-function Race() {
+const Race = () => {
   const raceData = [
     {
       image: "https://placehold.co/1440x1024",
@@ -50,6 +50,6 @@ function Race() {
       </div>
     </PageContainer>
   );
-}
+};
 
 export default Race;

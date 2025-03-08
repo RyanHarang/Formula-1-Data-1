@@ -33,7 +33,9 @@ const Navigation = () => {
       <div className="flex items-center justify-end gap-5">
         <ModeToggle />
         <ThemeToggle />
-        <LoginIcon />
+        <Link to="/Login">
+          <LoginIcon />
+        </Link>
       </div>
     </header>
   );

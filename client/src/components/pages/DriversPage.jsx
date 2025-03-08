@@ -3,7 +3,7 @@ import Drivers from "../Drivers/Drivers.jsx";
 import PageContainer from "./PageContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 
-function DriversPage() {
+const DriversPage = () => {
   const [activeTab, setActiveTab] = useState("activeDrivers");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -22,6 +22,6 @@ function DriversPage() {
       />
     </PageContainer>
   );
-}
+};
 
 export default DriversPage;

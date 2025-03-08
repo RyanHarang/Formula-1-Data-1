@@ -3,7 +3,7 @@ import PageContainer from "./PageContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import ActiveTeams from "../Teams/ActiveTeams.jsx";
 
-function Teams() {
+const Teams = () => {
   const [activeTab, setActiveTab] = useState("active");
   return (
     <PageContainer>
@@ -11,6 +11,6 @@ function Teams() {
       <ActiveTeams activeTab={activeTab} setActiveTab={setActiveTab} />
     </PageContainer>
   );
-}
+};
 
 export default Teams;
