@@ -1,0 +1,20 @@
+{
+  "name": "formula-1-data-1",
+  "version": "1.0.0",
+  "description": "Data 1 is a Formula 1 data aggregation and presentation site, intended to allow users to browse historic Formula 1 data with ease.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanHarang/Formula-1-Data-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanHarang/Formula-1-Data-1/issues"
+  },
+  "homepage": "https://github.com/RyanHarang/Formula-1-Data-1#readme"
+}
