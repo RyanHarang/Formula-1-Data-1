@@ -1,14 +1,21 @@
 import Navigation from "../Navigation/Navigation.jsx";
 import Footer from "../Footer/Footer.jsx";
 
-function PageContainer({ children }) {
+const PageContainer = ({ children }) => {
+  const isAuthPage =
+    children.type.name === "Login" || children.type.name === "Signup";
+
   return (
     <>
-      <Navigation />
-      <div className="min-h-screen min-w-screen pt-20">{children}</div>
-      <Footer />
+      {!isAuthPage && <Navigation />}
+      <main
+        className={`min-h-screen min-w-screen ${!isAuthPage ? "pt-20" : ""}`}
+      >
+        {children}
+      </main>
+      {!isAuthPage && <Footer />}
     </>
   );
-}
+};
 
 export default PageContainer;

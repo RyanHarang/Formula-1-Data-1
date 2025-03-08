@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import UserIcon from "../../assets/svg/profile/UserIcon.jsx";
 
-function ActiveDrivers({ searchQuery }) {
+const ActiveDrivers = ({ searchQuery }) => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -115,6 +115,6 @@ function ActiveDrivers({ searchQuery }) {
       </div>
     </div>
   );
-}
+};
 
 export default ActiveDrivers;

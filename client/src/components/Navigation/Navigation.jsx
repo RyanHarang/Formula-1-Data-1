@@ -4,7 +4,7 @@ import ThemeToggle from "./ThemeToggle/ThemeToggle.jsx";
 import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
 import LoginIcon from "../../assets/svg/profile/LoginIcon.jsx";
 
-function Navigation() {
+const Navigation = () => {
   return (
     <header className="bg-light-bg/90 dark:bg-dark-bg/90 fixed z-50 grid w-full grid-cols-3 p-4 text-base leading-normal font-semibold">
       <div className="flex cursor-pointer items-center justify-start gap-2">
@@ -37,6 +37,6 @@ function Navigation() {
       </div>
     </header>
   );
-}
+};
 
 export default Navigation;

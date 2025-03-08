@@ -1,7 +1,12 @@
 import DropdownItem from "../Dropdown/DropdownItem/DropdownItem.jsx";
 import DropdownMenu from "../Dropdown/DropdownMenu/DropdownMenu.jsx";
 
-function SearchBar({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
+const SearchBar = ({
+  setActiveTab,
+  activeTab,
+  searchQuery,
+  setSearchQuery,
+}) => {
   const filterItems = [
     { label: "Active Drivers", value: "activeDrivers" },
     { label: "All Drivers", value: "allDrivers" },
@@ -35,6 +40,6 @@ function SearchBar({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar;

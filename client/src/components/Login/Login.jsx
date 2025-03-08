@@ -38,29 +38,25 @@ const Login = () => {
 
   return (
     <div className="relative flex h-screen w-full items-center justify-center">
-      {/* background img */}
       <img
         className="absolute inset-0 h-full w-full object-cover"
         src="https://placehold.co/1593x1038"
         alt="Background"
       />
-      {/* back button */}
       <button
-        className="absolute top-4 left-4 rounded bg-black p-2 text-white hover:bg-gray-800"
+        className="hover:bg-light-bg2 dark:hover:bg-dark-bg2 absolute top-4 left-4 rounded p-2"
         onClick={() => navigate("/")}
       >
         Back
       </button>
-      {/* overlay */}
-      <div className="relative z-10 inline-flex h-[529px] w-[402px] flex-col items-center justify-center gap-[42px] rounded-2xl border border-white bg-white/80 p-6 backdrop-blur-sm">
-        {/* logo */}
+      <div className="bg-light-bg/80 dark:bg-dark-bg/80 relative z-10 inline-flex h-[529px] w-[402px] flex-col items-center justify-center gap-[42px] rounded-2xl border p-6 backdrop-blur-sm">
         <LogoIcon />
 
         <div className="flex h-[69px] flex-col items-center justify-start gap-1 self-stretch text-center">
-          <div className="font-['DM Sans'] text-center text-[34px] font-bold text-black">
+          <div className="font-['DM Sans'] text-center text-[34px] font-bold">
             Sign In
           </div>
-          <div className="font-['DM Sans'] self-stretch text-center text-base font-normal text-[#110c2a]">
+          <div className="font-['DM Sans'] self-stretch text-center text-base font-normal">
             Login or Create an Account
           </div>
         </div>
@@ -100,13 +96,13 @@ const Login = () => {
                   placeholder="Password"
                   {...register("password")}
                 />
-                <div
+                <button
                   data-svg-wrapper
                   className="relative cursor-pointer"
                   onClick={togglePasswordVisibility}
                 >
                   <EyeIcon />
-                </div>
+                </button>
               </div>
               {errors.password && (
                 <p className="mt-1 text-xs text-red-500">
@@ -114,26 +110,23 @@ const Login = () => {
                 </p>
               )}
             </div>
-            <Link
-              className="font-['DM Sans'] text-xs font-normal text-black"
-              to="/signup"
-            >
+            <Link className="font-['DM Sans'] text-xs font-normal" to="/signup">
               Forget password ?
             </Link>
             <div className="inline-flex items-start justify-start gap-3 self-stretch">
               <button
-                className="hover:bg-color flex h-12 shrink grow basis-0 items-center justify-center gap-3 rounded-xl border border-black px-4 py-3 hover:cursor-pointer"
+                className="hover:bg-color flex h-12 shrink grow basis-0 items-center justify-center gap-3 rounded-xl border px-4 py-3 hover:cursor-pointer"
                 onClick={() => navigate("/signup")}
               >
-                <div className="font-['DM Sans'] text-base font-medium text-black">
+                <div className="font-['DM Sans'] text-base font-medium">
                   Create Account
                 </div>
               </button>
               <button
                 type="submit"
-                className="hover:bg-opacity-80 flex h-12 shrink grow basis-0 items-center justify-center gap-3 rounded-xl bg-black px-4 py-3 hover:cursor-pointer"
+                className="hover:bg-opacity-80 bg-dark-bg dark:bg-light-bg flex h-12 shrink grow basis-0 items-center justify-center gap-3 rounded-xl px-4 py-3 hover:cursor-pointer"
               >
-                <div className="font-['DM Sans'] text-base font-medium text-white">
+                <div className="font-['DM Sans'] text-dark-fg dark:text-light-fg text-base font-medium">
                   Login
                 </div>
               </button>

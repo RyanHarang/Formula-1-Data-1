@@ -1,4 +1,4 @@
-function Filter({ open, toggle }) {
+const Filter = ({ open, toggle }) => {
   return (
     <div
       onClick={toggle}
@@ -24,6 +24,6 @@ function Filter({ open, toggle }) {
       </svg>
     </div>
   );
-}
+};
 
 export default Filter;

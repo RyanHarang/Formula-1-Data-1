@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MoonIcon from "../../../assets/svg/mode/MoonIcon.jsx";
 import SunIcon from "../../../assets/svg/mode/SunIcon.jsx";
 
-function ModeToggle() {
+const ModeToggle = () => {
   const [darkMode, setDarkMode] = useState(
     () => localStorage.getItem("theme") === "dark",
   );
@@ -25,6 +25,6 @@ function ModeToggle() {
       {darkMode ? <SunIcon /> : <MoonIcon />}
     </button>
   );
-}
+};
 
 export default ModeToggle;

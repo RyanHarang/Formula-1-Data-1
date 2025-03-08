@@ -1,7 +1,7 @@
 import ActiveDrivers from "./ActiveDrivers.jsx";
 import AllDrivers from "./AllDrivers.jsx";
 
-function Drivers({ activeTab, setActiveTab, searchQuery }) {
+const Drivers = ({ activeTab, setActiveTab, searchQuery }) => {
   return (
     <div>
       {activeTab === "activeDrivers" ? (
@@ -11,6 +11,6 @@ function Drivers({ activeTab, setActiveTab, searchQuery }) {
       )}
     </div>
   );
-}
+};
 
 export default Drivers;

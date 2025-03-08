@@ -1,7 +1,12 @@
 import DropdownItem from "../Dropdown/DropdownItem/DropdownItem.jsx";
 import DropdownMenu from "../Dropdown/DropdownMenu/DropdownMenu.jsx";
 
-function SearchBar2({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
+const SearchBar2 = ({
+  setActiveTab,
+  activeTab,
+  searchQuery,
+  setSearchQuery,
+}) => {
   const filterItems = [
     { label: "Upcoming Races", value: "upcomingRaces" },
     { label: "Past Races", value: "pastRaces" },
@@ -35,6 +40,6 @@ function SearchBar2({ setActiveTab, activeTab, searchQuery, setSearchQuery }) {
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar2;
