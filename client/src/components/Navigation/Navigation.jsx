@@ -7,9 +7,12 @@ import LoginIcon from "../../assets/svg/profile/LoginIcon.jsx";
 const Navigation = () => {
   return (
     <header className="bg-light-bg/90 dark:bg-dark-bg/90 fixed z-50 grid w-full grid-cols-3 p-4 text-base leading-normal font-semibold">
-      <div className="flex cursor-pointer items-center justify-start gap-2">
+      <Link
+        to="/"
+        className="flex cursor-pointer items-center justify-start gap-2"
+      >
         <LogoIcon />
-      </div>
+      </Link>
       <div className="flex items-center justify-center gap-8">
         <Link
           to="/"
