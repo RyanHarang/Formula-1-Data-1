@@ -91,6 +91,7 @@ const Login = () => {
             />
             <button
               data-svg-wrapper
+              type="button"
               className="relative cursor-pointer"
               onClick={togglePasswordVisibility}
             >
@@ -107,6 +108,7 @@ const Login = () => {
           </Link>
           <div className="inline-flex items-start justify-start gap-3 self-stretch">
             <button
+              type="button"
               className="dark:hover:bg-dark-bg hover:bg-light-bg flex h-12 shrink grow basis-0 items-center justify-center gap-3 rounded-xl border px-4 py-3 hover:cursor-pointer"
               onClick={() => navigate("/signup")}
             >

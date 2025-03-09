@@ -98,6 +98,7 @@ const Signup = () => {
             />
             <button
               data-svg-wrapper
+              type="button"
               className="relative cursor-pointer hover:cursor-pointer"
               onClick={togglePasswordVisibility}
             >
@@ -121,6 +122,7 @@ const Signup = () => {
             />
             <button
               data-svg-wrapper
+              type="button"
               className="relative cursor-pointer hover:cursor-pointer"
               onClick={togglePasswordVisibility}
             >

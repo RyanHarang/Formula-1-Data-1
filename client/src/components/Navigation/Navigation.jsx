@@ -1,10 +1,25 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/authActions";
 import ModeToggle from "./ModeToggle/ModeToggle.jsx";
 import ThemeToggle from "./ThemeToggle/ThemeToggle.jsx";
 import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
 import LoginIcon from "../../assets/svg/profile/LoginIcon.jsx";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const emailPrefix = user ? user.email.split("@")[0] : null;
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <header className="bg-light-bg/90 dark:bg-dark-bg/90 fixed z-50 grid w-full grid-cols-3 p-4 text-base leading-normal font-semibold">
       <Link
@@ -36,9 +51,13 @@ const Navigation = () => {
       <div className="flex items-center justify-end gap-5">
         <ModeToggle />
         <ThemeToggle />
-        <Link to="/Login">
-          <LoginIcon />
-        </Link>
+        {isAuthenticated ? (
+          <button onClick={handleLogout}>{emailPrefix}</button>
+        ) : (
+          <Link to="/Login">
+            <LoginIcon />
+          </Link>
+        )}
       </div>
     </header>
   );
