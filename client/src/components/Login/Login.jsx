@@ -17,6 +17,8 @@ const formSchema = z.object({
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -29,11 +31,10 @@ const Login = () => {
   } = useForm({
     resolver: zodResolver(formSchema),
   });
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     dispatch(login(data.email, data.password));
+    navigate("/");
   };
 
   return (

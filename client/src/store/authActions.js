@@ -16,7 +16,7 @@ export const logout = () => {
 
 export const login = (email, password) => async (dispatch) => {
   try {
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -41,7 +41,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const register = (email, password) => async (dispatch) => {
   try {
-    const res = await fetch("/api/auth/register", {
+    const res = await fetch("http://localhost:5000/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
