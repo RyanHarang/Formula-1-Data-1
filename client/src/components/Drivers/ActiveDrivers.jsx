@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import UserIcon from "../../assets/svg/profile/UserIcon.jsx";
+import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
 const ActiveDrivers = ({ searchQuery }) => {
   const [drivers, setDrivers] = useState([]);
@@ -52,6 +53,8 @@ const ActiveDrivers = ({ searchQuery }) => {
     startIndex + limit,
   );
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="container mx-auto p-4 text-center">
       <h1 className="mb-4 text-2xl font-bold">Active F1 Drivers</h1>
@@ -62,39 +65,43 @@ const ActiveDrivers = ({ searchQuery }) => {
           {paginatedDrivers.map((driver, index) => (
             <div
               key={index}
-              className="border-accent dark:bg-dark-bg2 rounded-lg border-2 p-4 shadow-lg"
+              className="border-accent dark:bg-dark-bg2 rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer transition-transform duration-200 hover:scale-105"
             >
               {driver.headshot_url ? (
                 <img
-                  src={driver.headshot_url}
+                  src={`https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/${currentYear}Drivers/${driver.last_name}`}
                   alt={`${driver.full_name}-headshot`}
-                  className="border-accent mx-auto mb-2 h-24 w-24 rounded-full border"
+                  className="border-accent border-x-0 border-t-0 rounded-t-md"
+                  onError={(error) => {
+                    error.target.src = noDriverIcon;
+                    error.target.onerror = null;
+                  }}
                 />
               ) : (
-                <div className="border-accent mx-auto mb-2 h-24 w-24 overflow-hidden rounded-full border">
-                  <UserIcon />
+                <div className="border-accent border-x-0 border-t-0 rounded-t-md">
+                  <img src={noDriverIcon} className="border-accent border-x-0 border-t-0 rounded-t-md" alt="" />
                 </div>
               )}
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-xl text-left my-2 pl-2 font-semibold">
                 {(() => {
                   const parts = driver.full_name.split(" ");
                   return parts
                     .map((part, index) =>
                       index === parts.length - 1
                         ? part.charAt(0).toUpperCase() +
-                          part.slice(1).toLowerCase()
+                        part.slice(1).toLowerCase()
                         : part,
                     )
                     .join(" ");
                 })()}
               </h2>
-              <p className="text-light-fg2 dark:text-dark-fg2">
+              {/* <p className="text-light-fg2 dark:text-dark-fg2">
                 Nationality:{" "}
                 {driver.country_code ? driver.country_code : "Unknown"}
               </p>
               <p className="text-light-fg2 dark:text-dark-fg2">
                 Team: {driver.team_name ? driver.team_name : "Unknown"}
-              </p>
+              </p> */}
             </div>
           ))}
         </div>
