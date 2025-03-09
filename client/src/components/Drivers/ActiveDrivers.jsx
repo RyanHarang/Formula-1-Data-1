@@ -40,7 +40,9 @@ const ActiveDrivers = ({ searchQuery }) => {
 
   // Filter drivers using search query
   const filteredDrivers = drivers.filter((driver) =>
-    driver.full_name.toLowerCase().includes(searchQuery.toLowerCase()),
+    driver.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (driver.country_code && driver.country_code.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (driver.team_name && driver.team_name.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
   // Pagination logic
