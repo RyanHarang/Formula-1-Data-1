@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import UserIcon from "../../assets/svg/profile/UserIcon.jsx";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
 const ActiveDrivers = ({ searchQuery }) => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const currentYear = new Date().getFullYear();
   const limit = 24;
 
   useEffect(() => {
@@ -39,21 +39,22 @@ const ActiveDrivers = ({ searchQuery }) => {
     fetchActiveDrivers();
   }, []);
 
-  // Filter drivers using search query
-  const filteredDrivers = drivers.filter((driver) =>
-    driver.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (driver.country_code && driver.country_code.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (driver.team_name && driver.team_name.toLowerCase().includes(searchQuery.toLowerCase())),
+  const filteredDrivers = drivers.filter(
+    (driver) =>
+      driver.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (driver.country_code &&
+        driver.country_code
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())) ||
+      (driver.team_name &&
+        driver.team_name.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
-  // Pagination logic
   const startIndex = page * limit;
   const paginatedDrivers = filteredDrivers.slice(
     startIndex,
     startIndex + limit,
   );
-
-  const currentYear = new Date().getFullYear();
 
   return (
     <div className="container mx-auto p-4 text-center">
@@ -65,31 +66,35 @@ const ActiveDrivers = ({ searchQuery }) => {
           {paginatedDrivers.map((driver, index) => (
             <div
               key={index}
-              className="border-accent dark:bg-dark-bg2 rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer transition-transform duration-200 hover:scale-105"
+              className="border-accent dark:bg-dark-bg2 cursor-pointer rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
             >
               {driver.headshot_url ? (
                 <img
                   src={`https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/${currentYear}Drivers/${driver.last_name}`}
                   alt={`${driver.full_name}-headshot`}
-                  className="border-accent border-x-0 border-t-0 rounded-t-md"
+                  className="rounded-t-md"
                   onError={(error) => {
                     error.target.src = noDriverIcon;
                     error.target.onerror = null;
                   }}
                 />
               ) : (
-                <div className="border-accent border-x-0 border-t-0 rounded-t-md">
-                  <img src={noDriverIcon} className="border-accent border-x-0 border-t-0 rounded-t-md" alt="" />
+                <div className="rounded-t-md">
+                  <img
+                    src={noDriverIcon}
+                    className="border-accent rounded-t-md border-x-0 border-t-0"
+                    alt="Placeholder driver image"
+                  />
                 </div>
               )}
-              <h2 className="text-xl text-left my-2 pl-2 font-semibold">
+              <h2 className="my-2 pl-2 text-left text-xl font-semibold">
                 {(() => {
                   const parts = driver.full_name.split(" ");
                   return parts
                     .map((part, index) =>
                       index === parts.length - 1
                         ? part.charAt(0).toUpperCase() +
-                        part.slice(1).toLowerCase()
+                          part.slice(1).toLowerCase()
                         : part,
                     )
                     .join(" ");
@@ -109,14 +114,14 @@ const ActiveDrivers = ({ searchQuery }) => {
       <div className="mt-4 flex justify-center">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          className="border-accent bg-light-bg2 dark:bg-dark-bg text-light-fg dark:text-dark-fg mr-2 rounded border px-4 py-2 disabled:opacity-50"
+          className="border-accent bg-light-bg2 dark:bg-dark-bg3 hover mr-2 cursor-pointer rounded border px-4 py-2 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
           disabled={page === 0 || loading}
         >
           Previous
         </button>
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          className="bg-accent text-light-fg dark:text-dark-fg rounded px-4 py-2"
+          className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2"
           disabled={startIndex + limit >= drivers.length || loading}
         >
           Next
