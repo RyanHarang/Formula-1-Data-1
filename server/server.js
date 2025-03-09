@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const schemas = require("./routes/schemas")
 
 const app = express();
 
@@ -13,16 +12,11 @@ const PORT = process.env.PORT || 5000;
 
 const authRoutes = require("./routes/authRoutes");
 const dataRoutes = require("./routes/dataRoutes");
-const userRoutes = require("./routes/userRoutes");
+const favoriteRoutes = require("./routes/favoriteRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/data", dataRoutes);
-app.use("/api/user", userRoutes);
-
-const RaceData = require("./models/RaceData");
-const RacerInfo = require("./models/RacerInfo");
-const Races = require("./models/Races");
-const Teams = require("./models/Teams");
+app.use("/api/favorites", favoriteRoutes);
 
 const startServer = async () => {
   try {
