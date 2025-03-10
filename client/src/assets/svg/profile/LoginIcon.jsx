@@ -8,7 +8,7 @@ const LogIn = () => {
       aria-labelledby="loginDesc"
       focusable="false"
       xmlns="http://www.w3.org/2000/svg"
-      className="stroke-light-fg dark:stroke-dark-fg cursor-pointer fill-none"
+      className="stroke-light-fg dark:stroke-dark-fg hover:stroke-accent cursor-pointer fill-none transition-all duration-300"
     >
       <desc id="loginDesc">An icon for logging in</desc>
       <path

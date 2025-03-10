@@ -2,7 +2,7 @@ const Filter = ({ open, toggle }) => {
   return (
     <div
       onClick={toggle}
-      className="border-light-fg dark:border-dark-fg hover:bg-light-bg2 dark:hover:bg-dark-bg2 flex h-[3rem] w-[4rem] min-w-[4rem] cursor-pointer items-center justify-center rounded-r-lg border-l-2"
+      className="border-2 border-dark-fg bg-white dark:bg-black dark:border-dark-fg flex w-4 min-w-[4rem] cursor-pointer items-center justify-center rounded-lg hover:border-accent transition-all duration-300"
     >
       <svg
         width="48"
@@ -12,7 +12,7 @@ const Filter = ({ open, toggle }) => {
         aria-labelledby="filterDesc"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="stroke-light-fg dark:stroke-dark-fg w-[2.25rem]"
+        className="stroke-light-fg dark:stroke-dark-fg w-[2.25rem] p-1 hover:fill-accent transition-all duration-300"
       >
         <desc id="filterDesc">A list icon for showing filter options</desc>
         <path

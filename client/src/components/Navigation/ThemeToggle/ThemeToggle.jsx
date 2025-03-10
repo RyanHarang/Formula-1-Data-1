@@ -22,9 +22,9 @@ const ThemeToggle = () => {
     <div className="group relative flex items-center">
       <button
         className="border-accent bg-accent h-6 w-6 cursor-pointer rounded-full border-2"
-        title="Select Accent Color"
+        title=""
       ></button>
-      <div className="bg-light-bg2 dark:bg-dark-bg2 absolute left-1/2 mt-40 w-12 -translate-x-1/2 rounded-lg opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100">
+      <div className="bg-light-bg2 dark:bg-dark-bg2 absolute left-1/2 mt-43 w-12 -translate-x-1/2 rounded-lg opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100">
         <div className="flex flex-col items-center justify-center gap-2 p-2">
           {Object.entries(highlightColors).map(([label, color]) => (
             <button

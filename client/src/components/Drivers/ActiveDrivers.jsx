@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
-const ActiveDrivers = ({ searchQuery }) => {
+const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -67,6 +67,7 @@ const ActiveDrivers = ({ searchQuery }) => {
             <div
               key={index}
               className="border-accent dark:bg-dark-bg2 cursor-pointer rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
+              onClick={() => onDriverClick(driver)}
             >
               {driver.headshot_url ? (
                 <img
