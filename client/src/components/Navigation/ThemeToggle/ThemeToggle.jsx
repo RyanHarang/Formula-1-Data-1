@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const highlightColors = {
   "Highlight 1": "--color-highlight-1",
@@ -8,8 +8,13 @@ const highlightColors = {
 };
 
 const ThemeToggle = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState("--color-highlight-1");
 
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
   const handleSelect = (color) => {
     setSelected(color);
     document.documentElement.style.setProperty(
@@ -18,27 +23,55 @@ const ThemeToggle = () => {
     );
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="group relative flex items-center">
+    <div
+      className="group relative flex items-center"
+      onMouseLeave={() => setMenuOpen(false)}
+    >
       <button
+        ref={buttonRef}
+        onClick={toggleMenu}
         className="border-accent bg-accent h-6 w-6 cursor-pointer rounded-full border-2"
-        title=""
       ></button>
-      <div className="bg-light-bg2 dark:bg-dark-bg2 absolute left-1/2 mt-43 w-12 -translate-x-1/2 rounded-lg opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100">
-        <div className="flex flex-col items-center justify-center gap-2 p-2">
-          {Object.entries(highlightColors).map(([label, color]) => (
-            <button
-              key={color}
-              onClick={() => handleSelect(color)}
-              className={`h-6 w-6 cursor-pointer rounded-full border-2 ${
-                selected === color ? "ring-accent ring-2" : ""
-              }`}
-              style={{ backgroundColor: `var(${color})` }}
-              title={label}
-            />
-          ))}
+      {menuOpen && (
+        <div
+          ref={menuRef}
+          className="bg-light-bg2 dark:bg-dark-bg2 absolute left-1/2 mt-40 w-12 -translate-x-1/2 rounded-lg shadow-lg"
+        >
+          <div className="flex flex-col items-center justify-center gap-2 p-2">
+            {Object.entries(highlightColors).map(([label, color]) => (
+              <button
+                key={color}
+                onClick={() => handleSelect(color)}
+                className={`h-6 w-6 cursor-pointer rounded-full border-2 ${
+                  selected === color ? "ring-accent ring-2" : ""
+                }`}
+                style={{ backgroundColor: `var(${color})` }}
+                title={label}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
