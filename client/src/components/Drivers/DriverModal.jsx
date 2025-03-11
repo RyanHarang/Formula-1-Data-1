@@ -49,7 +49,7 @@ const DriverModal = ({ handleCloseModal, driverId }) => {
   return (
     <>
       {driver && !loading ? (
-        <div className="fixed z-100 flex items-center justify-center">
+        <div className="fixed z-100 flex items-center justify-center select-none">
           <div className="dark:bg-dark-bg2 bg-light-bg light-bg dark:border-accent relative max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-xl border-2 border-black">
             <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex cursor-grab items-center justify-start rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
               <div className="border-accent rounded-tl-2xl py-0.75 pl-2.5">
@@ -61,7 +61,7 @@ const DriverModal = ({ handleCloseModal, driverId }) => {
                   <span className="text-sm text-gray-400">N/A</span>
                 )}
               </div>
-              <h2 className="pl-4 text-2xl select-none">
+              <h2 className="pl-4 text-2xl">
                 {driver.name || "Unknown Driver"}
               </h2>
               <div
@@ -143,13 +143,13 @@ const DriverModal = ({ handleCloseModal, driverId }) => {
           </div>
         </div>
       ) : (
-        <div className="fixed z-100 flex items-center justify-center">
+        <div className="fixed z-100 flex items-center justify-center select-none">
           <div className="dark:bg-dark-bg2 bg-light-bg light-bg dark:border-accent relative max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-xl border-2 border-black">
             <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex cursor-grab items-center justify-start rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
               <div className="border-accent rounded-tl-2xl py-0.75 pl-2.5">
                 <span className="fi fi-xx size-10 px-8"></span>
               </div>
-              <h2 className="pl-4 text-2xl select-none">...</h2>
+              <h2 className="pl-4 text-2xl">...</h2>
               <div
                 onClick={handleCloseModal}
                 className="ml-auto pr-4 text-2xl hover:cursor-pointer"
