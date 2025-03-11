@@ -41,8 +41,8 @@ function Race() {
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery}
       />
-      <div className="w-[1440px] h-[1024px] px-[60px] pt-[30px] pb-[155px] bg-[#f6f8fa] flex-col justify-start items-start gap-16 inline-flex overflow-hidden">
-        <Carousel 
+      <div>
+      <Carousel 
           images={raceData.map(race => race.image)} 
           dates={raceData.map(race => race.date)}
           names={raceData.map(race => race.name)}

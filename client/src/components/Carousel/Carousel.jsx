@@ -4,19 +4,33 @@ import PropTypes from 'prop-types';
 const Carousel = ({ images, dates, names, locations, distances, interval = 3000 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const [isPaused, setIsPaused] = useState(false);
+
+    const handleMouseEnter = () => {
+        setIsPaused(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsPaused(false);
+    };
+
     const imageCount = images.length;
 
     useEffect(() => {
+        if (isPaused) return;
+
         const timer = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % imageCount);
         }, interval);
 
         return () => clearInterval(timer);
-    }, [imageCount, interval]);
+    }, [imageCount, interval, isPaused]);
 
     return (
-        <div className="carousel relative w-full h-full flex overflow-hidden">
-            <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} className="carousel-image w-full h-full object-cover flex" />
+        <div className="carousel relative w-full h-full flex overflow-hidden" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="relative w-full h-full">
+                <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} className="carousel-image absolute inset-0 w-full h-full object-cover" />
+            </div>
             <div className="self-stretch h-[725px] flex-col justify-start items-center gap-[46px] inline-flex">
                 <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 bg-black p-4">
                     <div className="h-[108px] justify-start items-start inline-flex">
