@@ -69,7 +69,7 @@ const DriverModal = ({ handleCloseModal, driverId }) => {
                 className="ml-auto pr-4 text-2xl hover:cursor-pointer"
               >
                 <button className="dark:text-accent hover:text-accent cursor-pointer pr-1.5 transition-all duration-300 dark:hover:text-white">
-                  X
+                  &#10006;
                 </button>
               </div>
             </div>
@@ -155,7 +155,7 @@ const DriverModal = ({ handleCloseModal, driverId }) => {
                 className="ml-auto pr-4 text-2xl hover:cursor-pointer"
               >
                 <button className="dark:text-accent hover:text-accent cursor-pointer pr-1.5 transition-all duration-300 dark:hover:text-white">
-                  X
+                  &#10006;
                 </button>
               </div>
             </div>
