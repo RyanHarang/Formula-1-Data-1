@@ -7,7 +7,12 @@ const Team = require("../models/Team");
 const Lap = require("../models/Lap");
 
 router.get("/drivers", async (req, res) => {
-  data = await DriverModel.find();
+  data = await Driver.find();
+  res.json(data);
+});
+
+router.get("/drivers-active", async (req, res) => {
+  data = await Driver.find({ lastYear: 2024 });
   res.json(data);
 });
 
