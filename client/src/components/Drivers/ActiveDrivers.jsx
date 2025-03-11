@@ -12,7 +12,7 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
     const fetchActiveDrivers = async () => {
       setLoading(true);
       try {
-        const response = await fetch("https://api.openf1.org/v1/drivers");
+        const response = await fetch("http://localhost:5000/api/data/drivers-active");
         const data = await response.json();
 
         // Filter drivers to keep most recent entry per driver

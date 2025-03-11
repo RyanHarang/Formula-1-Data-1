@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/RyanHarang/Formula-1-Data-1/issues"
   },
-  "homepage": "https://github.com/RyanHarang/Formula-1-Data-1#readme"
+  "homepage": "https://github.com/RyanHarang/Formula-1-Data-1#readme",
+  "dependencies": {
+    "flag-icons": "^7.3.2"
+  }
 }
