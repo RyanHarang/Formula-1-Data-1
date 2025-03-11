@@ -44,10 +44,9 @@
 
 html,
 body,
-html, body, #root {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
+#root {
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 :root {

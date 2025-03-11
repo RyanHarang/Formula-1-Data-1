@@ -1,6 +1,6 @@
-import DropdownItem from "../Dropdown/DropdownItem/DropdownItem.jsx";
-import DropdownMenu from "../Dropdown/DropdownMenu/DropdownMenu.jsx";
-import SearchIcon from "../../assets/svg/Search.jsx"
+import DropdownItem from "./Dropdown/DropdownItem/DropdownItem.jsx";
+import DropdownMenu from "./Dropdown/DropdownMenu/DropdownMenu.jsx";
+import SearchIcon from "../../assets/svg/Search.jsx";
 
 const SearchBar = ({
   setActiveTab,
@@ -14,7 +14,7 @@ const SearchBar = ({
   ];
   return (
     <div className="relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
-      <div className="border-2 border-dark-fg bg-white dark:bg-black dark:border-dark-fg relative flex w-full max-w-[30rem] items-center rounded-lg dark:border-2">
+      <div className="border-dark-fg dark:border-dark-fg relative flex w-full max-w-[30rem] items-center rounded-lg border-2 bg-white dark:border-2 dark:bg-black">
         <div className="p-2 pl-3">
           <SearchIcon />
         </div>
@@ -27,22 +27,22 @@ const SearchBar = ({
         />
       </div>
       <div className="pl-2">
-          <DropdownMenu
-            content={
-              <>
-                {filterItems.map((item) => (
-                  <DropdownItem
-                    key={item.value}
-                    onClick={() => setActiveTab(item.value)}
-                    isActive={activeTab === item.value}
-                  >
-                    {item.label}
-                  </DropdownItem>
-                ))}
-              </>
-            }
-          />
-        </div>
+        <DropdownMenu
+          content={
+            <>
+              {filterItems.map((item) => (
+                <DropdownItem
+                  key={item.value}
+                  onClick={() => setActiveTab(item.value)}
+                  isActive={activeTab === item.value}
+                >
+                  {item.label}
+                </DropdownItem>
+              ))}
+            </>
+          }
+        />
+      </div>
     </div>
   );
 };

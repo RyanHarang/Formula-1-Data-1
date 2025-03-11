@@ -122,7 +122,7 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
         </button>
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2"
+          className="bg-accent hover:bg-accent/80 disabled:hover:bg-accent cursor-pointer rounded px-4 py-2 disabled:cursor-not-allowed disabled:opacity-40"
           disabled={startIndex + limit >= drivers.length || loading}
         >
           Next

@@ -23,13 +23,10 @@ const Navigation = () => {
   return (
     <header className="bg-light-bg/90 dark:bg-dark-bg/90 fixed z-50 flex w-full max-w-screen flex-wrap items-center justify-between p-4 text-base leading-normal font-semibold">
       <div className="flex w-full items-center justify-between">
-        <Link
-          to="/"
-          className="flex cursor-pointer items-center justify-start gap-2"
-        >
+        <Link to="/" className="flex cursor-pointer items-center justify-start">
           <LogoIcon />
         </Link>
-        <div className="absolute left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-8">
+        <div className="absolute left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-4 md:gap-8">
           <Link
             to="/"
             className="after:bg-accent relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
@@ -69,7 +66,7 @@ const Navigation = () => {
           )}
         </div>
       </div>
-      <div className="flex w-full items-center justify-end gap-2 max-[450px]:flex sm:hidden">
+      <div className="flex w-full items-center justify-end gap-2 sm:hidden">
         <ModeToggle />
         <ThemeToggle />
       </div>
