@@ -12,23 +12,25 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
     const fetchActiveDrivers = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:5000/api/data/drivers-active");
-        const data = await response.json();
+        const [driversResponse, teamsResponse] = await Promise.all([
+          fetch("http://localhost:5000/api/data/drivers-active"),
+          fetch("http://localhost:5000/api/data/teams/"),
+        ]);
 
-        // Filter drivers to keep most recent entry per driver
-        const uniqueDrivers = Object.values(
-          data.reduce((acc, driver) => {
-            if (
-              !acc[driver.full_name] ||
-              acc[driver.full_name].meeting_key < driver.meeting_key
-            ) {
-              acc[driver.full_name] = driver;
-            }
-            return acc;
-          }, {}),
-        );
+        const driversData = await driversResponse.json();
+        const teamsData = await teamsResponse.json();
 
-        setDrivers(uniqueDrivers);
+        const teamsById = teamsData.reduce((acc, team) => {
+          acc[team.id] = team;
+          return acc;
+        }, {});
+
+        const driversWithTeamNames = driversData.map(driver => ({
+          ...driver,
+          teamName: teamsById[driver.team]?.name || "Unknown"
+        }));
+
+        setDrivers(driversWithTeamNames);
       } catch (error) {
         console.error("Error fetching drivers:", error);
       } finally {
@@ -41,13 +43,15 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
 
   const filteredDrivers = drivers.filter(
     (driver) =>
-      driver.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (driver.country_code &&
-        driver.country_code
+      driver.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (driver.nationality &&
+        driver.nationality
           .toLowerCase()
           .includes(searchQuery.toLowerCase())) ||
-      (driver.team_name &&
-        driver.team_name.toLowerCase().includes(searchQuery.toLowerCase())),
+      (driver.teamName &&
+        driver.teamName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()))
   );
 
   const startIndex = page * limit;
@@ -69,10 +73,10 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
               className="border-accent dark:bg-dark-bg2 cursor-pointer rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
               onClick={() => onDriverClick(driver)}
             >
-              {driver.headshot_url ? (
+              {driver.image ? (
                 <img
-                  src={`https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/${currentYear}Drivers/${driver.last_name}`}
-                  alt={`${driver.full_name}-headshot`}
+                  src={driver.image}
+                  alt={`${driver.name}-headshot`}
                   className="rounded-t-md"
                   onError={(error) => {
                     error.target.src = noDriverIcon;
@@ -83,24 +87,30 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
                 <div className="rounded-t-md">
                   <img
                     src={noDriverIcon}
-                    className="border-accent rounded-t-md border-x-0 border-t-0"
+                    className="border-accent h-full rounded-t-md border-x-0 border-t-0"
                     alt="Placeholder driver image"
                   />
                 </div>
               )}
-              <h2 className="my-2 pl-2 text-left text-xl font-semibold">
-                {(() => {
-                  const parts = driver.full_name.split(" ");
-                  return parts
-                    .map((part, index) =>
-                      index === parts.length - 1
-                        ? part.charAt(0).toUpperCase() +
+              <div className="flex flex-row">
+                <h2 className=" my-2 pl-2 text-left text-xl font-semibold">
+                  {(() => {
+                    const parts = driver.name.split(" ");
+                    return parts
+                      .map((part, index) =>
+                        index === parts.length - 1
+                          ? part.charAt(0).toUpperCase() +
                           part.slice(1).toLowerCase()
-                        : part,
-                    )
-                    .join(" ");
-                })()}
-              </h2>
+                          : part,
+                      )
+                      .join(" ");
+                  })()}
+                </h2>
+                <div>
+                  <span className={`fi size-10 px-8 fi-${driver.natCode}`}></span>
+                </div>
+              </div>
+
               {/* <p className="text-light-fg2 dark:text-dark-fg2">
                 Nationality:{" "}
                 {driver.country_code ? driver.country_code : "Unknown"}
