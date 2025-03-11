@@ -3,6 +3,7 @@ import Drivers from "../Drivers/Drivers.jsx";
 import PageContainer from "./PageContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import DriversModal from "../Drivers/DriverModal.jsx";
+import { Rnd } from "react-rnd";
 
 const DriversPage = () => {
   const [activeTab, setActiveTab] = useState("activeDrivers");
@@ -10,26 +11,52 @@ const DriversPage = () => {
   const [selectedDrivers, setSelectedDrivers] = useState([]);
 
   const handleDriverCardClick = (driver) => {
-    setSelectedDrivers([...selectedDrivers, driver]);
+    if (!selectedDrivers.some(selected => selected.id === driver.id)) {
+      setSelectedDrivers([...selectedDrivers, driver]);
+    }
   };
 
-  // const handleCloseModal = (driverToRemove) => {
-  //   setSelectedDrivers(selectedDrivers.filter(driver => driver !== driverToRemove));
-  // }
-
-  const handleCloseModal = () => {
-    setSelectedDrivers([]);
+  const handleCloseModal = (driverToRemove) => {
+    setSelectedDrivers(selectedDrivers.filter(driver => driver !== driverToRemove));
   };
 
   console.log(selectedDrivers);
 
   return (
-    <div>
-      {selectedDrivers.length > 0 && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center">
-          <DriversModal handleCloseModal={handleCloseModal} />
-        </div>
-      )}
+    <div className="relative w-full h-full">
+      {selectedDrivers.map((driver, index) => (
+  <Rnd
+    key={driver.id || index}
+    default={{
+      x: window.innerWidth / 2 - 450,
+      y: window.scrollY + window.innerHeight / 2 - 250,
+      width: 900,
+      height: 600
+    }}
+    bounds="parent"
+    dragHandleClassName="drag-handle"
+    enableUserSelectHack={false}
+    style={{ position: "absolute", zIndex: 100 }}
+    enableResizing={{
+      top: true,
+      right: true,
+      bottom: true,
+      left: true,
+      topRight: true,
+      bottomRight: true,
+      bottomLeft: true,
+      topLeft: true
+    }}
+    minWidth={400}
+  >
+    <DriversModal
+      driverId={driver.id}
+      handleCloseModal={() => handleCloseModal(driver)}
+    />
+  </Rnd>
+))}
+
+
       <PageContainer>
         <SearchBar
           activeTab={activeTab}

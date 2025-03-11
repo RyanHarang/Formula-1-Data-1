@@ -7,7 +7,7 @@ const Drivers = ({ activeTab, setActiveTab, searchQuery, onDriverClick }) => {
       {activeTab === "activeDrivers" ? (
         <ActiveDrivers searchQuery={searchQuery} onDriverClick={onDriverClick}/>
       ) : (
-        <AllDrivers />
+        <AllDrivers searchQuery={searchQuery} onDriverClick={onDriverClick}/>
       )}
     </div>
   );

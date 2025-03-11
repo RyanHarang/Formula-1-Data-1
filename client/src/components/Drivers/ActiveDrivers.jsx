@@ -70,7 +70,7 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
           {paginatedDrivers.map((driver, index) => (
             <div
               key={index}
-              className="border-accent dark:bg-dark-bg2 cursor-pointer rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105 flex flex-col"
+              className="border-black dark:border-accent hover:border-accent dark:bg-dark-bg2 cursor-pointer rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105 flex flex-col"
               onClick={() => onDriverClick(driver)}
             >
               <div className="w-full h-full overflow-hidden rounded-t-md">
