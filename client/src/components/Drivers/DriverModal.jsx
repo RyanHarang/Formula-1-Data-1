@@ -46,9 +46,6 @@ const DriverModal = ({ handleCloseModal, driverId }) => {
     fetchData();
   }, [driverId]);
 
-  //   if (loading) return <div></div>;
-  //   if (!driver) return <div></div>;
-
   return (
     <>
       {driver && !loading ? (
