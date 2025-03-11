@@ -6,6 +6,8 @@ const DriverSchema = new mongoose.Schema(
     name: String,
     image: String,
     DOB: String,
+    nationality: String,
+    natCode: String,
     lastYear: Number,
     team: Number,
     totalRaces: String,
