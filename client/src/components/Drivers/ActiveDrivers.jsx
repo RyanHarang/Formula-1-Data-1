@@ -70,22 +70,23 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
               className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
               onClick={() => onDriverClick(driver)}
             >
-              <div className="h-full w-full overflow-hidden rounded-t-md">
+              <div className="h-full max-h-[296px] w-full overflow-hidden rounded-t-md">
                 {driver.image ? (
                   <img
                     src={driver.image}
                     alt={`${driver.name}-headshot`}
                     loading="lazy"
-                    className="h-full w-full object-cover"
+                    className="object-cover"
                     onError={(error) => {
                       error.target.src = noDriverIcon;
+                      error.target.alt = "Placeholder driver image";
                       error.target.onerror = null;
                     }}
                   />
                 ) : (
                   <img
                     src={noDriverIcon}
-                    className="h-full w-full object-cover"
+                    className="object-cover"
                     alt="Placeholder driver image"
                   />
                 )}
