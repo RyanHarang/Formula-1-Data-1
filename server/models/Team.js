@@ -5,6 +5,7 @@ const TeamSchema = new mongoose.Schema(
     id: Number,
     name: String,
     nationality: String,
+    natCode: String,
     image: String,
     wins: String,
     races: String,
