@@ -18,7 +18,6 @@ router.get("/drivers-active", async (req, res) => {
 
 router.get("/driver-single", async (req, res) => {
   const findID = req.body.id;
-  console.log;
   data = await Driver.findOne({ id: findID });
   res.json(data);
 });
