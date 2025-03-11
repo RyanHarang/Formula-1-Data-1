@@ -14,7 +14,7 @@ const SearchBar = ({
   ];
   return (
     <div className="relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
-      <div className="border-dark-fg dark:border-dark-fg relative flex w-full max-w-[30rem] items-center rounded-lg border-2 bg-white dark:border-2 dark:bg-black">
+      <div className="border-dark-fg dark:border-dark-fg hover:border-accent transition-all duration-300 relative flex w-full max-w-[30rem] items-center rounded-lg border-2 bg-white dark:border-2 dark:bg-black">
         <div className="p-2 pl-3">
           <SearchIcon />
         </div>
@@ -23,7 +23,7 @@ const SearchBar = ({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search"
-          className="caret-light-fg dark:caret-dark-fg relative h-[3rem] w-full border-none focus:outline-none"
+          className="text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 caret-light-fg dark:caret-dark-fg relative h-[3rem] w-full border-none bg-transparent focus:outline-none"
         />
       </div>
       <div className="pl-2">

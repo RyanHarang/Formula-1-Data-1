@@ -26,28 +26,28 @@ const Navigation = () => {
         <Link to="/" className="flex cursor-pointer items-center justify-start">
           <LogoIcon />
         </Link>
-        <div className="absolute left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-4 md:gap-8">
+        <div className="absolute left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-4 md:gap-8 transition-all duration-300">
           <Link
             to="/"
-            className="after:bg-accent relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
+            className="after:bg-accent before:transition-all relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
           >
             Home
           </Link>
           <Link
             to="/"
-            className="after:bg-accent relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
+            className="after:bg-accent before:transition-all relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
           >
             Drivers
           </Link>
           <Link
             to="/Teams"
-            className="after:bg-accent relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
+            className="after:bg-accent before:transition-all relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
           >
             Teams
           </Link>
           <Link
             to="/Race"
-            className="after:bg-accent relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
+            className="after:bg-accent before:transition-all relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
           >
             Race
           </Link>
@@ -66,7 +66,7 @@ const Navigation = () => {
           )}
         </div>
       </div>
-      <div className="flex w-full items-center justify-end gap-2 sm:hidden">
+      <div className="flex w-full items-center justify-center gap-2 sm:hidden">
         <ModeToggle />
         <ThemeToggle />
       </div>
