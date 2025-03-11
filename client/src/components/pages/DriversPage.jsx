@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Rnd } from "react-rnd";
 import Drivers from "../Drivers/Drivers.jsx";
 import PageContainer from "./PageContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import DriversModal from "../Drivers/DriverModal.jsx";
-import { Rnd } from "react-rnd";
 
 const DriversPage = () => {
   const [activeTab, setActiveTab] = useState("activeDrivers");

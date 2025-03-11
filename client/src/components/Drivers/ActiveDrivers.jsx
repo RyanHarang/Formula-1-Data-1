@@ -25,9 +25,9 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
           return acc;
         }, {});
 
-        const driversWithTeamNames = driversData.map(driver => ({
+        const driversWithTeamNames = driversData.map((driver) => ({
           ...driver,
-          teamName: teamsById[driver.team]?.name || "Unknown"
+          teamName: teamsById[driver.team]?.name || "Unknown",
         }));
 
         setDrivers(driversWithTeamNames);
@@ -45,13 +45,9 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
     (driver) =>
       driver.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (driver.nationality &&
-        driver.nationality
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())) ||
+        driver.nationality.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (driver.teamName &&
-        driver.teamName
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()))
+        driver.teamName.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
   const startIndex = page * limit;
@@ -62,7 +58,9 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
 
   return (
     <div className="container mx-auto p-4 text-center">
-      <h1 className="mb-4 text-2xl font-bold before:transition-all">Active F1 Drivers</h1>
+      <h1 className="mb-4 text-2xl font-bold before:transition-all">
+        Active F1 Drivers
+      </h1>
       {loading ? (
         <div className="text-lg font-semibold">Loading...</div>
       ) : (
@@ -70,15 +68,16 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
           {paginatedDrivers.map((driver, index) => (
             <div
               key={index}
-              className="border-black dark:border-accent hover:border-accent dark:bg-dark-bg2 cursor-pointer rounded-lg border-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105 flex flex-col"
+              className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
               onClick={() => onDriverClick(driver)}
             >
-              <div className="w-full h-full overflow-hidden rounded-t-md">
+              <div className="h-full w-full overflow-hidden rounded-t-md">
                 {driver.image ? (
                   <img
                     src={driver.image}
                     alt={`${driver.name}-headshot`}
-                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    className="h-full w-full object-cover"
                     onError={(error) => {
                       error.target.src = noDriverIcon;
                       error.target.onerror = null;
@@ -87,26 +86,29 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
                 ) : (
                   <img
                     src={noDriverIcon}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                     alt="Placeholder driver image"
                   />
                 )}
               </div>
-              <div className="flex justify-between items-center px-2 py-2">
+              <div className="flex items-center justify-between px-2 py-2">
                 <h2 className="text-left text-xl font-semibold">
                   {(() => {
                     const parts = driver.name.split(" ");
                     return parts
                       .map((part, index) =>
                         index === parts.length - 1
-                          ? part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+                          ? part.charAt(0).toUpperCase() +
+                            part.slice(1).toLowerCase()
                           : part,
                       )
                       .join(" ");
                   })()}
                 </h2>
                 <div>
-                  <span className={`fi size-10 px-8 fi-${driver.natCode}`}></span>
+                  <span
+                    className={`fi size-10 px-8 fi-${driver.natCode}`}
+                  ></span>
                 </div>
               </div>
             </div>
@@ -131,8 +133,6 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
       </div>
     </div>
   );
-  
-  
 };
 
 export default ActiveDrivers;
