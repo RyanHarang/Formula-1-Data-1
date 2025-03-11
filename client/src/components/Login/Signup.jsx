@@ -1,94 +1,157 @@
-import React, { useState } from 'react';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
-import logo from '../../assets/svg/profile/logo.svg';
-import eye from '../../assets/svg/profile/eye.svg';
+import React, { useState } from "react";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register as registerUser } from "../../store/authActions.js";
+import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
+import EyeIcon from "../../assets/svg/profile/EyeIcon.jsx";
 
-// Zod schema for validation
-const formSchema = z.object({
+const formSchema = z
+  .object({
     email: z.string().email({ message: "Invalid email address" }),
-    password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
-    confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters long" })
-}).refine(data => data.password === data.confirmPassword, {
+    password: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters long" }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters long" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"]
-});
+    path: ["confirmPassword"],
+  });
 
 const Signup = () => {
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: zodResolver(formSchema)
-    });
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(formSchema),
+  });
 
-    const onSubmit = async (data) => {
-        console.log(data);
-    }
+  const onSubmit = async (data) => {
+    dispatch(registerUser(data.email, data.password));
+    navigate("/");
+  };
 
-    return (
-        <div className="relative w-full h-screen flex justify-center items-center">
-            {/* background img */}
-            <img className="absolute inset-0 w-full h-full object-cover" src="https://placehold.co/1593x1038" alt="Background" />
-            {/* back button */}
-            <button className="absolute top-4 left-4 text-white bg-black p-2 rounded hover:bg-gray-800" onClick={() => navigate('/')}>
-                Back
-            </button>
-            {/* overlay */}
-            <div className="relative z-10 w-[402px] p-6 bg-white/80 rounded-2xl border border-white backdrop-blur-sm flex-col justify-center items-center gap-6 inline-flex">
-                {/* logo */}
-                <img src={logo} alt="Logo" className="w-16 h-16 mb-4" />
-
-                <div className="self-stretch flex-col justify-start items-center gap-1 flex text-center mb-4">
-                    <div className="text-center text-black text-[34px] font-bold font-['DM Sans']">Sign Up</div>
-                    <div className="self-stretch text-center text-[#110c2a] text-base font-normal font-['DM Sans']">Create a new account</div>
-                </div>
-                <form className="self-stretch flex-col justify-start items-start gap-4 flex" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="self-stretch flex-col justify-start items-start flex">
-                        <div className="self-stretch flex-col justify-start items-start gap-1.5 flex">
-                            <label className="text-[#344053] text-sm font-medium font-['Inter'] leading-tight">Email</label>
-                            <div className="self-stretch px-4 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] border border-[#cfd4dc] justify-start items-center gap-2 inline-flex overflow-hidden">
-                                <input type="email" className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Email" {...register("email")} />
-                            </div>
-                            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
-                        </div>
-                    </div>
-                    <div className="self-stretch flex-col justify-start items-start gap-1.5 flex">
-                        <label className="text-[#344053] text-sm font-medium font-['Inter'] leading-tight">Password</label>
-                        <div className="self-stretch px-4 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] border border-[#cfd4dc] justify-start items-center gap-2 inline-flex overflow-hidden">
-                            <input type={showPassword ? "text" : "password"} className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Password" {...register("password")} />
-                            <div data-svg-wrapper className="relative cursor-pointer hover:cursor-pointer" onClick={togglePasswordVisibility}>
-                                <img src={eye} alt="eye" className='' />
-                            </div>
-                        </div>
-                        {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
-                    </div>
-                    <div className="self-stretch flex-col justify-start items-start gap-1.5 flex">
-                        <label className="text-[#344053] text-sm font-medium font-['Inter'] leading-tight">Confirm Password</label>
-                        <div className="self-stretch px-4 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] border border-[#cfd4dc] justify-start items-center gap-2 inline-flex overflow-hidden">
-                            <input type={showPassword ? "text" : "password"} className="grow shrink basis-0 text-[#667084] text-base font-normal font-['Inter'] leading-normal" placeholder="Confirm Password" {...register("confirmPassword")} />
-                            <div data-svg-wrapper className="relative cursor-pointer hover:cursor-pointer" onClick={togglePasswordVisibility}>
-                                <img src={eye} alt="eye" className='' />
-                            </div>
-                        </div>
-                        {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
-                    </div>
-                    <Link className="text-black text-xs font-normal font-['DM Sans'] flex center mt-2 hover:cursor-pointer" to="/login">Already have an account? Login</Link>
-                    <button type="submit" className="self-stretch h-12 px-4 py-3 bg-black rounded-xl justify-center items-center gap-3 flex mt-4 hover:bg-[#1a1a1a] hover:cursor-pointer">
-                        <div className="text-white text-base font-medium font-['DM Sans']">Sign Up</div>
-                    </button>
-                </form>
-            </div>
+  return (
+    <div className="relative flex h-screen items-center justify-center">
+      <img
+        className="absolute inset-0 h-full w-full object-cover"
+        src="https://placehold.co/1593x1038"
+        alt="Background"
+      />
+      <button
+        className="bg-light-bg dark:bg-dark-bg hover:bg-light-bg2 dark:hover:bg-dark-bg3 absolute top-4 left-4 rounded p-2"
+        onClick={() => navigate("/")}
+      >
+        Back
+      </button>
+      <div className="bg-light-bg/80 dark:bg-dark-bg/80 relative z-10 inline-flex w-[402px] flex-col items-center justify-center gap-4 rounded-2xl border p-6 backdrop-blur-sm">
+        <LogoIcon />
+        <div className="flex h-[69px] flex-col items-center justify-start gap-1 self-stretch text-center">
+          <div className="font-['DM Sans'] text-center text-[34px] font-bold">
+            Sign Up
+          </div>
+          <div className="font-['DM Sans'] self-stretch text-center text-base font-normal">
+            Create a new account
+          </div>
         </div>
-    );
-}
+        <form
+          className="flex flex-col items-start justify-start gap-4 self-stretch"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <label className="font-['Inter'] text-sm leading-tight font-medium">
+            Email
+          </label>
+          <div className="bg-light-bg inline-flex items-center justify-start gap-2 self-stretch overflow-hidden rounded-lg border px-4 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]">
+            <input
+              type="email"
+              className="text-light-fg shrink grow basis-0 font-['Inter'] text-base leading-normal font-normal"
+              placeholder="Email"
+              {...register("email")}
+            />
+          </div>
+          {errors.email && (
+            <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+          )}
+          <label className="font-['Inter'] text-sm leading-tight font-medium">
+            Password
+          </label>
+          <div className="bg-light-bg inline-flex items-center justify-start gap-2 self-stretch overflow-hidden rounded-lg border px-4 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="text-light-fg shrink grow basis-0 font-['Inter'] text-base leading-normal font-normal"
+              placeholder="Password"
+              {...register("password")}
+            />
+            <button
+              data-svg-wrapper
+              type="button"
+              className="relative cursor-pointer hover:cursor-pointer"
+              onClick={togglePasswordVisibility}
+            >
+              <EyeIcon />
+            </button>
+          </div>
+          {errors.password && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.password.message}
+            </p>
+          )}
+          <label className="font-['Inter'] text-sm leading-tight font-medium">
+            Confirm Password
+          </label>
+          <div className="bg-light-bg inline-flex items-center justify-start gap-2 self-stretch overflow-hidden rounded-lg border px-4 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="text-light-fg shrink grow basis-0 font-['Inter'] text-base leading-normal font-normal"
+              placeholder="Confirm Password"
+              {...register("confirmPassword")}
+            />
+            <button
+              data-svg-wrapper
+              type="button"
+              className="relative cursor-pointer hover:cursor-pointer"
+              onClick={togglePasswordVisibility}
+            >
+              <EyeIcon />
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.confirmPassword.message}
+            </p>
+          )}
+          <Link
+            className="font-['DM Sans'] center mt-2 flex text-xs font-normal hover:cursor-pointer"
+            to="/login"
+          >
+            Already have an account?&nbsp; <u>Sign In</u>
+          </Link>
+          <button
+            type="submit"
+            className="hover:bg-dark-bg3 dark:hover:bg-light-bg2 bg-dark-bg dark:bg-light-bg flex h-12 w-full shrink grow basis-0 items-center justify-center gap-3 rounded-xl px-4 py-3 hover:cursor-pointer"
+          >
+            <div className="font-['DM Sans'] text-dark-fg dark:text-light-fg text-base font-medium">
+              Sign Up
+            </div>
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default Signup;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function ActiveTeams() {
+const ActiveTeams = () => {
   const [teams, setTeams] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -74,6 +74,6 @@ function ActiveTeams() {
       </div>
     </div>
   );
-}
+};
 
 export default ActiveTeams;

@@ -1,9 +1,27 @@
-function PageContainer({ children }) {
+import { isValidElement } from "react";
+import Navigation from "../Navigation/Navigation.jsx";
+import Footer from "../Footer/Footer.jsx";
+
+const PageContainer = ({ children }) => {
+  let isAuthPage;
+  if (isValidElement(children)) {
+    const childName = children.type.name;
+    isAuthPage = childName === "Login" || childName === "Signup";
+  } else {
+    isAuthPage = false;
+  }
+
   return (
-    <div className="dark:bg-dark-bg text-light-fg dark:text-dark-fg min-h-screen min-w-screen bg-white">
-      {children}
-    </div>
+    <>
+      {!isAuthPage && <Navigation />}
+      <main
+        className={`min-h-screen min-w-screen ${!isAuthPage ? "pt-20" : ""}`}
+      >
+        {children}
+      </main>
+      {!isAuthPage && <Footer />}
+    </>
   );
-}
+};
 
 export default PageContainer;

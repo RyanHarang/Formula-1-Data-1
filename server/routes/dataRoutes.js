@@ -1,16 +1,55 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/drivers", (req, res) => {
-  res.send("Get drivers data");
+const Driver = require("../models/Driver");
+const Race = require("../models/Race");
+const Team = require("../models/Team");
+const Lap = require("../models/Lap");
+
+router.get("/drivers", async (req, res) => {
+  data = await Driver.find();
+  res.json(data);
 });
 
-router.get("/teams", (req, res) => {
-  res.send("Get teams data");
+router.get("/drivers-active", async (req, res) => {
+  data = await Driver.find({ lastYear: 2024 });
+  res.json(data);
 });
 
-router.get("/races", (req, res) => {
-  res.send("Get races data");
+router.get("/driver-single", async (req, res) => {
+  const findID = req.body.id;
+  console.log;
+  data = await Driver.findOne({ id: findID });
+  res.json(data);
+});
+
+router.get("/teams", async (req, res) => {
+  data = await Team.find();
+  res.json(data);
+});
+
+router.get("/team-single", async (req, res) => {
+  const findID = req.body.id;
+  data = await Team.findOne({ id: findID });
+  res.json(data);
+});
+
+router.get("/races", async (req, res) => {
+  data = await Race.find();
+  res.json(data);
+});
+
+router.get("/race-single", async (req, res) => {
+  const findID = req.body.id;
+  data = await Race.findOne({ id: findID });
+  res.json(data);
+});
+
+router.get("/race-laps", async (req, res) => {
+  const DriverID = req.body.driverId;
+  const RaceID = req.body.raceId;
+  data = await Lap.find({ raceId: RaceID, driverId: DriverID });
+  res.json(data);
 });
 
 module.exports = router;

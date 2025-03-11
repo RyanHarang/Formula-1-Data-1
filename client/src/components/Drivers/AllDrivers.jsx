@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function AllDrivers() {
+const AllDrivers = () => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -77,6 +77,6 @@ function AllDrivers() {
       </div>
     </div>
   );
-}
+};
 
 export default AllDrivers;
