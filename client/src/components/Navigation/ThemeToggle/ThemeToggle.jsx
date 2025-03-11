@@ -21,7 +21,25 @@ const ThemeToggle = () => {
       "--color-accent",
       `var(${color})`,
     );
+    localStorage.setItem("accentColor", color);
   };
+
+  useEffect(() => {
+    const storedColor = localStorage.getItem("accentColor");
+
+    if (storedColor && Object.values(highlightColors).includes(storedColor)) {
+      setSelected(storedColor);
+      document.documentElement.style.setProperty(
+        "--color-accent",
+        `var(${storedColor})`,
+      );
+    } else {
+      document.documentElement.style.setProperty(
+        "--color-accent",
+        `var(${selected})`,
+      );
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
