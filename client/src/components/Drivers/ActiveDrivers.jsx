@@ -5,7 +5,6 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const currentYear = new Date().getFullYear();
   const limit = 24;
 
   useEffect(() => {
