@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import DriversPage from "../pages/DriversPage.jsx";
 import TeamsPage from "../pages/TeamsPage.jsx";
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     index: true,
-    element: <HomePage />,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/Drivers",
