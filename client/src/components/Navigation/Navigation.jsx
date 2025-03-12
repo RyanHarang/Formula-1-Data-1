@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authActions";
 import ModeToggle from "./ModeToggle/ModeToggle.jsx";
 import ThemeToggle from "./ThemeToggle/ThemeToggle.jsx";
@@ -27,12 +26,14 @@ const Navigation = () => {
           <LogoIcon />
         </Link>
         <div className="absolute left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-4 transition-all duration-300 md:gap-8">
-          <Link
-            to="/"
-            className="after:bg-accent relative cursor-pointer before:transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
-          >
-            Home
-          </Link>
+          {isAuthenticated && (
+            <Link
+              to="/"
+              className="after:bg-accent relative cursor-pointer before:transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
+            >
+              Home
+            </Link>
+          )}
           <Link
             to="/Drivers"
             className="after:bg-accent relative cursor-pointer before:transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"

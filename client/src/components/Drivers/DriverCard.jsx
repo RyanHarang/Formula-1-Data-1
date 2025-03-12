@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
 const DriverCard = ({
@@ -6,6 +7,8 @@ const DriverCard = ({
   onAddFavorite,
   onRemoveFavorite,
 }) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const handleAddFavorite = (e) => {
     e.stopPropagation();
     if (onAddFavorite) {
@@ -27,7 +30,7 @@ const DriverCard = ({
       className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
     >
       <div className="relative h-full max-h-[296px] w-full overflow-hidden rounded-t-md">
-        {onAddFavorite && (
+        {onAddFavorite && isAuthenticated && (
           <button
             onClick={handleAddFavorite}
             className="bg-accent hover:bg-accent/80 absolute top-2 right-2 rounded-md px-2 py-1 text-white"
@@ -35,7 +38,7 @@ const DriverCard = ({
             Add Favorite
           </button>
         )}
-        {onRemoveFavorite && (
+        {onRemoveFavorite && isAuthenticated && (
           <button
             onClick={handleRemoveFavorite}
             className="absolute top-2 right-2 rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
