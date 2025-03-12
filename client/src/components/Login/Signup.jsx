@@ -41,7 +41,7 @@ const Signup = () => {
   });
 
   const onSubmit = async (data) => {
-    dispatch(registerUser(data.email, data.password));
+    await dispatch(registerUser(data.email, data.password));
     navigate("/");
   };
 
