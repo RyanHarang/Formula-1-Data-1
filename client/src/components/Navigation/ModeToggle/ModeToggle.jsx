@@ -20,7 +20,7 @@ const ModeToggle = () => {
   return (
     <button
       onClick={() => setDarkMode(!darkMode)}
-      className="hover:bg-light-bg2 dark:hover:bg-dark-bg dark:bg-dark-bg2 rounded-xl p-2 transition-all duration-300"
+      className="hover:bg-light-bg2 dark:hover:bg-dark-bg dark:bg-dark-bg2 flex h-6 w-6 items-center justify-center rounded-xl transition-all duration-300"
     >
       {darkMode ? <SunIcon /> : <MoonIcon />}
     </button>
