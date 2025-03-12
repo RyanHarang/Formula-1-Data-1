@@ -46,7 +46,7 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
                 <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                     {titles.map((title, index) => (
                         <div key={title} className="min-w-full flex-shrink-0">
-                            <div className="p-4 bg-gray-800 text-white">
+                            <div className="p-4 bg-lightgray dark:bg-gray-800 dark:text-white">
                                 <RaceCard title={title} date={dates[index]} track={tracks[index]} winner={winners[index]} fastestLap={fastestLaps[index]} polePosition={polePositions[index]} />
                             </div>
                         </div>
