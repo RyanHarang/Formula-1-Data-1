@@ -34,7 +34,7 @@ const Navigation = () => {
             Home
           </Link>
           <Link
-            to="/"
+            to="/Drivers"
             className="after:bg-accent relative cursor-pointer before:transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-400 hover:after:w-full"
           >
             Drivers
