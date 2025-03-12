@@ -38,6 +38,11 @@ router.get("/races", async (req, res) => {
   res.json(data);
 });
 
+router.get("/races-active", async (req, res) => {
+  data = await Race.find({ date: { $regex: "2024" } });
+  res.json(data);
+});
+
 router.get("/race-single", async (req, res) => {
   const findID = req.body.id;
   data = await Race.findOne({ id: findID });

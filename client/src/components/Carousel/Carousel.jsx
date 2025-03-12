@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
-const Carousel = ({ images, dates, names, locations, distances, interval = 3000 }) => {
+const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, interval = 3000 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-
     const [isPaused, setIsPaused] = useState(false);
 
     const handleMouseEnter = () => {
@@ -14,55 +14,59 @@ const Carousel = ({ images, dates, names, locations, distances, interval = 3000 
         setIsPaused(false);
     };
 
-    const imageCount = images.length;
+    const itemCount = titles.length;
 
     useEffect(() => {
         if (isPaused) return;
 
         const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % imageCount);
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % itemCount);
         }, interval);
 
         return () => clearInterval(timer);
-    }, [imageCount, interval, isPaused]);
+    }, [itemCount, interval, isPaused]);
 
     return (
-        <div className="carousel relative w-full h-full flex overflow-hidden" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <div className="relative w-full h-full">
-                <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} className="carousel-image absolute inset-0 w-full h-full object-cover" />
-            </div>
-            <div className="self-stretch h-[725px] flex-col justify-start items-center gap-[46px] inline-flex">
-                <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 bg-black p-4">
-                    <div className="h-[108px] justify-start items-start inline-flex">
-                        <div className="grow shrink basis-0 flex-col justify-start items-start gap-1 inline-flex">
-                            <div className="px-3 py-1.5 bg-[#1a1b25] rounded-[100px] justify-center items-center gap-2.5 inline-flex">
-                                <div className="text-white text-sm font-normal font-['Manrope']">
-                                    {dates[currentIndex]}
-                                </div>
-                            </div>
-                            <div className="self-stretch text-white text-[32px] font-bold font-['Manrope']">
-                                {names[currentIndex]}
-                            </div>
-                            <div className="self-stretch text-gray-300 text-lg font-normal font-['Manrope']">
-                                {locations[currentIndex]}
+        <div className="relative w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="overflow-hidden">
+                <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                    {titles.map((title, index) => (
+                        <div key={title} className="min-w-full flex-shrink-0">
+                            <div className="p-4 bg-gray-800 text-white">
+                                <h5 className="text-xl font-bold">{title}</h5>
+                                <p>{dates[index]}</p>
+                                <p>{tracks[index]}</p>
+                                <p>{winners[index]}</p>
+                                <p>{fastestLaps[index]}</p>
+                                <p>{polePositions[index]}</p>
                             </div>
                         </div>
-                        <div className="text-white text-2xl font-bold font-['Manrope']">
-                            {distances[currentIndex]}
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
+            <button
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2"
+                onClick={() => setCurrentIndex((prevIndex) => (prevIndex - 1 + itemCount) % itemCount)}
+            >
+                <FaArrowLeft />
+            </button>
+            <button
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2"
+                onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % itemCount)}
+            >
+                <FaArrowRight />
+            </button>
         </div>
     );
 };
 
 Carousel.propTypes = {
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    titles: PropTypes.arrayOf(PropTypes.string).isRequired,
     dates: PropTypes.arrayOf(PropTypes.string).isRequired,
-    names: PropTypes.arrayOf(PropTypes.string).isRequired,
-    locations: PropTypes.arrayOf(PropTypes.string).isRequired,
-    distances: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tracks: PropTypes.arrayOf(PropTypes.string).isRequired,
+    winners: PropTypes.arrayOf(PropTypes.string).isRequired,
+    fastestLaps: PropTypes.arrayOf(PropTypes.string).isRequired,
+    polePositions: PropTypes.arrayOf(PropTypes.string).isRequired,
     interval: PropTypes.number,
 };
 
