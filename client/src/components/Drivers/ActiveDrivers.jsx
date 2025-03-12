@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import DriverCard from "./DriverCard.jsx";
-import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
 const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
   const [drivers, setDrivers] = useState([]);
