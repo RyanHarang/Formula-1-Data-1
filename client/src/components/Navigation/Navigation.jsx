@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authActions";
@@ -5,19 +6,40 @@ import ModeToggle from "./ModeToggle/ModeToggle.jsx";
 import ThemeToggle from "./ThemeToggle/ThemeToggle.jsx";
 import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
 import LoginIcon from "../../assets/svg/profile/LoginIcon.jsx";
+import UserIcon from "../../assets/svg/profile/UserIcon.jsx";
+import UserDropdown from "./UserDropdown/UserDropdown.jsx";
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const emailPrefix = user?.email ? user.email.split("@")[0] : "Guest";
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(logout());
+    setDropdownOpen(false);
     navigate("/login");
   };
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-light-bg/90 dark:bg-dark-bg/90 fixed z-50 flex w-full max-w-screen flex-wrap items-center justify-between p-4 text-base leading-normal font-semibold">
@@ -53,13 +75,26 @@ const Navigation = () => {
             Races
           </Link>
         </div>
-        <div className="flex items-center justify-end gap-5">
+        <div className="flex items-center gap-5">
           <div className="hidden gap-5 sm:flex">
             <ModeToggle />
             <ThemeToggle />
           </div>
           {isAuthenticated ? (
-            <button onClick={handleLogout}>{emailPrefix}</button>
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={handleDropdownToggle}
+                className="flex h-6 w-6 cursor-pointer items-center justify-center"
+              >
+                <UserIcon />
+              </button>
+              {dropdownOpen && (
+                <UserDropdown
+                  emailPrefix={emailPrefix}
+                  onLogout={handleLogout}
+                />
+              )}
+            </div>
           ) : (
             <Link to="/Login">
               <LoginIcon />
