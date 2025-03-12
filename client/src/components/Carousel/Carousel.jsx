@@ -14,6 +14,10 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
         setIsPaused(false);
     };
 
+    const handleMouseClick = () => {
+      openModal(currentIndex);  
+    };
+
     const itemCount = titles.length;
 
     useEffect(() => {
@@ -27,7 +31,7 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
     }, [itemCount, interval, isPaused]);
 
     return (
-        <div className="relative w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className="relative w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMouseClick}>
             <div className="overflow-hidden">
                 <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                     {titles.map((title, index) => (
