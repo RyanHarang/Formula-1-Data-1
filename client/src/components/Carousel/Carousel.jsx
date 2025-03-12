@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import RaceCard from '../Races/RaceCard';
 
-const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, interval = 3000 }) => {
+const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, interval = 2500 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
 
@@ -15,8 +16,17 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
     };
 
     const handleMouseClick = () => {
-      openModal(currentIndex);  
+        openModal(currentIndex);
     };
+
+    const nextIndex = (lastIndex) => {
+        // console.log(`itemCount = ${itemCount}, currentIndex = ${lastIndex}`);
+        return (lastIndex + 1) % (itemCount);
+    }
+    const prevIndex = (lastIndex) => {
+        // console.log(`itemCount = ${itemCount}, currentIndex = ${lastIndex}`);
+        return (lastIndex - 1 + itemCount) % (itemCount);
+    }
 
     const itemCount = titles.length;
 
@@ -24,39 +34,34 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
         if (isPaused) return;
 
         const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % itemCount);
+            setCurrentIndex(nextIndex);
         }, interval);
 
         return () => clearInterval(timer);
     }, [itemCount, interval, isPaused]);
 
     return (
-        <div className="relative w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMouseClick}>
+        <div className="relative w-full h-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMouseClick}>
             <div className="overflow-hidden">
                 <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                     {titles.map((title, index) => (
                         <div key={title} className="min-w-full flex-shrink-0">
                             <div className="p-4 bg-gray-800 text-white">
-                                <h5 className="text-xl font-bold">{title}</h5>
-                                <p>{dates[index]}</p>
-                                <p>{tracks[index]}</p>
-                                <p>{winners[index]}</p>
-                                <p>{fastestLaps[index]}</p>
-                                <p>{polePositions[index]}</p>
+                                <RaceCard title={title} date={dates[index]} track={tracks[index]} winner={winners[index]} fastestLap={fastestLaps[index]} polePosition={polePositions[index]} />
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
             <button
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2"
-                onClick={() => setCurrentIndex((prevIndex) => (prevIndex - 1 + itemCount) % itemCount)}
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 hover:bg-gray-700"
+                onClick={() => setCurrentIndex(prevIndex)}
             >
                 <FaArrowLeft />
             </button>
             <button
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2"
-                onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % itemCount)}
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 hover:bg-gray-700"
+                onClick={() => setCurrentIndex(nextIndex)}
             >
                 <FaArrowRight />
             </button>

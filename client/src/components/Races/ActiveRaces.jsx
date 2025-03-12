@@ -65,7 +65,7 @@ const ActiveRaces = ({ searchQuery }) => {
       {loading ? (
         <div className="text-lg font-semibold">Loading...</div>
       ) : (
-        <Carousel
+        <Carousel className="overflow-hidden flex transition-transform duration-500 w-full h-full"
           titles={filteredRaces.map((race) => race.title)}
           dates={filteredRaces.map((race) => race.date)}
           tracks={filteredRaces.map((race) => race.track)}

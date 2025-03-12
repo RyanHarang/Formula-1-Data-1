@@ -24,9 +24,9 @@ const ActiveRaces = ({ searchQuery }) => {
   }, []);
 
   const filteredRaces = races.filter(
-    (race) =>
+    (race) => searchQuery ?
       race.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (race.location && race.location.toLowerCase().includes(searchQuery.toLowerCase()))
+      (race.location && race.location.toLowerCase().includes(searchQuery.toLowerCase())) : race
   );
 
   return (

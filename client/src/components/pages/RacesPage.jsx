@@ -17,7 +17,7 @@ const Race = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <div>
+      <div className="w-full h-full flex flex-col items-center justify-center">
         {activeTab === "activeRaces" ? (
           <ActiveRaces searchQuery={searchQuery} />
         ) : ( <AllRaces searchQuery={searchQuery} /> )}
