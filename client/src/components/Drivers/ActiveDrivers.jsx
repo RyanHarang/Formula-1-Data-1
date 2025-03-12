@@ -55,6 +55,35 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
     startIndex + limit,
   );
 
+  const handleAddFavorite = async (type, favoriteId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/api/favorites/add/${type}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: favoriteId }),
+        },
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        // setFavorites((prevFavorites) => ({
+        //   ...prevFavorites,
+        //   [type]: [...prevFavorites[type], data.favoriteItem],
+        // }));
+      } else {
+        // console.error("Error adding item to favorites:", data.message);
+      }
+    } catch (error) {
+      console.error("Error adding to favorites:", error);
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 text-center">
       <h1 className="mb-4 text-2xl font-bold before:transition-all">
@@ -69,6 +98,7 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
               key={index}
               driver={driver}
               onDriverClick={onDriverClick}
+              onAddFavorite={handleAddFavorite}
             />
           ))}
         </div>
