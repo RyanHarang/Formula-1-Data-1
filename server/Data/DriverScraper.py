@@ -12,57 +12,18 @@ BASE_URL = "https://pitwall.app/"
 # print("Done")
 
 class Driver:
-    def __init__(self, name, picture, number, DOB, nat, natCode, lastYear, team, totalRaces, wins):
-        self.name = name
-        self.picture = picture
-        self.number = number
-        self.dateOfBirth = DOB
-        self.nationality = nat
-        self.natCode = natCode
-        self.lastYear = lastYear
-        self.lastTeam = team
-        self.totalRaces = totalRaces
-        self.wins = wins
-
     def print(self):
-        print("Name: " + self.name)
-        print("Picture: " + self.picture)
-        print("Number:" + self.number)
-        print("DOB: " + self.dateOfBirth)
-        print("Nationality: " + self.nationality)
-        print("Nation Code: " + self.natCode)
-        print("Last Year: " + self.lastYear)
-        print("Last Team: " + self.lastTeam)
-        print("Total Races: " + self.totalRaces)
-        print("Wins: " + self.wins)
+        for key, value in self.__dict__.items():
+            print(f"{key}: {value}")
 
     def to_dict(self):
-        return {
-            "name": self.name,
-            "image": self.picture,
-            "number": self.number,
-            "DOB": self.dateOfBirth,
-            "nationality": self.nationality,
-            "natCode": self.natCode,
-            "lastYear": self.lastYear,
-            "team": self.lastTeam,
-            "totalRaces": self.totalRaces,
-            "wins": self.wins
-        }
+        return self.__dict__.copy()
     
     def from_json(data):
-        return(Driver(
-            name = data["name"],
-            picture = data["image"],
-            number = data["number"],
-            DOB = data["DOB"],
-            nat = data["nationality"],
-            natCode = data["natCode"],
-            lastYear = data["lastYear"],
-            team = data["team"],
-            totalRaces = data["totalRaces"],
-            wins = data["wins"]
-        ))
+        d = Driver()
+        for key, value in data.items():
+            setattr(d, key, value)
+        return d
 
 def fetchYear(year):
     drivers = []
@@ -95,6 +56,7 @@ def fetchDriverLinks():
     return drivers
 
 def getDriverData(driver):
+    NEW_DRIVER = Driver()
     url = BASE_URL + driver
     print(url)
     result = SESSION.get(url)
@@ -102,13 +64,16 @@ def getDriverData(driver):
 
     #get name and image
     name = src.find("h1").text.strip()
+    setattr(NEW_DRIVER, "name", name)
+
     imageDiv = src.find("div",{"class":"image"})
     imageSrc = imageDiv.find("img")
     if imageSrc is None:
         image = "null"
     else:
         image = imageSrc['src']
-    
+    setattr(NEW_DRIVER, "image", image)
+
     #get number and DOB
     summary = src.find("div",{"class":"info-pane-data"})
     cells = summary.find_all("div", {"class":"stats"}) + summary.find_all("div", {"class":"stats stats-full"})
@@ -130,9 +95,15 @@ def getDriverData(driver):
                 natCode = cell.find("span")["class"][1].split("-")[-1].strip()
             except:
                 print(name + " Has no Nationality")
+    
+    setattr(NEW_DRIVER, "number", number)
+    setattr(NEW_DRIVER, "DOB", DOB)
+    setattr(NEW_DRIVER, "nationality", nationality)
+    setattr(NEW_DRIVER, "natCode", natCode)
 
     #total races
     totalRaces = src.find("div", {"class":"big-blocks"}).find_all("div", {"class":"stats-block"})[2].find("div", {"class":"value"}).text.strip()
+    setattr(NEW_DRIVER, "totalRaces", totalRaces)
 
     #rest of stats
     mainData = src.find("div", {"class":"wrapper", "id":"page"}).find("div", {"class":"row"})
@@ -148,14 +119,16 @@ def getDriverData(driver):
             lastYear = block.find("a").text.split(" ")[0].strip()
         elif title == "Wins":
             wins = block.find("div", {"class":"value"}).text.strip()
+    setattr(NEW_DRIVER, "team", team)
+    setattr(NEW_DRIVER, "lastYear", lastYear)
+    setattr(NEW_DRIVER, "wins", wins)
     
     #make object
-    driver = Driver(name, image, number, DOB, nationality, natCode, lastYear, team, totalRaces, wins)
-    return driver
+    return NEW_DRIVER
 
 def getAllDriverData(drivers):
     #driverNames = ["alexander-albon", "fernando-alonso", "andrea-kimi-antonelli"]
-    f_out = open(CURRENT_DIRECTORY + "/JSON/driverData.json", "w+")
+    f_out = open(CURRENT_DIRECTORY + "/JSON/DriverData.json", "w+")
     allData = []
     for driver in drivers:
         #print(driver)

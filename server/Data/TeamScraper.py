@@ -8,45 +8,20 @@ CURRENT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 BASE_URL = "https://pitwall.app"
 
 class Team:
-    def __init__(self, name, nationality, natCode, picture, wins, races, drivers):
-        self.name = name
-        self.picture = picture
-        self.nationality = nationality
-        self.natCode = natCode
-        self.wins = wins
-        self.races = races
-        self.drivers = drivers
-    
     def print(self):
-        print("Name: " + str(self.name))
-        print("Picture: " + str(self.picture))
-        print("Nationality: " + str(self.nationality))
-        print("Nation Code: " + str(self.natCode))
-        print("Wins: " + str(self.wins))
-        print("Races: " + str(self.races))
-        print("Drivers: " + str(self.drivers))
-    
+        for key, value in self.__dict__.items():
+            print(f"{key}: {value}")
+
     def to_dict(self):
-        return {
-            "name": self.name,
-            "image": self.picture,
-            "nationality": self.nationality,
-            "natCode":self.natCode,
-            "wins": self.wins,
-            "races": self.races,
-            "drivers": self.drivers
-        }
-    
+        return self.__dict__.copy()
+
+    @staticmethod
     def from_json(data):
-        return (Team(
-            name = data["name"],
-            picture = data["image"],
-            nationality = data["nationality"],
-            natCode = data["natCode"],
-            wins = data["wins"],
-            races = data["races"],
-            drivers = data["drivers"]
-        ))
+        team = Team()  # Create an empty Team object
+        for key, value in data.items():
+            setattr(team, key, value)  # Dynamically assign attributes
+        return team
+
     
 def fetchYear(year):
     teams = []
@@ -76,6 +51,7 @@ def fetchAllTeamLinks():
     return teams
 
 def fetchTeamData(team):
+    NEW_TEAM = Team()
     url = BASE_URL + team
     print(url)
     result = SESSION.get(url)
@@ -94,6 +70,9 @@ def fetchTeamData(team):
         picture = infoPane.find('div', {'class': 'image'}).find('img')['src']
     except:
         picture = "null"
+    
+    setattr(NEW_TEAM, "name", teamName)
+    setattr(NEW_TEAM, "picture", picture)
 
     natCode = infoPane.find("span")["class"][1].split("-")[-1].strip()
     stats = src.find_all('div', {'class': 'stats'})
@@ -105,6 +84,10 @@ def fetchTeamData(team):
                 drivers.append(name.text.strip())
         elif "Nationality" in title:
             nationality = stat.find("div", {"class":"content"}).text.strip()
+
+    setattr(NEW_TEAM, "nationality", nationality)
+    setattr(NEW_TEAM, "natCode", natCode)
+    setattr(NEW_TEAM, "drivers", drivers)
     
     bigBlocks = src.find('div', {'class': 'big-blocks'})
     blocks = bigBlocks.find_all('div', {'class': 'stats-block'})
@@ -114,6 +97,9 @@ def fetchTeamData(team):
             wins = block.find('div', {'class': 'value'}).text.strip().split("/")[0]
         elif "Races" == label:
             races = block.find('div', {'class': 'value'}).text.strip()
+
+    setattr(NEW_TEAM, "wins", wins)
+    setattr(NEW_TEAM, "races", races)
 
     team = Team(teamName, nationality, natCode, picture, wins, races, drivers)
     return team

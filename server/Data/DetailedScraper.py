@@ -70,14 +70,14 @@ class Lap:
 
     def toJson(self):
         return{
-            "number":self.number,
+            "lapNumber":self.number,
             "position":self.position,
             "time":self.time
         }
     
     def from_json(data):
         return (Lap(
-            no = data["number"],
+            no = data["lapNumber"],
             pos=data["position"],
             time = data["time"]
         ))
@@ -175,9 +175,8 @@ def getRaceDetails():
     f_in = open(CURRENT_DIRECTORY + "/detailedRaces.json", "r")
     rawData = json.load(f_in)
     seasons = [Season.from_json(season) for season in rawData]
-    index = 1
+    allDetails = []
     for season in seasons:
-        allDetails = []
         sID = season.ID
         for race in season.races:
             rID = race.race_id
@@ -200,13 +199,12 @@ def getRaceDetails():
                 except:
                     continue
 
-        f_out = open(CURRENT_DIRECTORY + f"/JSON/detailedRaces{index}.json", "w+")
-        json.dump([s.toJson() for s in allDetails], f_out, indent=4)
-        f_out.close()
-        index += 1
+    f_out = open(CURRENT_DIRECTORY + f"/JSON/DetailedRaces.json", "w+")
+    json.dump([s.toJson() for s in allDetails], f_out, indent=4)
+    f_out.close()
 
-# start = time.time()
-# getRaceDetails()
-# end = time.time()
+#start = time.time()
+#getRaceDetails()
+#end = time.time()
 # runtime = end-start
 # print(f"Completed after {runtime:.4f} seconds")

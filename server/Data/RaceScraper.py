@@ -9,41 +9,20 @@ CURRENT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 BASE_URL = "https://pitwall.app/"
 
 class Race:
-    def __init__(self, title, date, track, winner, fastestLap, polePosition):
-        self.title = title
-        self.date = date
-        self.track = track
-        self.winner = winner
-        self.fastestLap = fastestLap
-        self.polePosition = polePosition
-    
     def print(self):
-        print("Title: " + self.title)
-        print("Date: " + self.date)
-        print("Track: " + self.track)
-        print("Winner: " + self.winner)
-        print("Fastest Lap: " + self.fastestLap)
-        print("Pole Position: " + self.polePosition)
-    
+        for key, value in self.__dict__.items():
+            print(f"{key}: {value}")
+
     def to_dict(self):
-        return {
-            "title": self.title,
-            "date": self.date,
-            "track": self.track,
-            "winner": self.winner,
-            "fastestLap": self.fastestLap,
-            "polePosition": self.polePosition
-        }
-    
+        return self.__dict__.copy()
+
+    @staticmethod
     def from_json(data):
-        return (Race(
-            title = data["title"],
-            date = data["date"],
-            track = data["track"],
-            winner = data["winner"],
-            fastestLap = data["fastestLap"],
-            polePosition = data["polePosition"]
-        ))
+        race = Race()  # Create an empty Race object
+        for key, value in data.items():
+            setattr(race, key, value)  # Dynamically assign attributes
+        return race
+
 
 def getYearLinks(year):
     links = []
@@ -68,6 +47,7 @@ def getAllRaceLinks():
     return raceLinks
 
 def getRaceData(link):
+    NEW_RACE = Race()
     url = BASE_URL + link
     print(url)
     result = SESSION.get(url)
@@ -89,6 +69,10 @@ def getRaceData(link):
         elif title == "Circuit":
             track = cell.find('div', {'class': 'content'}).text.strip()
 
+    #set name, date, track, winner, fastest lap, and pole
+    setattr(NEW_RACE, "title", name)
+    setattr(NEW_RACE, "date", date)
+    setattr(NEW_RACE, "track", track)
 
     overallInfo = src.find('div', {'class': "small-blocks"}).find_all('div', {'class': 'stats-block'})
     for cell in overallInfo:
@@ -105,8 +89,11 @@ def getRaceData(link):
         if cells[4].text.strip() == "1st":
             polePosition = driver.find("td", {"class":"title"}).find("a").text.strip()
 
-    race = Race(name, date, track, winner, fastestLap, polePosition)
-    return race
+    setattr(NEW_RACE, "winner", winner)
+    setattr(NEW_RACE, "fastestLap", fastestLap)
+    setattr(NEW_RACE, "polePosition", polePosition)
+
+    return NEW_RACE
 
 def main():
     raceLinks = getAllRaceLinks()
