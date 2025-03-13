@@ -9,8 +9,8 @@ const SearchBar2 = ({
   setSearchQuery,
 }) => {
   const filterItems = [
-    { label: "Upcoming Races", value: "upcomingRaces" },
-    { label: "Past Races", value: "pastRaces" },
+    { label: "Active Races", value: "activeRaces" },
+    { label: "All Races", value: "allRaces" },
   ];
 
   return (

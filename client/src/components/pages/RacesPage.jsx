@@ -1,34 +1,12 @@
 import React, { useState } from "react";
 import PageContainer from "./PageContainer.jsx";
-import Carousel from "../Carousel/Carousel.jsx";
 import SearchBar2 from "../SearchBar/SearchBar2.jsx";
+import ActiveRaces from "../Races/ActiveRaces.jsx";
+import AllRaces from "../Races/AllRaces.jsx";
 
 const Race = () => {
-  const raceData = [
-    {
-      image: "https://placehold.co/1440x1024",
-      date: "14 - 16 Mar",
-      name: "Albert Park Grand Prix Circuit",
-      location: "Melbourne",
-      distance: "306.124 km",
-    },
-    {
-      image: "https://placehold.co/1440x1024",
-      date: "21 - 23 Mar",
-      name: "Shanghai International Circuit",
-      location: "Shanghai",
-      distance: "306.124 km",
-    },
-    {
-      image: "https://placehold.co/1440x1024",
-      date: "28 - 30 Mar",
-      name: "Bahrain International Circuit",
-      location: "Sakhir",
-      distance: "308.238 km",
-    },
-  ];
 
-  const [activeTab, setActiveTab] = useState("upcomingRaces");
+  const [activeTab, setActiveTab] = useState("activeRaces");
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
@@ -39,14 +17,10 @@ const Race = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <div>
-      <Carousel 
-          images={raceData.map(race => race.image)} 
-          dates={raceData.map(race => race.date)}
-          names={raceData.map(race => race.name)}
-          locations={raceData.map(race => race.location)}
-          distances={raceData.map(race => race.distance)}
-        />
+      <div className="w-full h-full flex flex-col items-center justify-center">
+        {activeTab === "activeRaces" ? (
+          <ActiveRaces searchQuery={searchQuery} />
+        ) : ( <AllRaces searchQuery={searchQuery} /> )}
       </div>
     </PageContainer>
   );

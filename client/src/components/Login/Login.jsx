@@ -33,7 +33,7 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
-    dispatch(login(data.email, data.password));
+    await dispatch(login(data.email, data.password));
     navigate("/");
   };
 

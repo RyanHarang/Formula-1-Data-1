@@ -27,8 +27,8 @@ export const login = (email, password) => async (dispatch) => {
 
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
-
     dispatch({ type: LOGIN_SUCCESS, payload: data });
+    return Promise.resolve();
   } catch (error) {
     console.error("Login error:", error.message);
 
@@ -51,8 +51,8 @@ export const register = (email, password) => async (dispatch) => {
     if (!res.ok) throw new Error(data.message);
 
     dispatch({ type: REGISTER_SUCCESS });
-
     dispatch(login(email, password));
+    return Promise.resolve();
   } catch (error) {
     console.error("Register error:", error.message);
 

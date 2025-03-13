@@ -16,15 +16,15 @@ const UserSchema = new mongoose.Schema(
       minlength: [6, "Password must be at least 6 characters"],
     },
     favoriteDrivers: {
-      type: [String], // An array of driver IDs or names
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Driver" }],
       default: [],
     },
     favoriteTeams: {
-      type: [String],
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
       default: [],
     },
     favoriteRaces: {
-      type: [String],
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Race" }],
       default: [],
     },
   },

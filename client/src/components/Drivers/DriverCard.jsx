@@ -1,12 +1,51 @@
+import { useSelector } from "react-redux";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
-const DriverCard = ({ driver, onDriverClick }) => {
+const DriverCard = ({
+  driver,
+  onDriverClick,
+  onAddFavorite,
+  onRemoveFavorite,
+}) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const handleAddFavorite = (e) => {
+    e.stopPropagation();
+    if (onAddFavorite) {
+      onAddFavorite("drivers", driver._id);
+    }
+  };
+
+  const handleRemoveFavorite = (e) => {
+    e.stopPropagation();
+    if (onRemoveFavorite) {
+      onRemoveFavorite("drivers", driver._id);
+    }
+  };
+
+  if (!driver) return null;
   return (
     <div
       onClick={() => onDriverClick(driver)}
       className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
     >
-      <div className="h-full max-h-[296px] w-full overflow-hidden rounded-t-md">
+      <div className="relative h-full max-h-[296px] w-full overflow-hidden rounded-t-md">
+        {onAddFavorite && isAuthenticated && (
+          <button
+            onClick={handleAddFavorite}
+            className="bg-accent hover:bg-accent/80 absolute top-2 right-2 rounded-md px-2 py-1 text-white"
+          >
+            Add Favorite
+          </button>
+        )}
+        {onRemoveFavorite && isAuthenticated && (
+          <button
+            onClick={handleRemoveFavorite}
+            className="absolute top-2 right-2 rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
+          >
+            Remove Favorite
+          </button>
+        )}
         {driver.image ? (
           <img
             src={driver.image}
