@@ -11,7 +11,6 @@ const ActiveRaces = ({ searchQuery }) => {
       try {
         const response = await fetch("http://localhost:5000/api/data/races");
         const data = await response.json();
-        console.log(data);
         setRaces(data);
       } catch (error) {
         console.error("Error fetching races:", error);
@@ -23,10 +22,12 @@ const ActiveRaces = ({ searchQuery }) => {
     fetchActiveRaces();
   }, []);
 
-  const filteredRaces = races.filter(
-    (race) => searchQuery ?
-      race.track.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (race.title && race.title.toLowerCase().includes(searchQuery.toLowerCase())) : race
+  const filteredRaces = races.filter((race) =>
+    searchQuery
+      ? race.track.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (race.title &&
+          race.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      : race,
   );
 
   return (
