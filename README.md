@@ -16,8 +16,8 @@ Data 1 is a Formula 1 data aggregation and presentation site, intended to allow 
    ```
 2. Install dependencies:
    ```sh
-   cd Formula-1-Data-1/client && npm install
-   cd ../server && npm install
+   cd Formula-1-Data-1
+   npm install
    ```
 
 ## Usage
