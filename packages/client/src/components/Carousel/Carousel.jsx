@@ -28,7 +28,7 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
         return (lastIndex - 1 + itemCount) % (itemCount);
     }
 
-    const itemCount = titles.length;
+    const itemCount = titles.length;~
 
     useEffect(() => {
         if (isPaused) return;

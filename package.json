@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "Data 1 is a Formula 1 data aggregation and presentation site, intended to allow users to browse historic Formula 1 data with ease.",
   "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/client",
+    "packages/server"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"cd client && npm start\" \"cd server && npm start\""
+    "start": "concurrently \"npm start --workspace=packages/client\" \"npm start --workspace=packages/server\"",
+    "test": "jest --config jest.config.js",
+    "cleanup": "rm -rf coverage node_modules packages/client/node_modules packages/server/node_modules"
   },
   "repository": {
     "type": "git",
@@ -19,11 +25,15 @@
   },
   "homepage": "https://github.com/RyanHarang/Formula-1-Data-1#readme",
   "dependencies": {
-    "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "flag-icons": "^7.3.2",
     "react-icons": "^5.5.0",
     "react-rnd": "^10.5.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "concurrently": "^9.1.2"
   }
 }

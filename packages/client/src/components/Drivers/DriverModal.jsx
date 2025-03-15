@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import "flag-icons/css/flag-icons.min.css";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
 const DriverModal = ({ handleCloseModal, driverId }) => {
