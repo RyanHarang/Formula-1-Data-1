@@ -3,6 +3,7 @@ import DriverCard from "./DriverCard.jsx";
 
 const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
   const [drivers, setDrivers] = useState([]);
+  const [favoriteDrivers, setFavoriteDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const limit = 24;
@@ -11,13 +12,23 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
     const fetchActiveDrivers = async () => {
       setLoading(true);
       try {
-        const [driversResponse, teamsResponse] = await Promise.all([
-          fetch("http://localhost:5000/api/data/drivers-active"),
-          fetch("http://localhost:5000/api/data/teams/"),
-        ]);
+        const [driversResponse, teamsResponse, favoritesResponse] =
+          await Promise.all([
+            fetch("http://localhost:5000/api/data/drivers-active"),
+            fetch("http://localhost:5000/api/data/teams/"),
+            fetch("http://localhost:5000/api/favorites/all", {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }),
+          ]);
 
         const driversData = await driversResponse.json();
         const teamsData = await teamsResponse.json();
+        const favoritesData = await favoritesResponse.json();
+        setFavoriteDrivers(
+          favoritesData.favoriteDrivers.map((driver) => driver._id),
+        );
 
         const teamsById = teamsData.reduce((acc, team) => {
           acc[team.id] = team;
@@ -71,13 +82,8 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
       );
 
       const data = await response.json();
-      if (response.ok) {
-        // setFavorites((prevFavorites) => ({
-        //   ...prevFavorites,
-        //   [type]: [...prevFavorites[type], data.favoriteItem],
-        // }));
-      } else {
-        // console.error("Error adding item to favorites:", data.message);
+      if (!response.ok) {
+        console.error("Error adding item to favorites:", data.message);
       }
     } catch (error) {
       console.error("Error adding to favorites:", error);
@@ -97,6 +103,7 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
             <DriverCard
               key={index}
               driver={driver}
+              favorite={favoriteDrivers.includes(driver._id)}
               onDriverClick={onDriverClick}
               onAddFavorite={handleAddFavorite}
             />
