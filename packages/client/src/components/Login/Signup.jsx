@@ -49,7 +49,7 @@ const Signup = () => {
     <div className="relative flex h-screen items-center justify-center">
       <img
         className="absolute inset-0 h-full w-full object-cover"
-        src="https://placehold.co/1593x1038"
+        src="img/Sign-up-bg.png"
         alt="Background"
       />
       <button

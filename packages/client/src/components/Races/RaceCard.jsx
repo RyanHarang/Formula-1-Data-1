@@ -58,35 +58,38 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, on
     };
 
     return (
-        <div onClick={() => onRaceClick(racerId)} className='dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105'><div>
-            {isAuthenticated && (
-                <div className='relative h-full w-full overflow-hidden rounded-t-md'>
-                    {!added && onAddFavorite && (
-                        <button
-                            onClick={handleAddFavorite}
-                            className="bg-accent hover:bg-accent/80 top-2 right-2 cursor-pointer rounded-md px-2 py-1 text-white disabled:cursor-not-allowed"
-                        >
-                            Add Favorite
-                        </button>
-                    )}
-                    {added && onRemoveFavorite && (
-                        <button
-                            onClick={handleRemoveFavorite}
-                            className="absolute top-2 right-2 rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
-                        >
-                            Remove Favorite
-                        </button>
-                    )}
-                </div>
-            )}
-        </div><div key={id} className="mb-2 flex flex-col gap-2">
+        <div onClick={() => onRaceClick(id)} className='dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105' style={{ paddingLeft: '20px' }}>
+            <div>
+                {isAuthenticated && (
+                    <div className='relative h-full w-full overflow-hidden rounded-t-md'>
+                        {!added && onAddFavorite && (
+                            <button
+                                onClick={handleAddFavorite}
+                                className="bg-accent hover:bg-accent/80 top-2 right-2 cursor-pointer rounded-md px-2 py-1 text-white disabled:cursor-not-allowed"
+                            >
+                                Add Favorite
+                            </button>
+                        )}
+                        {added && onRemoveFavorite && (
+                            <button
+                                onClick={handleRemoveFavorite}
+                                className="absolute top-2 right-2 rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
+                            >
+                                Remove Favorite
+                            </button>
+                        )}
+                    </div>
+                )}
+            </div>
+            <div key={id} className="mb-2 flex flex-col gap-2" style={{ paddingBottom: '20px' }}>
                 <h2 className="text-left text-xl font-semibold">{title}</h2>
                 <p className='text-left'>Date : {date}</p>
                 <p className='text-left'>Track : {track}</p>
                 <p className='text-left'>Winner : {winnerName}</p>
                 <p className='text-left'>Fastest Lap : {fastestLap}</p>
                 <p className='text-left'>Pole Position : {polePositionName}</p>
-            </div></div>
+            </div>
+        </div>
     );
 };
 

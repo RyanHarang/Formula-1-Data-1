@@ -41,7 +41,7 @@ const Login = () => {
     <div className="relative flex h-screen w-full items-center justify-center">
       <img
         className="absolute inset-0 h-full w-full object-cover"
-        src="https://placehold.co/1593x1038"
+        src="img/Sign-in-bg.png"
         alt="Background"
       />
       <button
