@@ -7,14 +7,44 @@ const ActiveTeams = ({ searchQuery }) => {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [favoriteTeams, setFavoriteTeams] = useState([]);
   const limit = 12;
 
   useEffect(() => {
     const fetchActiveTeams = async () => {
       setLoading(true);
       try {
+
+        const token = localStorage.getItem("token");
+
         const response = await fetch("http://localhost:5000/api/data/teams");
         const teamsData = await response.json();
+
+        if (token) {
+          const favoritesResponse = await fetch(
+            "http://localhost:5000/api/favorites/all",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          );
+
+          if (favoritesResponse.ok) {
+            const favoritesData = await favoritesResponse.json();
+            setFavoriteTeams(
+              favoritesData.favoriteTeams.map((team) => team._id),
+            );
+          } else {
+            console.error(
+              "Could not fetch favorites. Status:",
+              favoritesResponse.status,
+            );
+            setFavoriteTeams([]);
+          }
+        } else {
+          setFavoriteTeams([]);
+        }
 
         setTeams(teamsData);
       } catch (error) {
@@ -34,6 +64,54 @@ const ActiveTeams = ({ searchQuery }) => {
         team.nationality.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
+  const handleAddFavorite = async (type, favoriteId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/api/favorites/add/${type}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: favoriteId }),
+        },
+      );
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Error adding item to favorites:", data.message);
+      }
+    } catch (error) {
+      console.error("Error adding to favorites:", error);
+    }
+  };
+
+  const handleRemoveFavorite = async (type, favoriteId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/api/favorites/remove/${type}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: favoriteId }),
+        },
+      );
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Error removing item from favorites:", data.message);
+      }
+    } catch (error) {
+      console.error("Error removing from favorites:", error);
+    }
+  };
+
   const startIndex = page * limit;
   const paginatedTeams = filteredTeams.slice(startIndex, startIndex + limit);
 
@@ -47,7 +125,7 @@ const ActiveTeams = ({ searchQuery }) => {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {paginatedTeams.map((team, index) => (
-            <TeamCard key={index} team={team} onTeamClick={setSelectedTeam} />
+            <TeamCard key={index} team={team} onTeamClick={setSelectedTeam} onAddFavorite={handleAddFavorite} onRemoveFavorite={handleRemoveFavorite}/>
           ))}
         </div>
       )}

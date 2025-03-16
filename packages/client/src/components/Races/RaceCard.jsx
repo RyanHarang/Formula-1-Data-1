@@ -22,6 +22,7 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, ra
     const [currentTrack, setCurrentTrack] = useState("Loading...");
     const [currentFastestLap, setCurrentFastestLap] = useState("Loading...");
     const [currentTitle, setCurrentTitle] = useState("Loading...");
+    const [currentId, setCurrentId] = useState(id);
 
     React.useEffect(() => {
         const fetchNames = async () => {
@@ -38,6 +39,7 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, ra
             setCurrentDate(date);
             setCurrentTrack(track);
             setCurrentFastestLap(fastestLap);
+            setCurrentId(id);
             try {
                 const winnerFetched = await RacerId2Name(winner);
                 const polePositionFetched = await RacerId2Name(polePosition);
@@ -65,17 +67,18 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, ra
 
     React.useEffect(() => {
         setAdded(false);
-    }, [id]);
+    }, [currentId]);
 
     const handleRemoveFavorite = (e) => {
         e.stopPropagation();
         if (onRemoveFavorite) {
-            onRemoveFavorite("races", id);
+            onRemoveFavorite("races", currentId);
+            setAdded(false);
         }
     };
 
     return (
-        <div onClick={() => onRaceClick(id)} className='dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105' style={{ padding: '30px' }}>
+        <div onClick={() => onRaceClick(currentId)} className='dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105' style={{ padding: '30px' }}>
             <div>
                 {isAuthenticated && (
                     <div className='relative h-full w-full overflow-hidden rounded-t-md'>

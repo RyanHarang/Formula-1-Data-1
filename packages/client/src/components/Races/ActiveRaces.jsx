@@ -92,7 +92,7 @@ const ActiveRaces = ({ searchQuery, onDriverClick }) => {
       const response = await fetch(
         `http://localhost:5000/api/favorites/remove/${type}`,
         {
-          method: "POST",
+          method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
