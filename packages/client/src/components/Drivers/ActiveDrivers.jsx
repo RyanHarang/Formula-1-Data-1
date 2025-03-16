@@ -12,23 +12,49 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
     const fetchActiveDrivers = async () => {
       setLoading(true);
       try {
-        const [driversResponse, teamsResponse, favoritesResponse] =
-          await Promise.all([
-            fetch("http://localhost:5000/api/data/drivers-active"),
-            fetch("http://localhost:5000/api/data/teams/"),
-            fetch("http://localhost:5000/api/favorites/all", {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }),
-          ]);
+        const token = localStorage.getItem("token");
+
+        const [driversResponse, teamsResponse] = await Promise.all([
+          fetch("http://localhost:5000/api/data/drivers-active"),
+          fetch("http://localhost:5000/api/data/teams/"),
+        ]);
 
         const driversData = await driversResponse.json();
         const teamsData = await teamsResponse.json();
-        const favoritesData = await favoritesResponse.json();
-        setFavoriteDrivers(
-          favoritesData.favoriteDrivers.map((driver) => driver._id),
-        );
+
+        // const favoritesPromise = token
+        //   ? fetch("http://localhost:5000/api/favorites/all", {
+        //       headers: {
+        //         Authorization: `Bearer ${token}`,
+        //       },
+        //     })
+        //   : null;
+
+        if (token) {
+          const favoritesResponse = await fetch(
+            "http://localhost:5000/api/favorites/all",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          );
+
+          if (favoritesResponse.ok) {
+            const favoritesData = await favoritesResponse.json();
+            setFavoriteDrivers(
+              favoritesData.favoriteDrivers.map((driver) => driver._id),
+            );
+          } else {
+            console.error(
+              "Could not fetch favorites. Status:",
+              favoritesResponse.status,
+            );
+            setFavoriteDrivers([]);
+          }
+        } else {
+          setFavoriteDrivers([]);
+        }
 
         const teamsById = teamsData.reduce((acc, team) => {
           acc[team.id] = team;
