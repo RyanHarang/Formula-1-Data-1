@@ -14,12 +14,14 @@ const DriversPage = () => {
     if (!selectedDrivers.some((selected) => selected.id === driver.id)) {
       setSelectedDrivers([...selectedDrivers, driver]);
     }
+    console.log(driver);
   };
 
   const handleCloseModal = (driverToRemove) => {
     setSelectedDrivers(
       selectedDrivers.filter((driver) => driver !== driverToRemove),
     );
+    console.log(driverToRemove);
   };
 
   return (
@@ -28,31 +30,35 @@ const DriversPage = () => {
         <Rnd
           key={driver.id || index}
           default={{
-            x: window.innerWidth / 2 - 450,
-            y: window.scrollY + window.innerHeight / 2 - 250,
-            width: 900,
+            x: window.innerWidth / 2 - 350,
+            y: window.scrollY + window.innerHeight / 2 - 300,
+            width: 700,
             height: 600,
           }}
           bounds="parent"
           dragHandleClassName="drag-handle"
           enableUserSelectHack={false}
-          style={{ position: "absolute", zIndex: 100 }}
-          enableResizing={{
-            top: true,
-            right: true,
-            bottom: true,
-            left: true,
-            topRight: true,
-            bottomRight: true,
-            bottomLeft: true,
-            topLeft: true,
+          style={{
+            position: "absolute",
+            zIndex: 100,
+            overflow: "hidden"
           }}
           minWidth={400}
+          minHeight={400}
         >
-          <DriversModal
-            driverId={driver.id}
-            handleCloseModal={() => handleCloseModal(driver)}
-          />
+          <div className="h-full w-full">
+            <DriversModal
+              natCode={driver.natCode}
+              name={driver.name}
+              teamName={driver.teamName}
+              DOB={driver.DOB}
+              lastYear={driver.lastYear}
+              totalRaces={driver.totalRaces}
+              wins={driver.wins}
+              image={driver.image}
+              handleCloseModal={() => handleCloseModal(driver)}
+            />
+          </div>
         </Rnd>
       ))}
 
