@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authActions";
 import ModeToggle from "./ModeToggle/ModeToggle.jsx";
@@ -11,6 +11,7 @@ import UserDropdown from "./UserDropdown/UserDropdown.jsx";
 
 const Navigation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const emailPrefix = user?.email ? user.email.split("@")[0] : "Guest";
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -19,6 +20,7 @@ const Navigation = () => {
   const handleLogout = () => {
     setDropdownOpen(false);
     dispatch(logout());
+    navigate("/login");
   };
 
   const handleDropdownToggle = () => {
