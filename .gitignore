@@ -30,3 +30,5 @@ packages/*/node_modules/
 packages/*/package-lock.json
 dist/
 .env
+coverage/
+*.log

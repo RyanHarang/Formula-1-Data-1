@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DriverCard from "../Drivers/DriverCard.jsx";
 import TeamCard from "../Teams/TeamCard.jsx";
+import RaceCard from "../Races/RaceCard.jsx";
 
 const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
   const [favorites, setFavorites] = useState({
@@ -115,7 +116,19 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {favorites.teams.map((team, index) => (
-            <TeamCard key={index} team={team} onTeamClick={onTeamClick} />
+            <TeamCard key={index} team={team} onTeamClick={onTeamClick} onRemoveFavorite={handleRemoveFavorite} />
+          ))}
+        </div>
+      )}
+      <h1 className="mb-4 text-2xl font-bold before:transition-all">
+        Favorite Races
+      </h1>
+      {loading ? (
+        <div className="text-lg font-semibold">Loading...</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {favorites.races.map((race, index) => (
+            <RaceCard key={index} race={race} onRaceClick={onRaceClick} onRemoveFavorite={handleRemoveFavorite}/>
           ))}
         </div>
       )}

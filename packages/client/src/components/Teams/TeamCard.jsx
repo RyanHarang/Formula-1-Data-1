@@ -1,9 +1,57 @@
-const TeamCard = ({ team, onTeamClick }) => {
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
+const TeamCard = ({ team, onTeamClick, onAddFavorite, onRemoveFavorite }) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [added, setAdded] = useState(false);
+
+  const handleAddFavorite = (e) => {
+    e.stopPropagation();
+    if (onAddFavorite) {
+      onAddFavorite("teams", team._id);
+      setAdded(true);
+    }
+  }
+
+  const handleRemoveFavorite = (e) => {
+    e.stopPropagation();
+    if (onRemoveFavorite) {
+        onRemoveFavorite("teams", team._id);
+        setAdded(false);
+    }
+};
+
+  React.useEffect(() => {
+    setAdded(false);
+  }
+  , [team.id]);
+
   return (
     <div
       onClick={() => onTeamClick(team.id)}
       className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
-    >
+    > <div>
+      {isAuthenticated && (
+        <div className='relative h-full w-full overflow-hidden rounded-t-md'>
+        {!added && onAddFavorite && (
+            <button
+                onClick={handleAddFavorite}
+                className="bg-accent hover:bg-accent/80 top-2 right-2 cursor-pointer rounded-md px-2 py-1 text-white disabled:cursor-not-allowed"
+            >
+                Add Favorite
+            </button>
+        )}
+        {added && onRemoveFavorite && (
+            <button
+                onClick={handleRemoveFavorite}
+                className="absolute top-2 right-2 rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
+            >
+                Remove Favorite
+            </button>
+        )}
+    </div>
+      )}
+    </div>
       <div
         style={{
           fontFamily: "Righteous",
