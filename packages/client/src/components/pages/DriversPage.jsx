@@ -52,7 +52,7 @@ const DriversPage = () => {
           }}
           bounds="window"
           dragHandleClassName="drag-handle"
-          enableUserSelectHack={false}
+          enableUserSelectHack={true}
           style={{
             position: "absolute",
             zIndex: 100,

@@ -14,10 +14,10 @@ const DriverModal = ({
   image,
 }) => {
   return (
-    <div className="h-full w-full overflow-hidden max-w-[100vw] sm:max-w-[640px] md:max-w-[768px] mx-auto md:max-w-none">
-  <div className="dark:bg-dark-bg2 bg-light-bg dark:border-accent relative h-full w-full overflow-hidden rounded-xl border-2 border-black overflow-hidden">
-        <div className="flex flex-row dark:bg-dark-bg dark:border-accent relative cursor-grab items-center rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
-          <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex items-center rounded-t-xl  border-black bg-white text-black active:cursor-grabbing dark:text-white flex-1">
+    <div className="mx-auto h-full w-full max-w-[100vw] overflow-hidden sm:max-w-[640px] md:max-w-[768px] md:max-w-none">
+      <div className="dark:bg-dark-bg2 bg-light-bg dark:border-accent relative h-full w-full overflow-hidden rounded-xl border-2 border-black">
+        <div className="dark:bg-dark-bg dark:border-accent relative flex cursor-grab flex-row items-center rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
+          <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex flex-1 items-center rounded-t-xl border-black bg-white text-black active:cursor-grabbing dark:text-white">
             <div className="border-accent rounded-tl-2xl py-0.75 pl-2.5">
               {natCode ? (
                 <span className={`fi size-10 px-8 fi-${natCode}`}></span>
@@ -39,7 +39,7 @@ const DriverModal = ({
           </div>
         </div>
         <div className="flex h-[calc(100%-3.5rem)] flex-col gap-3 overflow-y-auto p-3 md:flex-row">
-          <div className="flex w-full flex-col gap-3 order-2 md:order-1 md:w-1/2">
+          <div className="order-2 flex w-full flex-col gap-3 md:order-1 md:w-1/2">
             <div className="dark:bg-dark-bg flex flex-col items-center rounded-lg bg-white p-3 text-center shadow-md">
               <h3 className="text-l dark:border-accent text-dark-bg mx-auto w-[80%] border-b-1 border-black text-left dark:text-white">
                 Last Team
@@ -88,7 +88,7 @@ const DriverModal = ({
               </div>
             </div>
           </div>
-          <div className="flex w-full justify-center order-1 md:order-2 md:w-1/2">
+          <div className="order-1 flex w-full justify-center md:order-2 md:w-1/2">
             <div className="h-full w-full overflow-hidden rounded-t-md">
               <img
                 src={image || noDriverIcon}

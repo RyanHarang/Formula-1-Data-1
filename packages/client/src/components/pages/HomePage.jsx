@@ -67,29 +67,31 @@ const HomePage = () => {
         <Rnd
           key={driver.id || index}
           default={{
-            x: window.innerWidth / 2 - 450,
-            y: window.scrollY + window.innerHeight / 2 - 250,
-            width: 900,
-            height: 600,
+            x: Math.max(0, (window.innerWidth - 700) / 2),
+            y: Math.max(0, window.scrollY + (window.innerHeight - 600) / 2),
+            width: Math.min(700, window.innerWidth - 20),
+            height: Math.min(600, window.innerHeight - 20),
           }}
-          bounds="parent"
+          bounds="window"
           dragHandleClassName="drag-handle"
-          enableUserSelectHack={false}
-          style={{ position: "absolute", zIndex: 100 }}
-          enableResizing={{
-            top: true,
-            right: true,
-            bottom: true,
-            left: true,
-            topRight: true,
-            bottomRight: true,
-            bottomLeft: true,
-            topLeft: true,
+          enableUserSelectHack={true}
+          style={{
+            position: "absolute",
+            zIndex: 100,
           }}
-          minWidth={400}
+          minWidth={350}
+          minHeight={400}
+          maxWidth="95vw"
         >
           <DriversModal
-            driverId={driver.id}
+            natCode={driver.natCode}
+            name={driver.name}
+            teamName={driver.teamName}
+            DOB={driver.DOB}
+            lastYear={driver.lastYear}
+            totalRaces={driver.totalRaces}
+            wins={driver.wins}
+            image={driver.image}
             handleCloseModal={() => handleCloseDriverModal(driver)}
           />
         </Rnd>
