@@ -33,18 +33,6 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
         teams: data.favoriteTeams || [],
         races: data.favoriteRaces || [],
       });
-
-      // const teamsById = teamsData.reduce((acc, team) => {
-      //   acc[team.id] = team;
-      //   return acc;
-      // }, {});
-
-      // const driversWithTeamNames = driversData.map((driver) => ({
-      //   ...driver,
-      //   teamName: teamsById[driver.team]?.name || "Unknown",
-      // }));
-
-      // setDrivers(driversWithTeamNames);
     } catch (error) {
       console.error("Error fetching favorites:", error);
     } finally {
@@ -116,7 +104,12 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {favorites.teams.map((team, index) => (
-            <TeamCard key={index} team={team} onTeamClick={onTeamClick} onRemoveFavorite={handleRemoveFavorite} />
+            <TeamCard
+              key={index}
+              team={team}
+              onTeamClick={onTeamClick}
+              onRemoveFavorite={handleRemoveFavorite}
+            />
           ))}
         </div>
       )}
@@ -128,7 +121,12 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {favorites.races.map((race, index) => (
-            <RaceCard key={index} race={race} onRaceClick={onRaceClick} onRemoveFavorite={handleRemoveFavorite}/>
+            <RaceCard
+              key={index}
+              race={race}
+              onRaceClick={onRaceClick}
+              onRemoveFavorite={handleRemoveFavorite}
+            />
           ))}
         </div>
       )}
