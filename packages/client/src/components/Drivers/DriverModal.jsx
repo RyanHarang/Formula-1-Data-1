@@ -4,7 +4,7 @@ import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
 const DriverModal = ({ handleCloseModal, natCode, name, teamName, DOB, lastYear, totalRaces, wins, image }) => {
   return (
-    <div className="h-full w-full select-none overflow-hidden">
+    <div className="h-full w-full overflow-hidden">
       <div className="dark:bg-dark-bg2 bg-light-bg dark:border-accent relative h-full w-full overflow-hidden rounded-xl border-2 border-black">
         <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex cursor-grab items-center justify-start rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
           <div className="border-accent rounded-tl-2xl py-0.75 pl-2.5">
@@ -16,7 +16,7 @@ const DriverModal = ({ handleCloseModal, natCode, name, teamName, DOB, lastYear,
               <span className="text-sm text-gray-400">N/A</span>
             )}
           </div>
-          <h2 className="pl-4 text-2xl">
+          <h2 className="pl-4 text-2xl select-none">
             {name || "Unknown Driver"}
           </h2>
           <div
