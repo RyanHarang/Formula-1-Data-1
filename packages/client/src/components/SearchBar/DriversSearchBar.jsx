@@ -10,7 +10,9 @@ const SearchBar = ({
 }) => {
   const filterItems = [
     { label: "Active Drivers", value: "activeDrivers" },
-    { label: "All Drivers", value: "allDrivers" },
+    { label: "DOB", value: "dob" },
+    { label: "Last Year", value: "lastYear" },
+    { label: "Total Races", value: "totalRaces" },
   ];
   return (
     <div className="relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
@@ -30,7 +32,9 @@ const SearchBar = ({
         <DropdownMenu
           content={
             <>
-            <p>Sort By</p>
+            <div className="border-b-1 w-[80%] text-center select-none">
+              <p>Sort By</p>
+            </div>
               {filterItems.map((item) => (
                 <DropdownItem
                   key={item.value}

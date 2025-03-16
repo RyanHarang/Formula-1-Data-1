@@ -43,7 +43,6 @@ router.post("/add/:type", authenticate, async (req, res) => {
   const { type } = req.params;
   const { item } = req.body;
 
-  console.log("Type:", type, "| Item:", item);
   const validTypes = ["drivers", "teams", "races"];
   if (!validTypes.includes(type)) {
     return res.status(400).json({ message: "Invalid favorite type" });

@@ -1,4 +1,6 @@
-import { isValidElement } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { isValidElement, useEffect } from "react";
 import Navigation from "../Navigation/Navigation.jsx";
 import Footer from "../Footer/Footer.jsx";
 
