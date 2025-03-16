@@ -46,7 +46,7 @@ const DriverCard = ({
         {onRemoveFavorite && isAuthenticated && (
           <button
             onClick={handleRemoveFavorite}
-            className="absolute top-2 right-2 rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
+            className="absolute top-2 right-2 cursor-pointer rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
           >
             Remove Favorite
           </button>
