@@ -62,11 +62,6 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
       const data = await response.json();
       if (response.ok) {
         fetchFavorites();
-        // failing to simply update state so currently refetching every time
-        // setFavorites((prevFavorites) => ({
-        //   ...prevFavorites,
-        //   [type]: data.favorites,
-        // }));
       } else {
         console.error("Error removing item from favorites:", data.message);
       }
