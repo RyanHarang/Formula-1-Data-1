@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "../Carousel/Carousel";
 
-const AllRaces = ({ searchQuery, onDriverClick }) => {
+const AllRaces = ({ searchQuery, onRaceClick }) => {
   const [races, setRaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const [favoriteRaces, setFavoriteRaces] = useState([]);
@@ -12,9 +12,7 @@ const AllRaces = ({ searchQuery, onDriverClick }) => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(
-          "http://localhost:5000/api/data/races",
-        );
+        const response = await fetch("http://localhost:5000/api/data/races");
         let data = await response.json();
 
         if (token) {
@@ -29,7 +27,7 @@ const AllRaces = ({ searchQuery, onDriverClick }) => {
 
           if (favoritesResponse.ok) {
             const favoritesData = await favoritesResponse.json();
-            setFavoriteDrivers(
+            setFavoriteRaces(
               favoritesData.favoriteRaces.map((race) => race._id),
             );
           } else {
@@ -127,7 +125,8 @@ const AllRaces = ({ searchQuery, onDriverClick }) => {
           winners={filteredRaces.map((race) => race.winner)}
           fastestLaps={filteredRaces.map((race) => race.fastestLap)}
           polePositions={filteredRaces.map((race) => race.polePosition)}
-          onRaceClick={() => onDriverClick}
+          onRaceClick={() => onRaceClick}
+          favorites={favoriteRaces}
           onAddFavorite={handleAddFavorite}
           onRemoveFavorite={handleRemoveFavorite}
         />

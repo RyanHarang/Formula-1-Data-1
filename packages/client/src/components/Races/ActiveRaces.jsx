@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "../Carousel/Carousel";
 
-const ActiveRaces = ({ searchQuery, onDriverClick }) => {
+const ActiveRaces = ({ searchQuery, onRaceClick }) => {
   const [races, setRaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const [favoriteRaces, setFavoriteRaces] = useState([]);
@@ -127,7 +127,8 @@ const ActiveRaces = ({ searchQuery, onDriverClick }) => {
           winners={filteredRaces.map((race) => race.winner)}
           fastestLaps={filteredRaces.map((race) => race.fastestLap)}
           polePositions={filteredRaces.map((race) => race.polePosition)}
-          onRaceClick={() => onDriverClick}
+          onRaceClick={() => onRaceClick}
+          favorites={favoriteRaces}
           onAddFavorite={handleAddFavorite}
           onRemoveFavorite={handleRemoveFavorite}
         />

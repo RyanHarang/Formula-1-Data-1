@@ -7,7 +7,6 @@ import AllRaces from "../Races/AllRaces.jsx";
 import RaceModal from "../Races/RaceModal.jsx";
 
 const Race = () => {
-
   const [activeTab, setActiveTab] = useState("activeRaces");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRaces, setSelectedRaces] = useState([]);
@@ -20,9 +19,7 @@ const Race = () => {
   };
 
   const handleCloseModal = (raceToRemove) => {
-    setSelectedRaces(
-      selectedRaces.filter((race) => race !== raceToRemove),
-    );
+    setSelectedRaces(selectedRaces.filter((race) => race !== raceToRemove));
   };
 
   const closeAllModal = () => {
@@ -44,8 +41,7 @@ const Race = () => {
 
   return (
     <div className="relative h-full w-full">
-    {/* Rnd Modal Setup */}
-    {selectedRaces.map((race, index) => (
+      {selectedRaces.map((race, index) => (
         <Rnd
           key={race.id || index}
           default={{
@@ -73,21 +69,28 @@ const Race = () => {
           </div>
         </Rnd>
       ))}
-    {/* <PageContainer> */}
-    <PageContainer>
-      <SearchBar2
-        setActiveTab={setActiveTab}
-        activeTab={activeTab}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        className="z-10"
-      />
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        {activeTab === "activeRaces" ? (
-          <ActiveRaces searchQuery={searchQuery} onRaceClick={handleRaceCardClick} />
-        ) : (<AllRaces searchQuery={searchQuery} onRaceClick={handleRaceCardClick} />)}
-      </div>
-    </PageContainer>
+      <PageContainer>
+        <SearchBar2
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          className="z-10"
+        />
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          {activeTab === "activeRaces" ? (
+            <ActiveRaces
+              searchQuery={searchQuery}
+              onRaceClick={handleRaceCardClick}
+            />
+          ) : (
+            <AllRaces
+              searchQuery={searchQuery}
+              onRaceClick={handleRaceCardClick}
+            />
+          )}
+        </div>
+      </PageContainer>
     </div>
   );
 };
