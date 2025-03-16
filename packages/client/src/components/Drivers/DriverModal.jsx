@@ -6,19 +6,19 @@ const DriverModal = ({ handleCloseModal, natCode, name, teamName, DOB, lastYear,
   return (
     <div className="h-full w-full overflow-hidden">
       <div className="dark:bg-dark-bg2 bg-light-bg dark:border-accent relative h-full w-full overflow-hidden rounded-xl border-2 border-black">
-        <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex cursor-grab items-center justify-start rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
-          <div className="border-accent rounded-tl-2xl py-0.75 pl-2.5">
-            {natCode ? (
-              <span
-                className={`fi size-10 px-8 fi-${natCode}`}
-              ></span>
-            ) : (
-              <span className="text-sm text-gray-400">N/A</span>
-            )}
+        <div className="flex flex-row dark:bg-dark-bg dark:border-accent relative cursor-grab items-center rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
+          <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex items-center rounded-t-xl  border-black bg-white text-black active:cursor-grabbing dark:text-white flex-1">
+            <div className="border-accent rounded-tl-2xl py-0.75 pl-2.5">
+              {natCode ? (
+                <span className={`fi size-10 px-8 fi-${natCode}`}></span>
+              ) : (
+                <span className="text-sm text-gray-400">N/A</span>
+              )}
+            </div>
+            <h2 className="pl-4 text-2xl select-none">
+              {name || "Unknown Driver"}
+            </h2>
           </div>
-          <h2 className="pl-4 text-2xl select-none">
-            {name || "Unknown Driver"}
-          </h2>
           <div
             onClick={handleCloseModal}
             className="ml-auto pr-4 text-2xl hover:cursor-pointer"

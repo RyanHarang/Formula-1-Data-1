@@ -6,7 +6,7 @@ import SearchBar from "../SearchBar/DriversSearchBar.jsx";
 import DriversModal from "../Drivers/DriverModal.jsx";
 
 const DriversPage = () => {
-  const [activeTab, setActiveTab] = useState("activeDrivers");
+  const [activeTab, setActiveTab] = useState("allDrivers");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDrivers, setSelectedDrivers] = useState([]);
 
