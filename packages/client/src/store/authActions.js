@@ -5,6 +5,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
 } from "./actionTypes";
+import { setLogoutTimer } from "./authUtils";
 
 export const logout = () => {
   return (dispatch) => {
@@ -28,6 +29,7 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
     dispatch({ type: LOGIN_SUCCESS, payload: data });
+    setLogoutTimer(data.token);
     return Promise.resolve();
   } catch (error) {
     console.error("Login error:", error.message);

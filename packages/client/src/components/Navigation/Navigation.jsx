@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authActions";
 import ModeToggle from "./ModeToggle/ModeToggle.jsx";
 import ThemeToggle from "./ThemeToggle/ThemeToggle.jsx";
-import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
-import LoginIcon from "../../assets/svg/profile/LoginIcon.jsx";
-import UserIcon from "../../assets/svg/profile/UserIcon.jsx";
+import LogoIcon from "../../assets/svg/general/LogoIcon.jsx";
+import LoginIcon from "../../assets/svg/general/LoginIcon.jsx";
+import UserIcon from "../../assets/svg/general/UserIcon.jsx";
 import UserDropdown from "./UserDropdown/UserDropdown.jsx";
 
 const Navigation = () => {
@@ -18,10 +18,8 @@ const Navigation = () => {
   const dropdownRef = useRef(null);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    dispatch(logout());
     setDropdownOpen(false);
+    dispatch(logout());
     navigate("/login");
   };
 

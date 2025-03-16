@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/authActions.js";
-import LogoIcon from "../../assets/svg/profile/LogoIcon.jsx";
-import EyeIcon from "../../assets/svg/profile/EyeIcon.jsx";
+import LogoIcon from "../../assets/svg/general/LogoIcon.jsx";
+import EyeIcon from "../../assets/svg/general/EyeIcon.jsx";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
