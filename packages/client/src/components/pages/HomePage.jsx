@@ -4,7 +4,7 @@ import PageContainer from "./PageContainer.jsx";
 import Home from "../Home/Home.jsx";
 import DriversModal from "../Drivers/DriverModal.jsx";
 import TeamModal from "../Teams/TeamModal.jsx";
-// import RaceModal from "../Races/RaceModal.jsx";
+import RaceModal from "../Races/RaceModal.jsx";
 
 const HomePage = () => {
   const [selectedDrivers, setSelectedDrivers] = useState([]);
@@ -109,7 +109,7 @@ const HomePage = () => {
         </Rnd>
       ))}
 
-      {/* {selectedRace.map((race, index) => (
+      {selectedRace.map((race, index) => (
         <Rnd
           key={race.id || index}
           default={{
@@ -139,13 +139,13 @@ const HomePage = () => {
             handleCloseModal={() => handleCloseRaceModal(race)}
           />
         </Rnd>
-      ))} */}
+      ))}
 
       <PageContainer>
         <Home
           onDriverClick={handleDriverCardClick}
           onTeamClick={handleTeamCardClick}
-          // onRaceClick={handleRaceCardClick}
+          onRaceClick={handleRaceCardClick}
         />
       </PageContainer>
     </div>

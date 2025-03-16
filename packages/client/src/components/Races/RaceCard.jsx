@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, onRaceClick, onAddFavorite, onRemoveFavorite }) => {
+const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, race, onRaceClick, onAddFavorite, onRemoveFavorite }) => {
 
     const RacerId2Name = async (racerId) => {
         try {
@@ -18,9 +18,26 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, on
 
     const [winnerName, setWinnerName] = useState("Loading...");
     const [polePositionName, setPolePositionName] = useState("Loading...");
+    const [currentDate, setCurrentDate] = useState("Loading...");
+    const [currentTrack, setCurrentTrack] = useState("Loading...");
+    const [currentFastestLap, setCurrentFastestLap] = useState("Loading...");
+    const [currentTitle, setCurrentTitle] = useState("Loading...");
 
     React.useEffect(() => {
         const fetchNames = async () => {
+            if (race) {
+                id = race.id;
+                title = race.title;
+                date = race.date;
+                track = race.track;
+                winner = race.winner;
+                fastestLap = race.fastestLap;
+                polePosition = race.polePosition;
+            }
+            setCurrentTitle(title);
+            setCurrentDate(date);
+            setCurrentTrack(track);
+            setCurrentFastestLap(fastestLap);
             try {
                 const winnerFetched = await RacerId2Name(winner);
                 const polePositionFetched = await RacerId2Name(polePosition);
@@ -58,7 +75,7 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, on
     };
 
     return (
-        <div onClick={() => onRaceClick(id)} className='dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105' style={{ paddingLeft: '20px' }}>
+        <div onClick={() => onRaceClick(id)} className='dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105' style={{ padding: '30px' }}>
             <div>
                 {isAuthenticated && (
                     <div className='relative h-full w-full overflow-hidden rounded-t-md'>
@@ -81,13 +98,13 @@ const RaceCard = ({ id, title, date, track, winner, fastestLap, polePosition, on
                     </div>
                 )}
             </div>
-            <div key={id} className="mb-2 flex flex-col gap-2" style={{ paddingBottom: '20px' }}>
-                <h2 className="text-left text-xl font-semibold">{title}</h2>
-                <p className='text-left'>Date : {date}</p>
-                <p className='text-left'>Track : {track}</p>
-                <p className='text-left'>Winner : {winnerName}</p>
-                <p className='text-left'>Fastest Lap : {fastestLap}</p>
-                <p className='text-left'>Pole Position : {polePositionName}</p>
+            <div key={id} className="mb-2 flex flex-col gap-2" style={{ paddingBottom: '30px' }}>
+                <h2 className="text-left text-xl font-semibold">{currentTitle || "Unknown"}</h2>
+                <p className='text-left'>Date : {currentDate || "Unknown"}</p>
+                <p className='text-left'>Track : {currentTrack || "Unknown"}</p>
+                <p className='text-left'>Winner : {winnerName || "Unknown"}</p>
+                <p className='text-left'>Fastest Lap : {currentFastestLap || "Unknown"}</p>
+                <p className='text-left'>Pole Position : {polePositionName || "Unknown"}</p>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import PageContainer from "./PageContainer.jsx";
 import SearchBar2 from "../SearchBar/SearchBar2.jsx";
 import ActiveRaces from "../Races/ActiveRaces.jsx";
 import AllRaces from "../Races/AllRaces.jsx";
+import RaceModal from "../Races/RaceModal.jsx";
 
 const Race = () => {
 

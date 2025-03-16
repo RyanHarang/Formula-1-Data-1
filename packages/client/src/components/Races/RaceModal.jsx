@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "flag-icons/css/flag-icons.min.css";
 
-const RacesModal = ({ handleCloseModal, raceId }) => {
+const RaceModal = ({ handleCloseModal, raceId }) => {
   const [race, setRace] = useState(null);
   const [lapTimes, setLapTimes] = useState([]);
   const [circuitName, setCircuitName] = useState("");
@@ -131,4 +131,4 @@ const RacesModal = ({ handleCloseModal, raceId }) => {
   );
 };
 
-export default RacesModal;
+export default RaceModal;

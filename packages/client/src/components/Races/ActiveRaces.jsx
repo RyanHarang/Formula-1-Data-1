@@ -29,7 +29,7 @@ const ActiveRaces = ({ searchQuery, onDriverClick }) => {
 
           if (favoritesResponse.ok) {
             const favoritesData = await favoritesResponse.json();
-            setFavoriteDrivers(
+            setFavoriteRaces(
               favoritesData.favoriteRaces.map((race) => race._id),
             );
           } else {
