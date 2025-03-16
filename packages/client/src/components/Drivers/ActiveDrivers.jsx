@@ -22,14 +22,6 @@ const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
         const driversData = await driversResponse.json();
         const teamsData = await teamsResponse.json();
 
-        // const favoritesPromise = token
-        //   ? fetch("http://localhost:5000/api/favorites/all", {
-        //       headers: {
-        //         Authorization: `Bearer ${token}`,
-        //       },
-        //     })
-        //   : null;
-
         if (token) {
           const favoritesResponse = await fetch(
             "http://localhost:5000/api/favorites/all",
