@@ -42,41 +42,39 @@ const DriversPage = () => {
     };
   }, []);
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full overflow-hidden">
       {selectedDrivers.map((driver, index) => (
         <Rnd
-          key={driver.id || index}
-          default={{
-            x: window.innerWidth / 2 - 350,
-            y: window.scrollY + window.innerHeight / 2 - 300,
-            width: 700,
-            height: 600,
-          }}
-          bounds="parent"
-          dragHandleClassName="drag-handle"
-          enableUserSelectHack={false}
-          style={{
-            position: "absolute",
-            zIndex: 100,
-            overflow: "hidden",
-          }}
-          minWidth={400}
-          minHeight={400}
-        >
-          <div className="h-full w-full">
-            <DriversModal
-              natCode={driver.natCode}
-              name={driver.name}
-              teamName={driver.teamName}
-              DOB={driver.DOB}
-              lastYear={driver.lastYear}
-              totalRaces={driver.totalRaces}
-              wins={driver.wins}
-              image={driver.image}
-              handleCloseModal={() => handleCloseModal(driver)}
-            />
-          </div>
-        </Rnd>
+        key={driver.id || index}
+        default={{
+          x: Math.max(0, (window.innerWidth - 700) / 2),
+          y: Math.max(0, window.scrollY + (window.innerHeight - 600) / 2),
+          width: Math.min(700, window.innerWidth - 20),
+          height: Math.min(600, window.innerHeight - 20),
+        }}
+        bounds="window"
+        dragHandleClassName="drag-handle"
+        enableUserSelectHack={false}
+        style={{
+          position: "absolute",
+          zIndex: 100,
+        }}
+        minWidth={350}
+        minHeight={400}
+        maxWidth="95vw"
+      >
+        <DriversModal
+          natCode={driver.natCode}
+          name={driver.name}
+          teamName={driver.teamName}
+          DOB={driver.DOB}
+          lastYear={driver.lastYear}
+          totalRaces={driver.totalRaces}
+          wins={driver.wins}
+          image={driver.image}
+          handleCloseModal={() => handleCloseModal(driver)}
+        />
+      </Rnd>
       ))}
 
       <PageContainer>

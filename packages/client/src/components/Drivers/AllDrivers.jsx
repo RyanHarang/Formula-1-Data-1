@@ -6,7 +6,7 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy}) => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const limit = 48;
+  const limit = 100;
 
   useEffect(() => {
     const fetchAllDrivers = async () => {
@@ -33,8 +33,6 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy}) => {
           dob: parseDOB(driver.DOB),
           lastYear: driver.lastYear ? Number(driver.lastYear) : "N/A"
         }));
-
-        console.log(sortBy);
         
         if (sortBy === "wins") {
           driversWithTeamNames.sort((a, b) => b.wins - a.wins);
@@ -81,6 +79,11 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy}) => {
           .includes(searchQuery.toLowerCase()))
   );
 
+  const startIndex = page * limit;
+  const endIndex = startIndex + limit;
+  const perPageDrivers = filteredDrivers.slice(startIndex, endIndex);
+  const hasNextPage = endIndex < filteredDrivers.length;
+
   const handleAddFavorite = async (type, favoriteId) => {
     try {
       const token = localStorage.getItem("token");
@@ -117,12 +120,11 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy}) => {
         <div className="text-lg font-semibold">Loading...</div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredDrivers.map((driver, index) => (
+          {perPageDrivers.map((driver, index) => (
             <DriverCard
               key={index}
               driver={driver}
               onDriverClick={onDriverClick}
-              onAddFavorite={handleAddFavorite}
             />
           ))}
         </div>
@@ -138,7 +140,7 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy}) => {
         <button
           onClick={() => setPage((prev) => prev + 1)}
           className="rounded bg-blue-500 px-4 py-2 text-white"
-          disabled={loading}
+          disabled={!hasNextPage || loading}
         >
           Next
         </button>
