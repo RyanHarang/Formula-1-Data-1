@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DriverCard from "./DriverCard.jsx";
 
-const ActiveDrivers = ({ searchQuery, onDriverClick }) => {
+const ActiveDrivers = ({ searchQuery, onDriverClick, filterBy }) => {
   const [drivers, setDrivers] = useState([]);
   const [favoriteDrivers, setFavoriteDrivers] = useState([]);
   const [page, setPage] = useState(0);

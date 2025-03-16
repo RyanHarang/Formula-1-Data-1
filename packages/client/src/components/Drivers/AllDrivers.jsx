@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DriverCard from "./DriverCard.jsx";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
-const AllDrivers = ({ searchQuery, onDriverClick }) => {
+const AllDrivers = ({ searchQuery, onDriverClick, sortBy}) => {
   const [drivers, setDrivers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -25,10 +25,30 @@ const AllDrivers = ({ searchQuery, onDriverClick }) => {
           return acc;
         }, {});
 
-        const driversWithTeamNames = driversData.map((driver) => ({
+        let driversWithTeamNames = driversData.map((driver) => ({
           ...driver,
           teamName: teamsById[driver.team]?.name || "Unknown",
+          wins: Number(driver.wins) || 0,
+          totalRaces: Number(driver.totalRaces) || 0,
+          dob: parseDOB(driver.DOB),
+          lastYear: driver.lastYear ? Number(driver.lastYear) : "N/A"
         }));
+
+        console.log(sortBy);
+        
+        if (sortBy === "wins") {
+          driversWithTeamNames.sort((a, b) => b.wins - a.wins);
+        } else if (sortBy === "name") {
+          driversWithTeamNames.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortBy === "totalRaces") {
+          driversWithTeamNames.sort((a, b) => b.totalRaces - a.totalRaces);
+        } else if (sortBy === "dob") {
+          driversWithTeamNames.sort((a, b) => a.dob - b.dob);
+        } else if (sortBy === "totalRaces") {
+          driversWithTeamNames.sort((a, b) => b.totalRaces - a.totalRaces);
+        } else if (sortBy === "lastYear") {
+          driversWithTeamNames.sort((a, b) => b.lastYear - a.lastYear);
+        }
 
         setDrivers(driversWithTeamNames);
       } catch (error) {
@@ -39,7 +59,14 @@ const AllDrivers = ({ searchQuery, onDriverClick }) => {
     };
 
     fetchAllDrivers();
-  }, []);
+  }, [sortBy]);
+
+  const parseDOB = (dobString) => {
+    if (!dobString) return new Date(0);
+    const datePart = dobString.split(" (")[0]; 
+    return new Date(datePart);
+  };
+  
 
   const filteredDrivers = drivers.filter(
     (driver) =>

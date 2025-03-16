@@ -9,6 +9,7 @@ const DriversPage = () => {
   const [activeTab, setActiveTab] = useState("allDrivers");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDrivers, setSelectedDrivers] = useState([]);
+  const [sortBy, setSortBy] = useState("wins");
 
   const handleDriverCardClick = (driver) => {
     if (!selectedDrivers.some((selected) => selected.id === driver.id)) {

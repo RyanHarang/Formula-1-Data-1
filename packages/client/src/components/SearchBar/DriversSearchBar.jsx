@@ -13,6 +13,8 @@ const SearchBar = ({
     { label: "DOB", value: "dob" },
     { label: "Last Year", value: "lastYear" },
     { label: "Total Races", value: "totalRaces" },
+    { label: "Wins", value: "wins" },
+    { label: "Name", value: "name" }
   ];
   return (
     <div className="relative flex h-[20%] w-full justify-center px-4 pt-4 pb-4">
