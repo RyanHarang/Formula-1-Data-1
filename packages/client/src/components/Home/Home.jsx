@@ -91,6 +91,7 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
             ))}
         </div>
       )}
+      <hr className="my-4" />
       <h1 className="mb-4 text-2xl font-bold before:transition-all">
         Favorite Teams
       </h1>
@@ -108,6 +109,7 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
           ))}
         </div>
       )}
+      <hr className="my-4" />
       <h1 className="mb-4 text-2xl font-bold before:transition-all">
         Favorite Races
       </h1>
