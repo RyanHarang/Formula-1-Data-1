@@ -2,7 +2,17 @@ import React from "react";
 import "flag-icons/css/flag-icons.min.css";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
 
-const DriverModal = ({ handleCloseModal, natCode, name, teamName, DOB, lastYear, totalRaces, wins, image }) => {
+const DriverModal = ({
+  handleCloseModal,
+  natCode,
+  name,
+  teamName,
+  DOB,
+  lastYear,
+  totalRaces,
+  wins,
+  image,
+}) => {
   return (
     <div className="h-full w-full overflow-hidden">
       <div className="dark:bg-dark-bg2 bg-light-bg dark:border-accent relative h-full w-full overflow-hidden rounded-xl border-2 border-black">
@@ -38,7 +48,7 @@ const DriverModal = ({ handleCloseModal, natCode, name, teamName, DOB, lastYear,
                 {teamName || "Unknown Team"}
               </p>
             </div>
-            <div className="dark:bg-dark-bg h-full rounded-lg bg-white p-3 shadow-md overflow-y-auto">
+            <div className="dark:bg-dark-bg h-full overflow-y-auto rounded-lg bg-white p-3 shadow-md">
               <h3 className="text-l text-dark-bg dark:border-accent mx-auto mb-4 w-[80%] border-b border-b-1 border-black text-left dark:text-white">
                 Driver Bio
               </h3>
@@ -48,9 +58,7 @@ const DriverModal = ({ handleCloseModal, natCode, name, teamName, DOB, lastYear,
                     DOB
                   </h2>
                   <p className="text-dark-bg dark:text-light-bg2 text-xl">
-                    {DOB
-                      ? DOB.split("(")[0]
-                      : "DOB not available"}
+                    {DOB ? DOB.split("(")[0] : "DOB not available"}
                   </p>
                 </div>
                 <div>

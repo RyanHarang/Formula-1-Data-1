@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import Drivers from "../Drivers/Drivers.jsx";
 import PageContainer from "./PageContainer.jsx";
@@ -24,6 +24,22 @@ const DriversPage = () => {
     console.log(driverToRemove);
   };
 
+  const closeAllModal = () => {
+    setSelectedDrivers([]);
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "Escape") {
+        closeAllModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
   return (
     <div className="relative h-full w-full">
       {selectedDrivers.map((driver, index) => (
@@ -41,7 +57,7 @@ const DriversPage = () => {
           style={{
             position: "absolute",
             zIndex: 100,
-            overflow: "hidden"
+            overflow: "hidden",
           }}
           minWidth={400}
           minHeight={400}
