@@ -15,14 +15,12 @@ const DriversPage = () => {
     if (!selectedDrivers.some((selected) => selected.id === driver.id)) {
       setSelectedDrivers([...selectedDrivers, driver]);
     }
-    console.log(driver);
   };
 
   const handleCloseModal = (driverToRemove) => {
     setSelectedDrivers(
       selectedDrivers.filter((driver) => driver !== driverToRemove),
     );
-    console.log(driverToRemove);
   };
 
   const closeAllModal = () => {
@@ -45,36 +43,36 @@ const DriversPage = () => {
     <div className="relative h-full w-full overflow-hidden">
       {selectedDrivers.map((driver, index) => (
         <Rnd
-        key={driver.id || index}
-        default={{
-          x: Math.max(0, (window.innerWidth - 700) / 2),
-          y: Math.max(0, window.scrollY + (window.innerHeight - 600) / 2),
-          width: Math.min(700, window.innerWidth - 20),
-          height: Math.min(600, window.innerHeight - 20),
-        }}
-        bounds="window"
-        dragHandleClassName="drag-handle"
-        enableUserSelectHack={false}
-        style={{
-          position: "absolute",
-          zIndex: 100,
-        }}
-        minWidth={350}
-        minHeight={400}
-        maxWidth="95vw"
-      >
-        <DriversModal
-          natCode={driver.natCode}
-          name={driver.name}
-          teamName={driver.teamName}
-          DOB={driver.DOB}
-          lastYear={driver.lastYear}
-          totalRaces={driver.totalRaces}
-          wins={driver.wins}
-          image={driver.image}
-          handleCloseModal={() => handleCloseModal(driver)}
-        />
-      </Rnd>
+          key={driver.id || index}
+          default={{
+            x: Math.max(0, (window.innerWidth - 700) / 2),
+            y: Math.max(0, window.scrollY + (window.innerHeight - 600) / 2),
+            width: Math.min(700, window.innerWidth - 20),
+            height: Math.min(600, window.innerHeight - 20),
+          }}
+          bounds="window"
+          dragHandleClassName="drag-handle"
+          enableUserSelectHack={false}
+          style={{
+            position: "absolute",
+            zIndex: 100,
+          }}
+          minWidth={350}
+          minHeight={400}
+          maxWidth="95vw"
+        >
+          <DriversModal
+            natCode={driver.natCode}
+            name={driver.name}
+            teamName={driver.teamName}
+            DOB={driver.DOB}
+            lastYear={driver.lastYear}
+            totalRaces={driver.totalRaces}
+            wins={driver.wins}
+            image={driver.image}
+            handleCloseModal={() => handleCloseModal(driver)}
+          />
+        </Rnd>
       ))}
 
       <PageContainer>

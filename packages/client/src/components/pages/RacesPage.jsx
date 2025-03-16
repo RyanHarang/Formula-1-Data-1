@@ -13,7 +13,6 @@ const Race = () => {
 
   const handleRaceCardClick = (race) => {
     if (!selectedRaces.some((selected) => selected.id === race.id)) {
-      // console.log("selectedRaces", selectedRaces);
       setSelectedRaces([...selectedRaces, race]);
     }
   };

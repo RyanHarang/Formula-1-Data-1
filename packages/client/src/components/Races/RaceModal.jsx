@@ -6,16 +6,17 @@ const RaceModal = ({ handleCloseModal, raceId }) => {
   const [lapTimes, setLapTimes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDriver, setSelectedDriver] = useState("");
-  const [drivers, setDrivers] = useState([]); // State to hold the list of drivers
+  const [drivers, setDrivers] = useState([]);
 
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/data/drivers`);
-        if (!response.ok) throw new Error(`Failed to fetch drivers: ${response.status}`);
+        if (!response.ok)
+          throw new Error(`Failed to fetch drivers: ${response.status}`);
         const data = await response.json();
         setDrivers(data);
-        if (data.length > 0) setSelectedDriver(data[0].id); // Set default driver
+        if (data.length > 0) setSelectedDriver(data[0].id);
       } catch (error) {
         console.error("Error fetching drivers:", error);
       }
@@ -38,17 +39,15 @@ const RaceModal = ({ handleCloseModal, raceId }) => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         if (!lapTimesResponse.ok)
           throw new Error(
-            `Failed to fetch lap times: ${lapTimesResponse.status}`
+            `Failed to fetch lap times: ${lapTimesResponse.status}`,
           );
         const lapTimesData = await lapTimesResponse.json();
 
-        const raceData = lapTimesData.find(
-          (lap) => lap.raceId === raceId
-        );
+        const raceData = lapTimesData.find((lap) => lap.raceId === raceId);
 
         if (!raceData) {
           console.error(`Race with id ${raceId} not found.`);
@@ -75,9 +74,7 @@ const RaceModal = ({ handleCloseModal, raceId }) => {
         <div className="fixed z-100 flex items-center justify-center select-none">
           <div className="dark:bg-dark-bg2 bg-light-bg light-bg dark:border-accent relative max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-xl border-2 border-black">
             <div className="drag-handle dark:bg-dark-bg dark:border-accent relative flex cursor-grab items-center justify-start rounded-t-xl border-b-2 border-black bg-white text-black active:cursor-grabbing dark:text-white">
-              <h2 className="pl-4 text-2xl">
-                Race ID: {race.id}
-              </h2>
+              <h2 className="pl-4 text-2xl">Race ID: {race.id}</h2>
               <div
                 onClick={handleCloseModal}
                 className="ml-auto pr-4 text-2xl hover:cursor-pointer"
@@ -104,7 +101,7 @@ const RaceModal = ({ handleCloseModal, raceId }) => {
                   Select Driver
                 </h3>
                 <select
-                  className="mx-auto mb-4 w-[80%] p-2 border rounded"
+                  className="mx-auto mb-4 w-[80%] rounded border p-2"
                   value={selectedDriver}
                   onChange={(e) => setSelectedDriver(e.target.value)}
                 >
