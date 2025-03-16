@@ -32,8 +32,13 @@
     "react-rnd": "^10.5.2"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "jest": "^29.7.0",
-    "supertest": "^7.0.0",
-    "concurrently": "^9.1.2"
-  }
+    "supertest": "^7.0.0"
+  },
+  "resolutions": {
+  "inflight": "1.0.7",
+  "glob": "9.x"
+}
+
 }
