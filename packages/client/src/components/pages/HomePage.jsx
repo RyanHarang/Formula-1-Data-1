@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import PageContainer from "./PageContainer.jsx";
 import Home from "../Home/Home.jsx";
@@ -43,6 +43,24 @@ const HomePage = () => {
     setSelectedRace(selectedRace.filter((race) => race !== raceToRemove));
   };
 
+  const closeAllModal = () => {
+    setSelectedDrivers([]);
+    setSelectedTeam([]);
+    setSelectedRace([]);
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "Escape") {
+        closeAllModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
   return (
     <div className="relative h-full w-full">
       {selectedDrivers.map((driver, index) => (
