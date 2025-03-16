@@ -17,7 +17,7 @@ router.get("/drivers-active", async (req, res) => {
 });
 
 router.get("/driver-single", async (req, res) => {
-  const findID = req.query.id; // Use query parameter instead of body
+  const findID = req.query.id;
   try {
     const data = await Driver.findOne({ id: findID });
     if (!data) {
@@ -57,8 +57,8 @@ router.get("/race-single", async (req, res) => {
 });
 
 router.get("/race-laps", async (req, res) => {
-  const DriverID = req.query.driverId; // Use query parameters
-  const RaceID = req.query.raceId; // Use query parameters
+  const DriverID = req.query.driverId;
+  const RaceID = req.query.raceId;
   try {
     const data = await Lap.find({ raceId: RaceID, driverId: DriverID });
     res.json(data);
