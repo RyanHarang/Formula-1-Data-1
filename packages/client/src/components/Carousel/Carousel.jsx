@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import RaceCard from '../Races/RaceCard';
 
-const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, interval = 2500 }) => {
+const Carousel = ({ ids, titles, dates, tracks, winners, fastestLaps, polePositions, onRaceClick, onAddFavorite, onRemoveFavorite, interval = 2500 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
 
@@ -13,10 +13,6 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
 
     const handleMouseLeave = () => {
         setIsPaused(false);
-    };
-
-    const handleMouseClick = () => {
-        openModal(currentIndex);
     };
 
     const nextIndex = (lastIndex) => {
@@ -41,13 +37,24 @@ const Carousel = ({ titles, dates, tracks, winners, fastestLaps, polePositions, 
     }, [itemCount, interval, isPaused]);
 
     return (
-        <div className="relative w-full h-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMouseClick}>
+        <div className="relative w-full h-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
             <div className="overflow-hidden">
                 <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                     {titles.map((title, index) => (
                         <div key={title} className="min-w-full flex-shrink-0">
                             <div className="p-4 bg-lightgray dark:bg-gray-800 dark:text-white">
-                                <RaceCard title={title} date={dates[index]} track={tracks[index]} winner={winners[index]} fastestLap={fastestLaps[index]} polePosition={polePositions[index]} />
+                                <RaceCard 
+                                id={ids[index]}
+                                title={title} 
+                                date={dates[index]} 
+                                track={tracks[index]} 
+                                winner={winners[index]} 
+                                fastestLap={fastestLaps[index]} 
+                                polePosition={polePositions[index]}
+                                onRaceClick={() => onRaceClick}
+                                onAddFavorite={onAddFavorite}
+                                onRemoveFavorite={onRemoveFavorite} 
+                                />
                             </div>
                         </div>
                     ))}

@@ -17,9 +17,16 @@ router.get("/drivers-active", async (req, res) => {
 });
 
 router.get("/driver-single", async (req, res) => {
-  const findID = req.body.id;
-  data = await Driver.findOne({ id: findID });
-  res.json(data);
+  const findID = req.query.id; // Use query parameter instead of body
+  try {
+    const data = await Driver.findOne({ id: findID });
+    if (!data) {
+      return res.status(404).json({ error: "Driver not found" });
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 router.get("/teams", async (req, res) => {

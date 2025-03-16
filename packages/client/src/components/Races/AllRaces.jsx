@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "../Carousel/Carousel";
 
-const ActiveRaces = ({ searchQuery }) => {
+const ActiveRaces = ({ searchQuery, onRaceClick }) => {
   const [races, setRaces] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -33,18 +33,23 @@ const ActiveRaces = ({ searchQuery }) => {
   return (
     <div className="container mx-auto p-4 text-center">
       <h1 className="mb-4 text-2xl font-bold before:transition-all">
-        Active F1 Races
+        All F1 Races
       </h1>
       {loading ? (
         <div className="text-lg font-semibold">Loading...</div>
       ) : (
         <Carousel
+          className="flex h-full w-full overflow-hidden transition-transform duration-500"
           titles={filteredRaces.map((race) => race.title)}
           dates={filteredRaces.map((race) => race.date)}
           tracks={filteredRaces.map((race) => race.track)}
           winners={filteredRaces.map((race) => race.winner)}
           fastestLaps={filteredRaces.map((race) => race.fastestLap)}
           polePositions={filteredRaces.map((race) => race.polePosition)}
+          onRaceClick={() => onRaceClick}
+          favorite={favoriteRaces.includes(races._id)}
+          onAddFavorite={handleAddFavorite}
+          onRemoveFavorite={handleRemoveFavorite}
         />
       )}
     </div>

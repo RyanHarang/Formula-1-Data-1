@@ -119,6 +119,18 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
           ))}
         </div>
       )}
+      <h1 className="mb-4 text-2xl font-bold before:transition-all">
+        Favorite Races
+      </h1>
+      {loading ? (
+        <div className="text-lg font-semibold">Loading...</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {favorites.races.map((team, index) => (
+            <RaceCard key={index} team={team} onRaceClick={onRaceClick} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

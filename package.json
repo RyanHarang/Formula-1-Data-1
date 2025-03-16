@@ -28,6 +28,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "flag-icons": "^7.3.2",
+    "jwt-decode": "^4.0.0",
     "react-icons": "^5.5.0",
     "react-rnd": "^10.5.2"
   },
@@ -37,8 +38,7 @@
     "supertest": "^7.0.0"
   },
   "resolutions": {
-  "inflight": "1.0.7",
-  "glob": "9.x"
-}
-
+    "inflight": "1.0.7",
+    "glob": "9.x"
+  }
 }
