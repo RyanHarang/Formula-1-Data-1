@@ -5,15 +5,6 @@ import Navigation from "../Navigation/Navigation.jsx";
 import Footer from "../Footer/Footer.jsx";
 
 const PageContainer = ({ children }) => {
-  const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [isAuthenticated, navigate]);
-
   let isAuthPage;
   if (isValidElement(children)) {
     const childName = children.type.name;
