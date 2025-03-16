@@ -116,7 +116,7 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {favorites.teams.map((team, index) => (
-            <TeamCard key={index} team={team} onTeamClick={onTeamClick} />
+            <TeamCard key={index} team={team} onTeamClick={onTeamClick} onRemoveFavorite={handleRemoveFavorite} />
           ))}
         </div>
       )}
@@ -128,7 +128,7 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {favorites.races.map((race, index) => (
-            <RaceCard key={index} race={race} onRaceClick={onRaceClick} />
+            <RaceCard key={index} race={race} onRaceClick={onRaceClick} onRemoveFavorite={handleRemoveFavorite}/>
           ))}
         </div>
       )}

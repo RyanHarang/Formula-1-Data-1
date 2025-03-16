@@ -57,10 +57,14 @@ router.get("/race-single", async (req, res) => {
 });
 
 router.get("/race-laps", async (req, res) => {
-  const DriverID = req.body.driverId;
-  const RaceID = req.body.raceId;
-  data = await Lap.find({ raceId: RaceID, driverId: DriverID });
-  res.json(data);
+  const DriverID = req.query.driverId; // Use query parameters
+  const RaceID = req.query.raceId; // Use query parameters
+  try {
+    const data = await Lap.find({ raceId: RaceID, driverId: DriverID });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 module.exports = router;
