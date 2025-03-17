@@ -82,7 +82,7 @@ const RaceCard = ({
   const handleRemoveFavorite = (e) => {
     e.stopPropagation();
     if (onRemoveFavorite) {
-      onRemoveFavorite("races", currentId);
+      onRemoveFavorite("races", race._id);
       setAdded(false);
     }
   };
