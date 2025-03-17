@@ -21,17 +21,34 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/favorites/all", {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const favoritesResponse = await fetch(
+        "http://localhost:5000/api/favorites/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
+      const teamsResponse = await fetch("http://localhost:5000/api/data/teams");
 
-      const data = await response.json();
+      const favoritesData = await favoritesResponse.json();
+      const teamsData = await teamsResponse.json();
+
+      const teamsById = teamsData.reduce((acc, team) => {
+        acc[team.id] = team;
+        return acc;
+      }, {});
+
+      const driversWithTeamNames = favoritesData.favoriteDrivers.map(
+        (driver) => ({
+          ...driver,
+          teamName: teamsById[driver.team]?.name || "Unknown",
+        }),
+      );
       setFavorites({
-        drivers: data.favoriteDrivers || [],
-        teams: data.favoriteTeams || [],
-        races: data.favoriteRaces || [],
+        drivers: driversWithTeamNames || [],
+        teams: favoritesData.favoriteTeams || [],
+        races: favoritesData.favoriteRaces || [],
       });
     } catch (error) {
       console.error("Error fetching favorites:", error);
