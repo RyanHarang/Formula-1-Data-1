@@ -22,14 +22,14 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
 
     try {
       const favoritesResponse = await fetch(
-        "http://localhost:5000/api/favorites/all",
+        "http://3.133.155.165:3000/api/favorites/all",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
       );
-      const teamsResponse = await fetch("http://localhost:5000/api/data/teams");
+      const teamsResponse = await fetch("http://3.133.155.165:3000/api/data/teams");
 
       const favoritesData = await favoritesResponse.json();
       const teamsData = await teamsResponse.json();
@@ -65,7 +65,7 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/favorites/remove/${type}/${favoriteId}`,
+        `http://3.133.155.165:3000/api/favorites/remove/${type}/${favoriteId}`,
         {
           method: "DELETE",
           headers: {

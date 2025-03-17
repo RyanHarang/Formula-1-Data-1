@@ -12,12 +12,12 @@ const AllRaces = ({ searchQuery, onRaceClick }) => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/api/data/races");
+        const response = await fetch("http://3.133.155.165:3000/api/data/races");
         let data = await response.json();
 
         if (token) {
           const favoritesResponse = await fetch(
-            "http://localhost:5000/api/favorites/all",
+            "http://3.133.155.165:3000/api/favorites/all",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -64,7 +64,7 @@ const AllRaces = ({ searchQuery, onRaceClick }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/favorites/add/${type}`,
+        `http://3.133.155.165:3000/api/favorites/add/${type}`,
         {
           method: "POST",
           headers: {
@@ -88,7 +88,7 @@ const AllRaces = ({ searchQuery, onRaceClick }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/favorites/remove/${type}`,
+        `http://3.133.155.165:3000/api/favorites/remove/${type}`,
         {
           method: "POST",
           headers: {

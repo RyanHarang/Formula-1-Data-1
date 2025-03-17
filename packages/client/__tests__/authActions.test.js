@@ -30,7 +30,7 @@ describe("authActions Tests", () => {
 
     await login("test@example.com", "password123")(mockDispatch);
 
-    expect(fetch).toHaveBeenCalledWith("http://localhost:5000/api/auth/login", expect.any(Object));
+    expect(fetch).toHaveBeenCalledWith("http://3.133.155.165:3000/api/auth/login", expect.any(Object));
     expect(mockDispatch).toHaveBeenCalledWith({
       type: LOGIN_SUCCESS,
       payload: mockResponse,

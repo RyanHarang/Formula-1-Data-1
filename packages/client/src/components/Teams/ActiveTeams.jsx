@@ -12,12 +12,12 @@ const ActiveTeams = ({ searchQuery, onTeamClick }) => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/api/data/teams");
+        const response = await fetch("http://3.133.155.165:3000/api/data/teams");
         const teamsData = await response.json();
 
         if (token) {
           const favoritesResponse = await fetch(
-            "http://localhost:5000/api/favorites/all",
+            "http://3.133.155.165:3000/api/favorites/all",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const ActiveTeams = ({ searchQuery, onTeamClick }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/favorites/add/${type}`,
+        `http://3.133.155.165:3000/api/favorites/add/${type}`,
         {
           method: "POST",
           headers: {

@@ -11,7 +11,7 @@ const TeamModal = ({ handleCloseModal, teamId }) => {
       try {
         setLoading(true);
 
-        const teamsResponse = await fetch("http://localhost:5000/api/data/teams");
+        const teamsResponse = await fetch("http://3.133.155.165:3000/api/data/teams");
         if (!teamsResponse.ok) throw new Error(`Failed to fetch teams: ${teamsResponse.status}`);
         const teams = await teamsResponse.json();
         const teamData = teams.find(team => team.id === teamId);
@@ -21,7 +21,7 @@ const TeamModal = ({ handleCloseModal, teamId }) => {
           return;
         }
 
-        const driversResponse = await fetch("http://localhost:5000/api/data/drivers");
+        const driversResponse = await fetch("http://3.133.155.165:3000/api/data/drivers");
         if (!driversResponse.ok) throw new Error(`Failed to fetch drivers: ${driversResponse.status}`);
         const drivers = await driversResponse.json();
         const teamDrivers = drivers.filter(driver => driver.team === teamId);
@@ -146,7 +146,7 @@ export default TeamModal;
 //       try {
 //         setLoading(true);
 
-//         const teamsResponse = await fetch("http://localhost:5000/api/data/teams");
+//         const teamsResponse = await fetch("http://3.133.155.165:3000/api/data/teams");
 //         if (!teamsResponse.ok) throw new Error(`Failed to fetch teams: ${teamsResponse.status}`);
 //         const teams = await teamsResponse.json();
 //         const teamData = teams.find(team => team.id === teamId);
@@ -156,7 +156,7 @@ export default TeamModal;
 //           return;
 //         }
 
-//         const driversResponse = await fetch("http://localhost:5000/api/data/drivers");
+//         const driversResponse = await fetch("http://3.133.155.165:3000/api/data/drivers");
 //         if (!driversResponse.ok) throw new Error(`Failed to fetch drivers: ${driversResponse.status}`);
 //         const drivers = await driversResponse.json();
 //         const teamDrivers = drivers.filter(driver => driver.team === teamId);

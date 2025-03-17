@@ -15,8 +15,8 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy }) => {
         const token = localStorage.getItem("token");
 
         const [driversResponse, teamsResponse] = await Promise.all([
-          fetch("http://localhost:5000/api/data/drivers"),
-          fetch("http://localhost:5000/api/data/teams/"),
+          fetch("http://3.133.155.165:3000/api/data/drivers"),
+          fetch("http://3.133.155.165:3000/api/data/teams/"),
         ]);
 
         const driversData = await driversResponse.json();
@@ -24,7 +24,7 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy }) => {
 
         if (token) {
           const favoritesResponse = await fetch(
-            "http://localhost:5000/api/favorites/all",
+            "http://3.133.155.165:3000/api/favorites/all",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ const AllDrivers = ({ searchQuery, onDriverClick, sortBy }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/favorites/add/${type}`,
+        `http://3.133.155.165:3000/api/favorites/add/${type}`,
         {
           method: "POST",
           headers: {

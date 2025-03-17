@@ -11,7 +11,7 @@ const RaceModal = ({ handleCloseModal, raceId }) => {
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/data/drivers`);
+        const response = await fetch(`http://3.133.155.165:3000/api/data/drivers`);
         if (!response.ok)
           throw new Error(`Failed to fetch drivers: ${response.status}`);
         const data = await response.json();
@@ -33,7 +33,7 @@ const RaceModal = ({ handleCloseModal, raceId }) => {
         setLoading(true);
 
         const lapTimesResponse = await fetch(
-          `http://localhost:5000/api/data/race-laps?driverId=${selectedDriver}&raceId=${raceId}`,
+          `http://3.133.155.165:3000/api/data/race-laps?driverId=${selectedDriver}&raceId=${raceId}`,
           {
             method: "GET",
             headers: {

@@ -29,7 +29,7 @@ const RaceCard = ({
   const RacerId2Name = async (racerId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/data/driver-single?id=${racerId}`,
+        `http://3.133.155.165:3000/api/data/driver-single?id=${racerId}`,
       );
       if (!response.ok)
         throw new Error(`Failed to fetch driver: ${response.status}`);
