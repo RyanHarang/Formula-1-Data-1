@@ -58,7 +58,10 @@ const Carousel = ({
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {titles.map((title, index) => (
-            <div key={title} className="min-w-full flex-shrink-0">
+            <div
+              key={title}
+              className="min-w-full min-h-[400px] flex-shrink-0 p-8" // Added padding here
+            >
               <div className="bg-lightgray p-4 dark:bg-gray-800 dark:text-white">
                 <RaceCard
                   id={ids[index]}
