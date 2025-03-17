@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const TeamCard = ({ team, favorite, onTeamClick, onAddFavorite, onRemoveFavorite, showRemoveButton }) => {
+const TeamCard = ({
+  team,
+  favorite,
+  onTeamClick,
+  onAddFavorite,
+  onRemoveFavorite,
+}) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [added, setAdded] = useState(favorite);
 
@@ -28,29 +34,24 @@ const TeamCard = ({ team, favorite, onTeamClick, onAddFavorite, onRemoveFavorite
   return (
     <div
       onClick={() => onTeamClick(team.id)}
-      className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
-      style={{ height: "30vh" }}
+      className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex h-[300px] cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
     >
       <div className="relative h-full w-full overflow-hidden rounded-t-md">
-        {isAuthenticated && (
-          <>
-            {onAddFavorite && !added && (
-              <button
-                onClick={handleAddFavorite}
-                className="bg-accent hover:bg-accent/80 absolute top-2 right-2 cursor-pointer rounded-md px-2 py-1 text-white"
-              >
-                Add Favorite
-              </button>
-            )}
-            {showRemoveButton && onRemoveFavorite && added && (
-              <button
-                onClick={handleRemoveFavorite}
-                className="absolute top-2 right-2 cursor-pointer rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
-              >
-                Remove Favorite
-              </button>
-            )}
-          </>
+        {onAddFavorite && isAuthenticated && (
+          <button
+            onClick={handleAddFavorite}
+            className="bg-accent hover:bg-accent/80 absolute top-2 right-2 cursor-pointer rounded-md px-2 py-1 text-white"
+          >
+            {added ? "Favorited!" : "Add Favorite"}
+          </button>
+        )}
+        {onRemoveFavorite && isAuthenticated && (
+          <button
+            onClick={handleRemoveFavorite}
+            className="absolute top-2 right-2 cursor-pointer rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-500/80"
+          >
+            Remove Favorite
+          </button>
         )}
       </div>
       <div
@@ -79,9 +80,7 @@ const TeamCard = ({ team, favorite, onTeamClick, onAddFavorite, onRemoveFavorite
         )}
       </div>
       <div className="flex items-center justify-between px-2 py-2">
-        <h2 className="text-left text-xl font-semibold">
-          {team.name}
-        </h2>
+        <h2 className="text-left text-xl font-semibold">{team.name}</h2>
       </div>
     </div>
   );
