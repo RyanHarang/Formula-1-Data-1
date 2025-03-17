@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "flag-icons/css/flag-icons.min.css";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
-import { LineChart, ScatterChart, Scatter, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid, LabelList } from 'recharts';
+import { ScatterChart, Scatter, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid, LabelList } from 'recharts';
 
+// Pass in all the driver data so that it does'nt have to be queried when opened
 const DriverModal = ({
   handleCloseModal,
   natCode,
@@ -15,8 +16,10 @@ const DriverModal = ({
   image,
   selectedDrivers
 }) => {
+  // Create the colors for the modal graphs setting the default values to something nice looking
   const [accentColor, setAccentColor] = useState("#8884d8");
   const [secondColor, setSecondColor] = useState("#82ca9d");
+  // Dark mode value incase we wanted to ever add dark mode for the text in the graphs
   const [darkmode, setDarkmode] = useState("#858585");
 
   useEffect(() => {
