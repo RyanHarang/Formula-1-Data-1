@@ -34,8 +34,7 @@ const TeamCard = ({
   return (
     <div
       onClick={() => onTeamClick(team.id)}
-      className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
-      style={{ height: "30vh" }}
+      className="dark:border-accent hover:border-accent dark:bg-dark-bg2 flex h-[250px] cursor-pointer flex-col rounded-lg border-2 border-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
     >
       <div className="relative h-full w-full overflow-hidden rounded-t-md">
         {onAddFavorite && isAuthenticated && (
