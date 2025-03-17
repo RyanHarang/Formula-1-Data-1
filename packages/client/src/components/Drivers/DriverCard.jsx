@@ -56,7 +56,7 @@ const DriverCard = ({
             src={driver.image}
             alt={`${driver.name}-headshot`}
             loading="lazy"
-            className="object-cover"
+            className="object-cover max-h-[467px]"
             onError={(error) => {
               error.target.src = noDriverIcon;
               error.target.alt = "Placeholder driver image";
