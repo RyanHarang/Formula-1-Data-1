@@ -58,8 +58,8 @@ const DriverModal = ({
 
   const winsData = selectedDrivers.map((driver) => ({
     name: driverInitials(driver.name),
-    wins: driver.wins,
-    losses: driver.totalRaces - driver.wins
+    Wins: driver.wins,
+    NonWins: driver.totalRaces - driver.wins
   }))
 
   const earliestDOB = new Date(Math.min(...selectedDrivers.map(driver => new Date(driver.DOB))));
@@ -180,8 +180,8 @@ const DriverModal = ({
                             stroke={darkmode}
                           />
                           <Legend />
-                          <Bar dataKey="losses" stackId="a" fill={accentColor} />
-                          <Bar dataKey="wins" stackId="a" fill={secondColor} />
+                          <Bar dataKey="NonWins" stackId="a" fill={accentColor} />
+                          <Bar dataKey="Wins" stackId="a" fill={secondColor} />
                         </BarChart>
                       </ResponsiveContainer>
                       <ResponsiveContainer width="100%" height={400}>
