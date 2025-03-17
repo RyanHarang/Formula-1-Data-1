@@ -64,7 +64,7 @@ const Login = () => {
           className="flex flex-col items-start justify-start gap-4 self-stretch"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <label className="font-['Inter'] text-sm leading-tight font-medium text-[#344053]">
+          <label className="font-['Inter'] text-sm leading-tight font-medium">
             Email
           </label>
           <div className="bg-light-bg inline-flex items-center justify-start gap-2 self-stretch overflow-hidden rounded-lg border border-[#cfd4dc] px-4 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]">
@@ -79,7 +79,7 @@ const Login = () => {
             <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
           )}
 
-          <label className="font-['Inter'] text-sm leading-tight font-medium text-[#344053]">
+          <label className="font-['Inter'] text-sm leading-tight font-medium">
             Password
           </label>
           <div className="bg-light-bg inline-flex items-center justify-start gap-2 self-stretch overflow-hidden rounded-lg border border-[#cfd4dc] px-4 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]">
