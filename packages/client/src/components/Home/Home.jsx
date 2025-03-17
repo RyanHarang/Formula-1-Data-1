@@ -103,8 +103,10 @@ const Home = ({ onDriverClick, onTeamClick, onRaceClick }) => {
             <TeamCard
               key={index}
               team={team}
+              favorite={true}
               onTeamClick={onTeamClick}
               onRemoveFavorite={handleRemoveFavorite}
+              showRemoveButton={true} // Pass the prop to show the remove button
             />
           ))}
         </div>

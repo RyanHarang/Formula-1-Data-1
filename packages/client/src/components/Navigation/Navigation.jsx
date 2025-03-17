@@ -17,9 +17,9 @@ const Navigation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setDropdownOpen(false);
-    dispatch(logout());
+    await dispatch(logout());
     navigate("/login");
   };
 
