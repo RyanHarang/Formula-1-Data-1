@@ -93,6 +93,7 @@ const HomePage = () => {
             wins={driver.wins}
             image={driver.image}
             handleCloseModal={() => handleCloseDriverModal(driver)}
+            selectedDrivers={selectedDrivers}
           />
         </Rnd>
       ))}
