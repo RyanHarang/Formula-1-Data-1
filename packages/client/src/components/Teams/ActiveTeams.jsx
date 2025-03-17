@@ -4,9 +4,7 @@ import TeamCard from "./TeamCard.jsx";
 const ActiveTeams = ({ searchQuery, onTeamClick }) => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [favoriteTeams, setFavoriteTeams] = useState(
-    JSON.parse(localStorage.getItem("favoriteTeams")) || []
-  );
+  const [favoriteTeams, setFavoriteTeams] = useState([]);
 
   useEffect(() => {
     const fetchActiveTeams = async () => {
@@ -24,23 +22,18 @@ const ActiveTeams = ({ searchQuery, onTeamClick }) => {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            }
+            },
           );
 
           if (favoritesResponse.ok) {
             const favoritesData = await favoritesResponse.json();
-            const favoriteTeamIds = favoritesData.favoriteTeams.map(
-              (team) => team._id
-            );
-            setFavoriteTeams(favoriteTeamIds);
-            localStorage.setItem(
-              "favoriteTeams",
-              JSON.stringify(favoriteTeamIds)
+            setFavoriteTeams(
+              favoritesData.favoriteTeams.map((team) => team._id),
             );
           } else {
             console.error(
               "Could not fetch favorites. Status:",
-              favoritesResponse.status
+              favoritesResponse.status,
             );
             setFavoriteTeams([]);
           }
@@ -63,7 +56,7 @@ const ActiveTeams = ({ searchQuery, onTeamClick }) => {
     (team) =>
       team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (team.nationality &&
-        team.nationality.toLowerCase().includes(searchQuery.toLowerCase()))
+        team.nationality.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
   const handleAddFavorite = async (type, favoriteId) => {
@@ -78,49 +71,15 @@ const ActiveTeams = ({ searchQuery, onTeamClick }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ item: favoriteId }),
-        }
+        },
       );
 
       const data = await response.json();
-      if (response.ok) {
-        const updatedFavorites = [...favoriteTeams, favoriteId];
-        setFavoriteTeams(updatedFavorites);
-        localStorage.setItem("favoriteTeams", JSON.stringify(updatedFavorites));
-      } else {
+      if (!response.ok) {
         console.error("Error adding item to favorites:", data.message);
       }
     } catch (error) {
       console.error("Error adding to favorites:", error);
-    }
-  };
-
-  const handleRemoveFavorite = async (type, favoriteId) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:5000/api/favorites/remove/${type}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ item: favoriteId }),
-        }
-      );
-
-      const data = await response.json();
-      if (response.ok) {
-        const updatedFavorites = favoriteTeams.filter(
-          (id) => id !== favoriteId
-        );
-        setFavoriteTeams(updatedFavorites);
-        localStorage.setItem("favoriteTeams", JSON.stringify(updatedFavorites));
-      } else {
-        console.error("Error removing item from favorites:", data.message);
-      }
-    } catch (error) {
-      console.error("Error removing from favorites:", error);
     }
   };
 
@@ -139,8 +98,7 @@ const ActiveTeams = ({ searchQuery, onTeamClick }) => {
               team={team}
               onTeamClick={onTeamClick}
               onAddFavorite={handleAddFavorite}
-              onRemoveFavorite={handleRemoveFavorite}
-              isFavorite={favoriteTeams.includes(team._id)}
+              favorite={favoriteTeams.includes(team._id)}
             />
           ))}
         </div>
