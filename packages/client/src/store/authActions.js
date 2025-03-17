@@ -54,7 +54,7 @@ export const register = (email, password) => async (dispatch) => {
     if (!res.ok) throw new Error(data.message);
 
     dispatch({ type: REGISTER_SUCCESS });
-    dispatch(login(email, password));
+    await dispatch(login(email, password));
     return Promise.resolve();
   } catch (error) {
     console.error("Register error:", error.message);
