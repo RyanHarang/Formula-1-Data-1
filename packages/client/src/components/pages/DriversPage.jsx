@@ -71,6 +71,7 @@ const DriversPage = () => {
             wins={driver.wins}
             image={driver.image}
             handleCloseModal={() => handleCloseModal(driver)}
+            selectedDrivers={selectedDrivers}
           />
         </Rnd>
       ))}

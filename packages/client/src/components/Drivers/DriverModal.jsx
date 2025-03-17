@@ -1,6 +1,7 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "flag-icons/css/flag-icons.min.css";
 import noDriverIcon from "../../assets/svg/NoDriverImage.svg";
+import { LineChart, ScatterChart, Scatter, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid, LabelList } from 'recharts';
 
 const DriverModal = ({
   handleCloseModal,
@@ -12,7 +13,82 @@ const DriverModal = ({
   totalRaces,
   wins,
   image,
+  selectedDrivers
 }) => {
+  const [accentColor, setAccentColor] = useState("#8884d8");
+  const [secondColor, setSecondColor] = useState("#82ca9d");
+  const [darkmode, setDarkmode] = useState("#858585");
+
+  useEffect(() => {
+    const storedColorVar = localStorage.getItem("accentColor") || "--color-highlight-1";
+    console.log(storedColorVar);
+    const computedColor = getComputedStyle(document.documentElement).getPropertyValue(storedColorVar).trim();
+    console.log(computedColor);
+    if (computedColor) {
+      setAccentColor(computedColor);
+      // Blue
+      if (computedColor === "#3b82f6") {
+        setSecondColor("#2a5cad");
+      }
+      // Green
+      if (computedColor === "#10b981") {
+        setSecondColor("#0f805a");
+      }
+      // Red
+      if (computedColor === "#ef4444") {
+        setSecondColor("#9c2d2d");
+      }
+      // Yellow
+      if (computedColor === "#f59e0b") {
+        setSecondColor("#b5770e");
+      }
+    }
+  }, []);
+
+  const driverInitials = (name) => {
+    const index = name.indexOf(' ');
+    if (index === -1) {
+      return '';
+    }
+    const lastInitial = name.substring(index + 1, index + 2);
+    const firstInitial = name[0];
+    const Initials = firstInitial + "." + lastInitial;
+    return Initials;
+  }
+
+  const winsData = selectedDrivers.map((driver) => ({
+    name: driverInitials(driver.name),
+    Wins: driver.wins,
+    NonWins: driver.totalRaces - driver.wins
+  }))
+
+  const earliestDOB = new Date(Math.min(...selectedDrivers.map(driver => new Date(driver.DOB))));
+  const latestYear = Math.max(...selectedDrivers.map(driver => driver.lastYear));
+
+  const birthYearScatter = selectedDrivers.map((driver) => ({
+    name: driverInitials(driver.name),
+    year: new Date(driver.DOB).getFullYear(),
+    event: "DOB"
+  }))
+
+  const lastYearScatter = selectedDrivers.map((driver) => ({
+    name: driverInitials(driver.name),
+    year: driver.lastYear,
+    event: "LastYear"
+  }))
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active) {
+      return (
+        <div className="custom-tooltip" style={{ backgroundColor: '#fff', padding: '10px', border: '1px solid #ccc' }}>
+          <p>{payload[0].value}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+  
+
   return (
     <div className="mx-auto h-full w-full max-w-[100vw] overflow-hidden sm:max-w-[640px] md:max-w-[768px] md:max-w-none">
       <div className="dark:bg-dark-bg2 bg-light-bg dark:border-accent relative h-full w-full overflow-hidden rounded-xl border-2 border-black">
@@ -48,7 +124,7 @@ const DriverModal = ({
                 {teamName || "Unknown Team"}
               </p>
             </div>
-            <div className="dark:bg-dark-bg h-full overflow-y-auto rounded-lg bg-white p-3 shadow-md">
+            <div className="dark:bg-dark-bg h-full overflow-y-auto rounded-lg bg-white p-3 shadow-md [scrollbar-gutter:stable]">
               <h3 className="text-l text-dark-bg dark:border-accent mx-auto mb-4 w-[80%] border-b border-b-1 border-black text-left dark:text-white">
                 Driver Bio
               </h3>
@@ -84,6 +160,71 @@ const DriverModal = ({
                   <p className="text-dark-bg dark:text-light-bg2 text-xl">
                     {wins ?? "N/A"}
                   </p>
+                </div>
+                <div>
+                  {(selectedDrivers.length > 1) ?
+                    <div>
+                      <h2 className="text-l text-dark-bg3 dark:text-light-bg">
+                        Charts
+                      </h2>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={winsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                          <XAxis
+                            dataKey="name"
+                            stroke={darkmode}
+                          />
+                          <YAxis
+                            stroke={darkmode}
+                          />
+                          <Tooltip
+                            stroke={darkmode}
+                          />
+                          <Legend />
+                          <Bar dataKey="NonWins" stackId="a" fill={accentColor} />
+                          <Bar dataKey="Wins" stackId="a" fill={secondColor} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                      <ResponsiveContainer width="100%" height={400}>
+                        <ScatterChart margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis type="number" dataKey="year" name="Year" stroke={darkmode} domain={[earliestDOB.getFullYear() - 5, latestYear + 5]} />
+                          <YAxis type="category" dataKey="name" stroke={darkmode} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Legend 
+                          payload={[
+                            {
+                              value: 'Birth Year',
+                              type: 'square',
+                              color: secondColor
+                            },
+                            {
+                              value: 'Last Year',
+                              type: 'circle',
+                              color: accentColor
+                            },
+                          ]}
+                          iconType="square"
+                          />
+
+                          <Scatter
+                            name="Birth Year"
+                            data={birthYearScatter}
+                            fill={secondColor}
+                            shape="square"
+                          />
+
+                          <Scatter
+                            name="Last Year"
+                            data={lastYearScatter}
+                            fill={accentColor}
+                            shape="circle"
+                          />
+
+                        </ScatterChart>
+                      </ResponsiveContainer>
+                    </div>
+                    :
+                    ""}
                 </div>
               </div>
             </div>
